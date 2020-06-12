@@ -6,11 +6,13 @@ from datetime import datetime, timedelta
 # Third party imports
 import click
 import requests
+from rich.console import Console
 
 # Internal application imports
-from .utils import beautify
+from .utils import colored_output
 
 API_URL = "https://api.github.com/search/repositories"
+console = Console()
 
 
 @click.command()
@@ -49,7 +51,7 @@ def search(language, date, fmt):
     query += f"+language:{language}" if language else ""
     url = f"{API_URL}?q={query}&sort=stars&order=desc"
     repositories = requests.get(url).json()
-    beautify(repositories["items"], fmt)
+    colored_output(repositories["items"])
 
 
 if __name__ == "__main__":
