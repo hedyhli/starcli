@@ -21,22 +21,22 @@ def colored_output(repos):
 
     console = Console() # initialise rich
     seperator = "+==================================================================+"
-    console.print(sperator, end="\n\n")
+    console.print(seperator, end="\n\n")
     for repo in repos:
         console.print(repo['name'], repo['html_url'], style="yellow")
         console.print(
             "\n  ".join(textwrap.wrap(f"{repo['description']}", len(seperator))),
-            style="green"
+            style="green",
             end="\n\n",
         )
         console.print(repo['language'], style="bold cyan", end="\t")
         console.print(
-            f"{repo['stargazers_count']} Stars", 
-            style="bold magenta", 
+            f"{repo['stargazers_count']} Stars",
+            style="bold magenta",
             end="\t",
         )
         console.print(f"{repo['forks_count']} Forks", style="bold yellow", end="\t")
-        console.print(f"{repo['watchers_count']}, Watchers", style="bold cyan", end="\n\n)
+        console.print(f"{repo['watchers_count']}, Watchers", style="bold cyan", end="\n\n")
         console.print(seperator, end="\n\n")
 
 
