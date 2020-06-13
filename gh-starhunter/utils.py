@@ -21,7 +21,7 @@ def colored_output(repos):
 
     console = Console() # initialise rich
     seperator = "+==================================================================+"
-    console.print("[white]", seperator, end="\n\n")
+    console.print(sperator, end="\n\n")
     for repo in repos:
         console.print(repo['name'], repo['html_url'], style="yellow")
         console.print(
