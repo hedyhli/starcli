@@ -9,7 +9,7 @@ import requests
 from rich.console import Console
 
 # Internal application imports
-from .utils import colored_output
+from .utils import colored_output, table_output
 
 API_URL = "https://api.github.com/search/repositories"
 console = Console()
@@ -51,6 +51,10 @@ def search(language, date, fmt):
     query += f"+language:{language}" if language else ""
     url = f"{API_URL}?q={query}&sort=stars&order=desc"
     repositories = requests.get(url).json()
+    # console.print(url) # check if url is valid when debugging
+    if fmt == "table":
+        table_output(repositories["items"])
+        return
     colored_output(repositories["items"])
 
 
