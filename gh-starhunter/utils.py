@@ -8,7 +8,6 @@ from colorama import init, Fore, Style
 from tabulate import tabulate
 from rich.console import Console
 
-console = Console()
 
 # def make_hyperlink(text, target):
     # """ Makes hyperlink out of text and target and retuns it
@@ -20,35 +19,25 @@ console = Console()
 def colored_output(repos):
     """ Displays repositories using rich """
 
-    init()  # initialize coloroma
+    console = Console() # initialise rich
     seperator = "+==================================================================+"
     console.print("[white]", seperator, end="\n\n")
     for repo in repos:
+        console.print(repo['name'], repo['html_url'], style="yellow")
         console.print(
-            "[yellow]",
-            repo['name'],
-            repo['html_url']
-        )
-        console.print(
-            "[yellow]",
             "\n  ".join(textwrap.wrap(f"{repo['description']}", len(seperator))),
+            style="green"
             end="\n\n",
         )
-        console.print("[bold cyan]", repo['language'], end="\t")
+        console.print(repo['language'], style="bold cyan", end="\t")
         console.print(
-            "[bold magenta]"
-            f"repo['stargazers_count']",
-            " Stars",
+            f"{repo['stargazers_count']} Stars", 
+            style="bold magenta", 
             end="\t",
         )
-        console.print(f"[bold yellow]{repo['forks_count']} Forks", end="\t")
-        console.print(
-            "[blue]",
-            str(repo['watchers_count']),
-            " Watchers",
-            end="\n\n",
-        )
-        console.print("[white]", seperator, end="\n\n")
+        console.print(f"{repo['forks_count']} Forks", style="bold yellow", end="\t")
+        console.print(f"{repo['watchers_count']}, Watchers", style="bold cyan", end="\n\n)
+        console.print(seperator, end="\n\n")
 
 
 def tabular_output(repos):
