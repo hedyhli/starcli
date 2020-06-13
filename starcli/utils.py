@@ -4,8 +4,6 @@
 import textwrap
 
 # Third party imports
-from colorama import init, Fore, Style
-from tabulate import tabulate
 from rich.console import Console
 from rich.table import Table
 
