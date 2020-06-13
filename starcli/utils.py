@@ -46,11 +46,10 @@ def table_output(repos):
     table.add_column("Stats", style="magenta", no_wrap=True, width=150)
 
     for repo in repos:
-        stats = (
-            str(repo['stargazers_count']) + " Stars,",
-            str(repo['forks_count']) + " Forks,",
+        stats = str(repo['stargazers_count']) + " Stars," + \
+            str(repo['forks_count']) + " Forks," + \
             str(repo['watchers_count']) + "Watchers"
-        )
+
         table.add_row(
                 str(repo["name"]) + "\n",
                 str(repo["language"]),
