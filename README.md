@@ -1,5 +1,5 @@
-# githunt
-### Browse trending repos on Github by :star:stars:star: from your command line.
+# STAR CLI
+#### *Browse trending repos on Github by :star:stars:star: from your command line.*
 
 
 ## Prerequisites
