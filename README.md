@@ -1,5 +1,5 @@
-# STAR CLI
-#### *Browse trending repos on Github by :star:stars:star: from your command line.*
+![Cover image](https://github.com/hedythedev/starcli/blob/master/starcli_cover.PNG)
+#### Browse trending repos on Github by :star:stars:star: from your command line :computer:
 
 
 ## Prerequisites
