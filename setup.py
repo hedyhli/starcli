@@ -7,39 +7,35 @@ from setuptools import setup
 with io.open("README.md", "rt", encoding="utf8") as f:
     readme = f.read()
 
-with io.open("githunt/__init__.py", "rt", encoding="utf8") as f:
-    version = re.search(r'__version__ = "(.*?)"', f.read()).group(1)
-
 # This call to setup() does all the work
 setup(
-    name="githunt",
+    name="starcli",
     version=version,
-    description="Browse most stared Github repositories by date from your command line.",
+    description="Browse popular repos on github by star trends from your command line!",
     long_description=readme,
     python_requires='>3.7',
     long_description_content_type="text/markdown",
-    url="https://github.com/SriNandan33/githunt",
-    author="Srinivasa Rao",
-    author_email="nandusrinivas33.cse@gmail.com",
+    url="https://github.com/hedythedev/starcli",
+    author="Hedy Li",
+    author_email="hedyhyry@gmail.com",
     license="MIT",
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.7",
     ],
-    packages=["githunt"],
+    packages=["starcli"],
     include_package_data=True,
     install_requires=[
         "black==19.10b0",
         "Click==7.0",
-        "colorama==0.4.3",
         "pylint==2.4.4",
         "requests==2.22.0",
-        "tabulate==0.8.6",
+        "rich==2.1.0"
     ],
     entry_points={
         "console_scripts": [
-            "githunt=githunt.__main__:search",
+            "starcli=starcli.__main__:search",
         ]
     },
 )
