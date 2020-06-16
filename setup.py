@@ -10,7 +10,7 @@ with io.open("README.md", "rt", encoding="utf8") as f:
 # This call to setup() does all the work
 setup(
     name="starcli",
-    version=version,
+    version='0.0.1',
     description="Browse popular repos on github by star trends from your command line!",
     long_description=readme,
     python_requires='>3.7',
