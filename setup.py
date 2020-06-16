@@ -13,7 +13,7 @@ setup(
     version='0.0.1',
     description="Browse popular repos on github by star trends from your command line!",
     long_description=readme,
-    python_requires='>3.7',
+    python_requires='>=3.7',
     long_description_content_type="text/markdown",
     url="https://github.com/hedythedev/starcli",
     author="Hedy Li",
