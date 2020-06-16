@@ -26,7 +26,7 @@ def colored_output(repos):
         )
         console.print(repo["language"], style="bold cyan", end="\t")
         console.print(
-            f"{repo['stargazers_count']} Stars, ", style="bold magenta", end="\t",
+                f"{repo['stargazers_count']} :star:, ", style="bold magenta", end="\t",
         )
         console.print(f"{repo['forks_count']} Forks, ", style="bold yellow", end="\t")
         console.print(
@@ -38,8 +38,8 @@ def colored_output(repos):
 def table_output(repos):
     table = Table()
 
-    table.add_column("Name", style="bold cyan", no_wrap=True, width=30)
-    table.add_column("Language", style="green", no_wrap=True, width=23)
+    table.add_column("Name", style="bold cyan", no_wrap=True, width=47)
+    table.add_column("Language", style="green", no_wrap=True, width=20)
     table.add_column("Description", style="blue", no_wrap=False, width=150)
     table.add_column("Stats", style="magenta", no_wrap=True, width=75)
 
