@@ -24,12 +24,12 @@ console = Console()
     help="date in the ISO8601 format which is YYYY-MM-DD (year-month-day)",
 )
 @click.option(
-    "--fmt",
-    "-f",
-    default="colored",
-    help="output format, it can be either table or colored",
+    "--layout",
+    "-L",
+    default="list",
+    help="output format, it can be either table or list",
 )
-def search(language, date, fmt):
+def search(language, date, layout):
     """ Returns repositories based on the language.
         repositories are sorted by stars
     """
@@ -52,7 +52,7 @@ def search(language, date, fmt):
     url = f"{API_URL}?q={query}&sort=stars&order=desc"
     repositories = requests.get(url).json()
     # console.print(url) # check if url is valid when debugging
-    if fmt == "table":
+    if layout == "table":
         table_output(repositories["items"])
         return
     colored_output(repositories["items"])
