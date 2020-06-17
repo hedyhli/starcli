@@ -1,4 +1,4 @@
-""" githunt.__main__ """
+""" starcli.__main__ """
 
 # Standard library imports
 from datetime import datetime, timedelta
