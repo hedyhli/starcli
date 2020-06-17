@@ -1,4 +1,4 @@
-""" Formats repository in console """
+""" starcli utils """
 
 # Standard library imports
 import textwrap
