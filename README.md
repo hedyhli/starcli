@@ -19,7 +19,7 @@ Options:
   -l, --language TEXT  language filter (eg: python)
   -d, --date TEXT      date in the ISO8601 format which is YYYY-MM-DD (year-
                        month-day)
-  -f, --fmt TEXT       output format, it can be either table or colored
+  -L, --layout TEXT       output format, it can be either table or list
   --help               Show this message and exit.
 ```
 
