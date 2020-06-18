@@ -13,7 +13,7 @@ def colored_output(repos):
 
     console = Console()  # initialise rich
     seperator = "+==================================================================+"
-    console.print(seperator, end="\n\n")
+    console.print(separator, end="\n\n")
     for repo in repos:
         console.print(
             "[link=" + repo["html_url"] + "]" + repo["full_name"] + "[/link]",
@@ -32,7 +32,7 @@ def colored_output(repos):
         console.print(
             f"{repo['watchers_count']} Watchers", style="bold cyan", end="\n\n"
         )
-        console.print(seperator, end="\n\n")
+        console.print(separator, end="\n\n")
 
 
 def table_output(repos):
