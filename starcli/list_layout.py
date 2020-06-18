@@ -1,4 +1,4 @@
-""" starcli utils """
+""" starcli.list_output """
 
 # Standard library imports
 import textwrap
@@ -8,8 +8,8 @@ from rich.console import Console
 from rich.table import Table
 
 
-def colored_output(repos):
-    """ Displays repositories using rich """
+def list_layout(repos):
+    """ Displays repositories in list layout using rich """
 
     console = Console()  # initialise rich
     separator = "+==================================================================+"
@@ -33,32 +33,3 @@ def colored_output(repos):
             f"{repo['watchers_count']} Watchers", style="bold cyan", end="\n\n"
         )
         console.print(separator, end="\n\n")
-
-
-def table_output(repos):
-    table = Table()
-
-    table.add_column("Name", style="bold cyan", no_wrap=True, width=47)
-    table.add_column("Language", style="green", no_wrap=True, width=20)
-    table.add_column("Description", style="blue", no_wrap=False, width=150)
-    table.add_column("Stats", style="magenta", no_wrap=True, width=75)
-
-    for repo in repos:
-        stats = (
-            str(repo["stargazers_count"])
-            + " Stars, "
-            + str(repo["forks_count"])
-            + " Forks, "
-            + str(repo["watchers_count"])
-            + " Watchers"
-        )
-
-        table.add_row(
-            str(repo["name"]) + "\n",
-            str(repo["language"] + "\n"),
-            str(repo["description"]),
-            stats,
-        )
-
-    console = Console()
-    console.print(table)
