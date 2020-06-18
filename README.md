@@ -41,7 +41,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 git checkout -b your_br_name_here
 ```
-Make the neccessary changes, test your changes, then
+Make the necessary changes, test your changes, then
 ```sh
 git add .
 git commit -m 'my commit message'
