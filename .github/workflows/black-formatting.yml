@@ -3,7 +3,7 @@
 # Otherwise, Black is run and its changes are committed to the repo.
 # https://github.com/cclauss/autoblack
 
-name: autoblack_push
+name: format black
 on: [push]
 jobs:
   build:
