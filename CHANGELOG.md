@@ -1,5 +1,10 @@
 # Changelog
 
+
+### v1.2.0
+
+refactor starcli
+
 ### v1.1.0
 Fixed:
 
