@@ -1,6 +1,7 @@
 name: pr_lint_python
 on:
   pull_request:
+    branches: [develop]
 
 
 jobs:
@@ -36,6 +37,5 @@ jobs:
       - name: GitHub Action for pylint
         uses: cclauss/GitHub-Action-for-pylint@0.7.0
       - uses: codespell-project/actions-codespell@master
-      - run: isort --recursive .
       - run: pip install -r requirements.txt || true
       - run: pytest .
