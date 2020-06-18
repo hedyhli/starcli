@@ -12,7 +12,7 @@ def colored_output(repos):
     """ Displays repositories using rich """
 
     console = Console()  # initialise rich
-    seperator = "+==================================================================+"
+    separator = "+==================================================================+"
     console.print(separator, end="\n\n")
     for repo in repos:
         console.print(
@@ -20,7 +20,7 @@ def colored_output(repos):
             style="yellow",
         )
         console.print(
-            "\n  ".join(textwrap.wrap(f"{repo['description']}", len(seperator))),
+            "\n  ".join(textwrap.wrap(f"{repo['description']}", len(separator))),
             style="green",
             end="\n\n",
         )
