@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - uses: actions/setup-python@master
-      - run: pip install black codespell flake8 isort pytest
+      - run: pip install black codespell flake8 pytest
       - run: black --check .
       - name: If needed, commit black changes to the pull request
         if: ${{ failure() }}
