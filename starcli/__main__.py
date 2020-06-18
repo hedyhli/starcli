@@ -16,7 +16,7 @@ console = Console()
 
 
 @click.command()
-@click.option("--language", "-l", default="", help="language filter (eg: python)")
+@click.option("--language", "-l",default="", help="language filter (eg: python)")
 @click.option(
     "--date",
     "-d",
