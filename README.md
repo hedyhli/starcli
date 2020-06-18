@@ -10,15 +10,18 @@
 
 
 ## Prerequisites
+
 * Requires Python 3.7 or greater
 
 ## Installation
-```
+
+```sh
 pip install starcli
 ```
 
 ## Usage
-```
+
+```sh
 Usage: starcli [OPTIONS]
 
   Returns repositories based on the language. repositories are sorted by
@@ -33,12 +36,12 @@ Options:
 ```
 
 ## Development
-Make sure you read CONTRIBUTING.md first! 
 
-**note: this proj is still in its early stage, if CONTRIBUTING.md is not yet created, create an issue to remind the maintainer!**
+Make sure you read CONTRIBUTING.md first!
 
 First, fork this repo
 then,
+
 ```sh
 git clone https://github.com/{your_username}/starcli.git
 cd starcli
@@ -47,10 +50,13 @@ source venv/bin/activate
 pip install -r requirements.txt
 git checkout -b your_br_name_here
 ```
+
 Make the necessary changes, test your changes, then
+
 ```sh
 git add .
 git commit -m 'my commit message'
 git push -u origin main
 ```
-Start a pull request and wait for it to be reviewed!
+
+Start a pull request to the `develop` branch and wait for it to be reviewed!
