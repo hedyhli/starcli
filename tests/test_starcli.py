@@ -1,2 +1,2 @@
 def test_starcli():
-    print('tests comming soon')
+    print("tests comming soon")

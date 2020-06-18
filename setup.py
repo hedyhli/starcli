@@ -10,10 +10,10 @@ with io.open("README.md", "rt", encoding="utf8") as f:
 # This call to setup() does all the work
 setup(
     name="starcli",
-    version='1.0.0',
+    version="1.0.0",
     description="Browse popular repos on github by star trends from your command line!",
     long_description=readme,
-    python_requires='>=3.7',
+    python_requires=">=3.7",
     long_description_content_type="text/markdown",
     url="https://github.com/hedythedev/starcli",
     author="Hedy Li",
@@ -31,11 +31,7 @@ setup(
         "Click==7.0",
         "pylint==2.4.4",
         "requests==2.22.0",
-        "rich==2.1.0"
+        "rich==2.1.0",
     ],
-    entry_points={
-        "console_scripts": [
-            "starcli=starcli.__main__:search",
-        ]
-    },
+    entry_points={"console_scripts": ["starcli=starcli.__main__:search",]},
 )
