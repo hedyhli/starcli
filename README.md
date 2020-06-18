@@ -1,12 +1,12 @@
 ![Cover image](https://github.com/hedythedev/starcli/blob/main/starcli-small-cover.png)
 #### Browse trending repos on Github by :star:stars:star: from your command line :computer:
-![Upload Python Package](https://github.com/hedythedev/starcli/workflows/Upload%20Python%20Package/badge.svg)
 ![Lint and test](https://github.com/hedythedev/starcli/workflows/Lint%20and%20test/badge.svg)
 ![pr_lint_python](https://github.com/hedythedev/starcli/workflows/pr_lint_python/badge.svg)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![PyPI version](https://badge.fury.io/py/starcli.png)](https://badge.fury.io/py/starcli)
 [![GitHub license](https://img.shields.io/github/license/hedythedev/starcli.svg)](https://github.com/hedythedev/starcli/blob/main/LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 
