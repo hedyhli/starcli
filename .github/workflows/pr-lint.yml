@@ -35,7 +35,7 @@ jobs:
           git push --force origin HEAD:$GITHUB_REF
       - name: GitHub Action for pylint
         uses: cclauss/GitHub-Action-for-pylint@0.7.0
-      - run: codespell --quiet-level=2
+      - uses: codespell-project/actions-codespell@master
       - run: isort --recursive .
       - run: pip install -r requirements.txt || true
       - run: pytest .
