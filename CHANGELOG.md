@@ -1,4 +1,4 @@
-# Changlog
+# Changelog
 
 ### v1.1.0
 Fixed:
