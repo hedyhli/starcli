@@ -1,6 +1,7 @@
 ![Cover image](https://github.com/hedythedev/starcli/blob/main/starcli-small-cover.png)
 #### Browse trending repos on Github by :star:stars:star: from your command line :computer:
 ![Upload Python Package](https://github.com/hedythedev/starcli/workflows/Upload%20Python%20Package/badge.svg)
+![Lint and test](https://github.com/hedythedev/starcli/workflows/Lint%20and%20test/badge.svg)
 
 
 
