@@ -1,7 +1,7 @@
 name: pr_lint_python
 on:
   pull_request:
-    branches: [develop]
+    branches: [develop, main]
 
 
 jobs:
