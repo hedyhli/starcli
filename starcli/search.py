@@ -12,7 +12,7 @@ API_URL = "https://api.github.com/search/repositories"
 console = Console()
 
 
-def search(language, date, layout):
+def search(language=None, date=None):
     """ Returns repositories based on the language.
         repositories are sorted by stars
     """
