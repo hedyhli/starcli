@@ -35,4 +35,4 @@ def search(language=None, date=None):
     url = f"{API_URL}?q={query}&sort=stars&order=desc"
     repositories = requests.get(url).json()
     # console.print(url) # check if url is valid when debugging
-    return repositories['items']
+    return repositories["items"]
