@@ -12,7 +12,7 @@ API_URL = "https://api.github.com/search/repositories"
 console = Console()
 
 
-def search(language, date, layout):
+def search(language=None, date=None):
     """ Returns repositories based on the language.
         repositories are sorted by stars
     """
@@ -35,4 +35,4 @@ def search(language, date, layout):
     url = f"{API_URL}?q={query}&sort=stars&order=desc"
     repositories = requests.get(url).json()
     # console.print(url) # check if url is valid when debugging
-    return repositories['items']
+    return repositories["items"]

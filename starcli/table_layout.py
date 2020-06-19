@@ -3,6 +3,7 @@
 from rich.table import Table
 from rich.console import Console
 
+
 def table_layout(repos):
     table = Table()
 

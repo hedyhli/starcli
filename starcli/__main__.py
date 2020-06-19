@@ -32,7 +32,7 @@ console = Console()
     help="output format, it can be either table or list",
 )
 def cli(language, date, layout):
-    repos = search(language, date, layout)
+    repos = search(language, date)
     if layout == "table":
         table_layout(repos)
         return
