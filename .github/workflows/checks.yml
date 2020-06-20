@@ -29,7 +29,7 @@ jobs:
       uses: cclauss/GitHub-Action-for-pylint@0.7.0
     - run: black . --check
     - name: If needed, commit black changes
-    - if: ${{ failure() }} && ${GITHUB_REF#refs/heads/} == 'develop' && github.event.pull_request.merged == 'true'
+      if: ${{ failure() }} && ${GITHUB_REF#refs/heads/} == 'develop' && github.event.pull_request.merged == 'true'
       run: |
           black .
           git config --global user.name github-actions
