@@ -1,6 +1,6 @@
 ![Cover image](https://github.com/hedythedev/starcli/blob/main/starcli-small-cover.png)
 #### Browse trending repos on Github by :star:stars:star: from your command line :computer:
-![Lint and test](https://github.com/hedythedev/starcli/workflows/Lint%20and%20test/badge.svg)
+![checks](https://github.com/hedythedev/starcli/workflows/checks/badge.svg)
 ![pr lint](https://github.com/hedythedev/starcli/workflows/pr_lint_python/badge.svg)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![PyPI version](https://badge.fury.io/py/starcli.svg)](https://badge.fury.io/py/starcli)
