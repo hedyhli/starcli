@@ -1,5 +1,10 @@
 # Changelog
 
+### v1.2.2
+
+github action workflow and readme updates
+
+
 ### v1.2.1
 
 * format files with black
