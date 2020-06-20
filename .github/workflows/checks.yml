@@ -2,7 +2,9 @@ name: checks
 
 on:
   push:
-    branches: [ develop, main ]
+    branches: [ main ]
+  pull_request:
+    branches: [ develop ]
 
 jobs:
   build:
@@ -27,7 +29,9 @@ jobs:
       uses: cclauss/GitHub-Action-for-pylint@0.7.0
     - run: black . --check
     - name: If needed, commit black changes
-      if: ${{ failure() }}
+    - if: ${{ failure() }}
+    - if: ${GITHUB_REF#refs/heads/} == 'develop'
+    - if: github.event.pull_request.merged == 'true'
       run: |
           black .
           git config --global user.name github-actions
