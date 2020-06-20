@@ -1,5 +1,11 @@
 # Changelog
 
+### v1.2.1
+
+* format files with black
+* add tests
+* fix some files
+* add codespell to requirements
 
 ### v1.2.0
 

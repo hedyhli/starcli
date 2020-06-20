@@ -1,0 +1,23 @@
+name: pr checks
+on:
+  pull_request:
+    branches: [develop, main]
+
+
+jobs:
+  lint_python:
+    if: github.event.pull_request.merged == 'false'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.7, 3.8]
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-python@master
+      - run: pip install black codespell flake8 pytest
+      - run: black --check .
+      - name: GitHub Action for pylint
+        uses: cclauss/GitHub-Action-for-pylint@0.7.0
+      - uses: codespell-project/actions-codespell@master
+      - run: pip install -r requirements.txt || true
+      - run: python -m pytest
