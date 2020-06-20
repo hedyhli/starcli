@@ -4,7 +4,7 @@ from starcli.search import search
 
 
 def test_search():
-    """ Test the search function from starcli.search """
+    """ Test the search functionality from starcli.search """
     repos = search("python")
     for repo in repos:
         assert repo["stargazers_count"] >= 0
