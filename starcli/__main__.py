@@ -31,8 +31,14 @@ console = Console()
     default="list",
     help="output format, it can be either table or list",
 )
-def cli(language, date, layout):
-    repos = search(language, date)
+@click.option(
+    "--stars",
+    "-s",
+    default=">=50",
+    help="Specify the range of stars needed. Default: >=50",
+)
+def cli(language, date, layout, stars):
+    repos = search(language, date, stars)
     if layout == "table":
         table_layout(repos)
         return
