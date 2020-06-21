@@ -7,10 +7,12 @@ from setuptools import setup
 with io.open("pypi_desc.md", "rt", encoding="utf8") as f:
     long_desc = f.read()
 
+VERSION = "1.3.0"
+
 # This call to setup() does all the work
 setup(
     name="starcli",
-    version="1.3.0",
+    version=VERSION,
     description="Browse popular repos on github by star trends from your command line!",
     long_description=long_desc,
     python_requires=">=3.7",
