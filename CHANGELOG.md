@@ -1,6 +1,6 @@
 # Changelog
 
-### v1.3.2
+### v1.3.0
 
 New:
 * `--stars` option to specify amount of star needed
