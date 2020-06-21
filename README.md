@@ -31,7 +31,8 @@ Options:
   -l, --language TEXT  language filter (eg: python)
   -d, --date TEXT      date in the ISO8601 format which is YYYY-MM-DD (year-
                        month-day)
-  -L, --layout TEXT       output format, it can be either table or list
+  -L, --layout TEXT    output format, it can be either table or list
+  -s, --stars TEXT     Specify the range of stars needed. Default: >=50
   --help               Show this message and exit.
 ```
 

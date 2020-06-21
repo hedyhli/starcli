@@ -26,10 +26,10 @@ def list_layout(repos):
         )
         console.print(repo["language"], style="bold cyan", end="\t")
         console.print(
-            f"{repo['stargazers_count']} :star:, ", style="bold magenta", end="\t",
+            f"{repo['stargazers_count']}:star:, ", style="bold magenta", end="\t"
         )
-        console.print(f"{repo['forks_count']} Forks, ", style="bold yellow", end="\t")
         console.print(
-            f"{repo['watchers_count']} Watchers", style="bold cyan", end="\n\n"
+            f"{repo['forks_count']}:fork_and_knife:, ", style="bold yellow", end="\t"
         )
+        console.print(f"{repo['watchers_count']}:eyes:", style="bold cyan", end="\n\n")
         console.print(separator, end="\n\n")

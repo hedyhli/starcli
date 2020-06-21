@@ -1,5 +1,18 @@
 # Changelog
 
+### v1.3.0
+
+New:
+* `--stars` option to specify amount of star needed
+
+Changed:
+* default amount if stars is now >=50
+* stats emojis updated for list and table layout
+
+Fixed:
+* table can't display properly when language is none
+
+
 ### v1.2.2
 
 github action workflow and readme updates
