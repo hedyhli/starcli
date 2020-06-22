@@ -7,7 +7,7 @@ from setuptools import setup
 with io.open("pypi_desc.md", "rt", encoding="utf8") as f:
     long_desc = f.read()
 
-VERSION = "1.3.0"
+VERSION = "2.0.0"
 
 # This call to setup() does all the work
 setup(
@@ -30,7 +30,7 @@ setup(
     include_package_data=True,
     install_requires=[
         "black>=19.10b0",
-        "pylint.=2.4.4",
+        "pylint>=2.4.4",
         "requests>=2.22.0",
         "rich>=2.1.0",
     ],
