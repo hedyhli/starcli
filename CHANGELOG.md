@@ -1,5 +1,14 @@
 # Changelog
 
+### v2.0.0
+
+Changed:
+* migrated from click to argparse
+* some other refactoring
+
+Added:
+* `--debug` option to view some debugging info
+
 ### v1.3.0
 
 New:
