@@ -22,18 +22,19 @@ pip install starcli
 ## Usage
 
 ```sh
-Usage: starcli [OPTIONS]
+usage: starcli [-h] [-l LANG] [-d DATE] [-L {list,table}] [-s STARS] [--debug]
 
-  Returns repositories based on the language. repositories are sorted by
-  stars
+Browse trending repos on GitHub by stars
 
-Options:
-  -l, --language TEXT  language filter (eg: python)
-  -d, --date TEXT      date in the ISO8601 format which is YYYY-MM-DD (year-
-                       month-day)
-  -L, --layout TEXT    output format, it can be either table or list
-  -s, --stars TEXT     Specify the range of stars needed. Default: >=50
-  --help               Show this message and exit.
+optional arguments:
+  -h, --help            show this help message and exit
+  -l LANG, --lang LANG  Language filter eg:python
+  -d DATE, --date DATE  Specify repo creation date in ISO8601 format YYYY-MM-DD
+  -L {list,table}, --layout {list,table}
+                        The output format (list or table), default is list
+  -s STARS, --stars STARS
+                        Range of stars required, default is '>=50'
+  --debug               Turn on debugging mode
 ```
 
 ## Development
