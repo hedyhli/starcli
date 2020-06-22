@@ -9,7 +9,6 @@ from rich.console import Console
 from .list_layout import list_layout
 from .table_layout import table_layout
 from .search import search
-from setup import VERSION
 
 API_URL = "https://api.github.com/search/repositories"
 console = Console()
@@ -35,7 +34,7 @@ console = Console()
     default=">=50",
     help="Specify the range of stars needed. Default: >=50",
 )
-@click.version_option(version=VERSION, prog_name="StarCLI")
+@click.version_option(prog_name="StarCLI")
 def cli(language, date, layout, stars):
     repos = search(language, date, stars)
     if layout == "table":
