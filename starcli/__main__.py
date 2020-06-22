@@ -1,8 +1,5 @@
 """ starcli.__main__ """
 
-# Standard library imports
-from datetime import datetime, timedelta
-
 # Third party imports
 import click
 import requests
