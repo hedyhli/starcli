@@ -49,8 +49,8 @@ git clone https://github.com/{your_username}/starcli.git
 cd starcli
 python -m virtualenv venv
 source venv/bin/activate
-pip install -r requirements.txt
-git checkout -b your_br_name_here
+pip install -r requirements_dev.txt
+git checkout -b your-br-name-here
 ```
 
 Make the necessary changes, test your changes, then
@@ -58,7 +58,7 @@ Make the necessary changes, test your changes, then
 ```sh
 git add .
 git commit -m 'my commit message'
-git push -u origin main
+git push -u origin your-br-name-here
 ```
 
 Start a pull request to the `develop` branch and wait for it to be reviewed!
