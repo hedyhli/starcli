@@ -8,9 +8,9 @@ from .parser import args
 
 
 def cli(args):
-    if not args.stars: # if args.stars is not present
+    if not args.stars:  # if args.stars is not present
         args.stars = ">=50"
-    repos = search(args.lang, args.date, args.stars)
+    repos = search(args.lang, args.date, args.stars, args.debug)
     if args.layout == "table":
         table_layout(repos)
         return
