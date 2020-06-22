@@ -1,6 +1,6 @@
-import argparse
+from argparse import ArgumentParser
 
-parser = argparse.ArgumentParser(description="Browse trending repos on GitHub by stars")
+parser = ArgumentParser(description="Browse trending repos on GitHub by stars")
 parser.add_argument(
     "-l", "--lang", type=str, help="Language filter eg:python", required=False
 )
