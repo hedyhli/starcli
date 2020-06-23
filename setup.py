@@ -2,7 +2,7 @@ import io
 
 from setuptools import setup
 
-with io.open("README.rst", "rt", encoding="utf8") as f:
+with io.open("README.md", "rt", encoding="utf8") as f:
     long_desc = f.read()
 
 VERSION = "2.2.0"
@@ -12,7 +12,8 @@ setup(
     name="starcli",
     version=VERSION,
     description="Browse popular repos on github by star trends from your command line!",
-    long_description="long description wip",
+    long_description=long_desc,
+    long_description_content_type="text/markdown",
     python_requires=">=3.7",
     url="https://github.com/hedythedev/starcli",
     author="Hedy Li",
