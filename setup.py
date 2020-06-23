@@ -7,7 +7,7 @@ from setuptools import setup
 with io.open("pypi_desc.md", "rt", encoding="utf8") as f:
     long_desc = f.read()
 
-VERSION = "2.0.0"
+VERSION = "2.1.0"
 
 # This call to setup() does all the work
 setup(
