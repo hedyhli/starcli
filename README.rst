@@ -11,7 +11,7 @@ Browse trending repos on Github by ⭐stars⭐ from your command line 💻
 Prerequisites
 -------------
 
--  Requires Python 3.7 or greater
+-  Requires Python 3.6 or greater
 
 Installation
 ------------
