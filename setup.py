@@ -14,7 +14,6 @@ setup(
     description="Browse popular repos on github by star trends from your command line!",
     long_description=long_desc,
     python_requires=">=3.7",
-    long_description_content_type="text/x-rst",
     url="https://github.com/hedythedev/starcli",
     author="Hedy Li",
     author_email="hedyhyry@gmail.com",
