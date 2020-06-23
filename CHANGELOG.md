@@ -1,5 +1,12 @@
 # Changelog
 
+### v2.1.0
+
+Remove unneeded imports
+* import argparse to just importing ArgumentParser
+* removed dev-dependencies in setup.py and requirements.txt
+* added requirements_dev.txt
+
 ### v2.0.0
 
 Changed:
