@@ -1,13 +1,11 @@
 import io
-import pathlib
-import re
 
 from setuptools import setup
 
-with io.open("pypi_desc.md", "rt", encoding="utf8") as f:
+with io.open("README.rst", "rt", encoding="utf8") as f:
     long_desc = f.read()
 
-VERSION = "2.1.0"
+VERSION = "2.2.0"
 
 # This call to setup() does all the work
 setup(
@@ -16,7 +14,7 @@ setup(
     description="Browse popular repos on github by star trends from your command line!",
     long_description=long_desc,
     python_requires=">=3.7",
-    long_description_content_type="text/markdown",
+    long_description_content_type="text/x-rst",
     url="https://github.com/hedythedev/starcli",
     author="Hedy Li",
     author_email="hedyhyry@gmail.com",
@@ -24,7 +22,10 @@ setup(
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
     ],
     packages=["starcli"],
     include_package_data=True,

@@ -1,5 +1,11 @@
 # Changelog
 
+### v2.2.0
+
+Fixed: `datetime has no attribute fromisoformat`
+`starcli` now supports 3.6
+Changed readme to rst type
+
 ### v2.1.0
 
 Remove unneeded imports
