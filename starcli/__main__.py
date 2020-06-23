@@ -11,6 +11,8 @@ def cli(args):
     if not args.stars:  # if args.stars is not present
         args.stars = ">=50"
     repos = search(args.lang, args.date, args.stars, args.debug)
+    if not repos:  # if search() returned None
+        return
     if args.layout == "table":
         table_layout(repos)
         return
