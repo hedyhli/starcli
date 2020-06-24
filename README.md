@@ -26,7 +26,7 @@ pip install starcli
 ## Usage
 
 ```sh
-usage: starcli [-h] [-l LANG] [-d DATE] [-L {list,table}] [-s STARS] [--debug]
+usage: starcli [-h] [-l LANG] [-d DATE] [-L {list,table}] [-s STARS] [-r LIMIT_RESULTS] [--debug]
 
 Browse trending repos on GitHub by stars
 
@@ -38,10 +38,13 @@ optional arguments:
                         The output format (list or table), default is list
   -s STARS, --stars STARS
                         Range of stars required, default is '>=50'
+  -r LIMIT_RESULTS, --limit-results LIMIT_RESULTS
+                        Limit the number of results shown. Default: 7
   --debug               Turn on debugging mode
 ```
 
 ## Development
 
-This project is still in its early development stage, contributions are not suggested but issue reporting are welcome. 
+This project is still in its early development stage,
+contributions are not suggested but issue reporting are welcome.
 Once everything is stable, we will update this section and let your know how to contribute.
