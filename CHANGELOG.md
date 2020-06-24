@@ -1,5 +1,9 @@
 # Changelog
 
+### v2.2.1
+
+Fixed readme and pypi 'long description'
+
 ### v2.2.0
 
 * Fixed: `datetime has no attribute fromisoformat`
