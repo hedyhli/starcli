@@ -1,5 +1,9 @@
 # Changelog
 
+### v2.2.2
+
+Fix install requires
+
 ### v2.2.1
 
 Fixed README for long description
