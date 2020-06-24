@@ -1,5 +1,10 @@
 # Changelog
 
+### v2.3.2
+
+* Reformatted list_layout
+* new: `--limit-results` option
+
 ### v2.2.2
 
 Fix install requires
