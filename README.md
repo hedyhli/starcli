@@ -1,12 +1,14 @@
 ![Cover image](https://github.com/hedythedev/starcli/blob/main/starcli-small-cover.png)
-#### Browse trending repos on Github by :star:stars:star: from your command line :computer:
+
+*Browse trending repos on Github by :star:stars:star: from your command line :computer:*
+
 ![checks](https://github.com/hedythedev/starcli/workflows/checks/badge.svg)
 ![pr checks](https://github.com/hedythedev/starcli/workflows/pr%20checks/badge.svg)
+[![pypi version](https://img.shields.io/pypi/v/starcli)](https://pypi.org/project/starcli/)
+[![pypi downloads per month](https://img.shields.io/pypi/dm/starcli)](https://pypi.org/project/starcli/)
+[![Python Requirements](https://img.shields.io/pypi/pyversions/starcli)](https://pypi.org/project/starcli/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![PyPI version](https://badge.fury.io/py/starcli.svg)](https://badge.fury.io/py/starcli)
-[![GitHub license](https://img.shields.io/github/license/hedythedev/starcli.svg)](https://github.com/hedythedev/starcli/blob/main/LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
+[![GitHub license MIT](https://img.shields.io/github/license/hedythedev/starcli.svg)](https://github.com/hedythedev/starcli/blob/main/LICENSE)
 
 
 ## Prerequisites
