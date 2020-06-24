@@ -10,9 +10,14 @@ from .parser import args
 def cli(args):
     if not args.stars:  # if args.stars is not present
         args.stars = ">=50"
-    repos = search(args.lang, args.date, args.stars, args.debug)
-    if not repos:  # if search() returned None
+    tmp_repos = search(args.lang, args.date, args.stars, args.debug)
+    if not tmp_repos:  # if search() returned None
         return
+
+    repos = []
+    for i in range(args.limit_results):
+        repos.append(tmp_repos[i])
+
     if args.layout == "table":
         table_layout(repos)
         return
