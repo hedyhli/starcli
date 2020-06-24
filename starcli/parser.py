@@ -26,5 +26,12 @@ parser.add_argument(
     required=False,
     help="Range of stars required, default is '>=50'",
 )
+parser.add_argument(
+    "-r",
+    "--limit-results",
+    type=int,
+    default=7,
+    help="Limit the number of results shown. Default: 7"
+)
 parser.add_argument("--debug", action="store_true", help="Turn on debugging mode")
 args = parser.parse_args()
