@@ -2,7 +2,7 @@
 
 ### v2.2.1
 
-Fixed README and PYPI 'long description'
+Fixed README for long description
 
 ### v2.2.0
 
