@@ -1,5 +1,9 @@
 # Changelog
 
+### v2.4.0
+
+* added Demo Gif to the ReadMe fixed [issue #2](https://github.com/hedythedev/starcli/issues/2)
+
 ### v2.3.4
 
 * hot fix for the last release
