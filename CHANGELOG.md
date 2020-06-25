@@ -1,5 +1,9 @@
 # Changelog
 
+### v2.3.4
+
+* hot fix for the last release
+
 ### v2.3.3
 
 * updated `starcli/__main__.cli()` function
