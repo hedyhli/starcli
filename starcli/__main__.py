@@ -11,7 +11,9 @@ from .parser import args
 
 def cli(args={}):
     if args == {}:  # if args is not provided
-        args = Namespace(lang=None, stars=None, date=None, debug=False)
+        args = Namespace(
+            lang=None, stars=None, date=None, debug=False, layout=None, limit_results=7
+        )
 
     if not args.stars:  # if args.stars is not present
         args.stars = ">=50"
