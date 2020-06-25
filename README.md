@@ -13,6 +13,10 @@
 [![GitHub license MIT](https://img.shields.io/github/license/hedythedev/starcli.svg)](https://github.com/hedythedev/starcli/blob/main/LICENSE)
 
 
+<!--Below is a demo gif-->
+![starcli demo.gif](https://github.com/hedythedev/starcli/blob/main/demo.gif)
+
+
 ## Prerequisites
 
 * Requires Python 3.7 or greater
