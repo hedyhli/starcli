@@ -1,5 +1,10 @@
 # Changelog
 
+### v2.3.3
+
+* updated `starcli/__main__.cli()` function
+
+
 ### v2.3.2
 
 * Reformatted list_layout
