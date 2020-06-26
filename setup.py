@@ -5,7 +5,7 @@ from setuptools import setup
 with io.open("README.md", "rt", encoding="utf8") as f:
     long_desc = f.read()
 
-VERSION = "2.4.1"
+VERSION = "2.5.0"
 
 # This call to setup() does all the work
 setup(
@@ -26,7 +26,7 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
     ],
-    packages=["starcli"],
+    packages=find_packages(exclude=("tests",)),
     include_package_data=True,
     install_requires=["requests>=2.22.0", "rich>=2.1.0",],
     entry_points={"console_scripts": ["starcli=starcli.__main__:cli",]},
