@@ -26,7 +26,7 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
     ],
-    packages=find_packages(exclude=("tests",)),
+    packages=["starcli"],
     include_package_data=True,
     install_requires=["requests>=2.22.0", "rich>=2.1.0",],
     entry_points={"console_scripts": ["starcli=starcli.__main__:cli",]},
