@@ -24,6 +24,7 @@ parser.add_argument(
     "--stars",
     type=str,
     required=False,
+    default=">=50",
     help="Range of stars required, default is '>=50'",
 )
 parser.add_argument(
@@ -32,6 +33,14 @@ parser.add_argument(
     type=int,
     default=7,
     help="Limit the number of results shown. Default: 7",
+)
+parser.add_argument(
+    "-o",
+    "--order",
+    type=str,
+    choices=("desc", "asc"),
+    default="desc",
+    help="Specify the order of repos by stars that is shown, 'desc' or 'asc', default: desc",
 )
 parser.add_argument("--debug", action="store_true", help="Turn on debugging mode")
 args = parser.parse_args()

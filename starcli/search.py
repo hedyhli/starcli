@@ -10,13 +10,14 @@ import requests
 API_URL = "https://api.github.com/search/repositories"
 
 
-def search(language=None, date=None, stars=">=50", debug=False):
+def search(language=None, date=None, stars=">=50", debug=False, order="desc"):
     """ Returns repositories based on the language.
         repositories are sorted by stars
     """
     date_format = "%Y-%m-%d"  # date format in iso format
     if debug:
         print("DEBUG: search: date param:", date)
+        print("DEBUG: search: order param: ", order)
 
     if not date:
         start_date = (datetime.utcnow() + timedelta(days=-100)).strftime(date_format)
@@ -36,9 +37,10 @@ def search(language=None, date=None, stars=">=50", debug=False):
 
     query = f"stars:{stars}+created:{start_date}..{end_date}"
     query += f"+language:{language}" if language else ""
-    url = f"{API_URL}?q={query}&sort=stars&order=desc"
-    repositories = requests.get(url).json()
-
+    url = f"{API_URL}?q={query}&sort=stars&order={order}"
     if debug:
         print("DEBUG: search: url:", url)  # print the url when debugging
+
+    repositories = requests.get(url).json()
+
     return repositories["items"]

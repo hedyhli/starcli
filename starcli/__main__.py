@@ -12,12 +12,21 @@ from .parser import args
 def cli(args={}):
     if args == {}:  # if args is not provided
         args = Namespace(
-            lang=None, stars=None, date=None, debug=False, layout=None, limit_results=7
+            lang=None,
+            stars=">=50",
+            date=None,
+            debug=False,
+            layout=None,
+            limit_results=7,
+            order="desc",
         )
+
+    if args.debug:
+        print(f"DEBUG: cli(): received args is {args}")
 
     if not args.stars:  # if args.stars is not present
         args.stars = ">=50"
-    tmp_repos = search(args.lang, args.date, args.stars, args.debug)
+    tmp_repos = search(args.lang, args.date, args.stars, args.debug, args.order)
     if not tmp_repos:  # if search() returned None
         return
 
