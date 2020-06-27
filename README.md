@@ -1,7 +1,7 @@
 ![Cover image](https://github.com/hedythedev/starcli/blob/main/starcli-small-cover.png)
 
 *Browse trending repos on Github by*
-⭐stars⭐ 
+⭐stars⭐
 *from your command line!* 💻
 
 ![checks](https://github.com/hedythedev/starcli/workflows/checks/badge.svg)
@@ -30,7 +30,7 @@ pip install starcli
 ## Usage
 
 ```sh
-usage: starcli [-h] [-l LANG] [-d DATE] [-L {list,table}] [-s STARS] [-r LIMIT_RESULTS] [--debug]
+usage: __main__.py [-h] [-l LANG] [-d DATE] [-L {list,table}] [-s STARS] [-r LIMIT_RESULTS] [-o {desc,asc}] [--debug]
 
 Browse trending repos on GitHub by stars
 
@@ -44,6 +44,8 @@ optional arguments:
                         Range of stars required, default is '>=50'
   -r LIMIT_RESULTS, --limit-results LIMIT_RESULTS
                         Limit the number of results shown. Default: 7
+  -o {desc,asc}, --order {desc,asc}
+                        Specify the order of repos by stars that is shown, 'desc' or 'asc', default: desc
   --debug               Turn on debugging mode
 ```
 
@@ -52,3 +54,20 @@ optional arguments:
 This project is still in its early development stage,
 contributions are not suggested but issue reporting are welcome.
 Once everything is stable, we will update this section and let your know how to contribute.
+
+
+## Uses
+
+* CommandLine Argument parser: [`argparse`](https://github.com/python/cpython/blob/master/Lib/argparse.py)
+* Colored and table console print: [`rich`](https://github.com/willmcgugan/rich)
+* HTTP library to send requests: [`requests`](https://github.com/psf/requests)
+
+
+## Credits
+
+This project is "headlessly" forked from
+[`githunt` (python)](https://github.com/SriNandan33/githunt)
+made by [Srinivasa Rao](https://github.com/SriNandan33), which
+in turn, is inspired by
+[`githunt` (the JavaScript Web App)](https://github.com/kamranahmedse/githunt).
+
