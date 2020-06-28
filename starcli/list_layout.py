@@ -22,17 +22,30 @@ def list_layout(repos):
     for repo in repos:
         console.print(
             " " * side_width,
-            "[link=" + repo["html_url"] + "]" + repo["full_name"] + "[/link]",
+            f"[link={repo['html_url']}]{repo['full_name']}[/link]",
             style="yellow",
-            end="\t",
+            end="  ",
         )
-        console.print(
-            f"{repo['stargazers_count']}:star:, ", style="bold magenta", end=" "
+
+        stats = (
+            str(repo["stargazers_count"])
+            + ":star:, "
+            + str(repo["forks_count"])
+            + ":fork_and_knife:, "
+            + str(repo["watchers_count"])
+            + ":eyes:"
         )
-        console.print(
-            f"{repo['forks_count']}:fork_and_knife:, ", style="bold yellow", end=" "
-        )
-        console.print(f"{repo['watchers_count']}:eyes:", style="bold cyan", end="\n\n")
+
+        if len(repo["full_name"] + stats) > len(separator + "   "):
+            print()
+            console.print(
+                " " * ((side_width) + (len(separator) - len(stats))),
+                stats,
+                end="\n\n"
+            )
+        else:
+            console.print(stats, end="\n\n")
+
         console.print(" " * side_width, repo["language"], style="bold cyan", end="\n\n")
         console.print(
             " " * side_width,
