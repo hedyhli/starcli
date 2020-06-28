@@ -3,8 +3,7 @@
 from argparse import Namespace
 
 # Internal application imports
-from .list_layout import list_layout
-from .table_layout import table_layout
+from .layouts import list_layout, table_layout
 from .search import search
 from .parser import args
 
