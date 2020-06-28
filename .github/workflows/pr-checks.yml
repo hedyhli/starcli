@@ -6,7 +6,7 @@ on:
 
 jobs:
   lint_python:
-    if: github.event.pull_request.merged != 'true' && "! contains(toJSON(github.event.commits.*.message), '[skip ci]')"
+    if: github.event.pull_request.merged != 'true'
     runs-on: ubuntu-latest
     strategy:
       matrix:
