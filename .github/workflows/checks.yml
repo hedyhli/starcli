@@ -3,8 +3,6 @@ name: checks
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ develop ]
 
 jobs:
   build:
