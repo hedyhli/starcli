@@ -51,10 +51,7 @@ optional arguments:
 
 ## Development
 
-This project is still in its early development stage,
-contributions are not suggested but issue reporting are welcome.
-Once everything is stable, we will update this section and let your know how to contribute.
-
+This section is work in progress...
 
 ## Uses
 
