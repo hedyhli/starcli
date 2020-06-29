@@ -62,7 +62,7 @@ on our [Product Hunt page](https://www.producthunt.com/posts/starcli), remember 
 
 ## Development    [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-For contributing guidlines and how to set up your development environment, please 
+For contributing guidelines and how to set up your development environment, please 
 read [`CONTRIBUTING.md`](https://github.com/hedythedev/starcli/blob/main/CONTRIBUTING.md).
 Remember that all contributions to this project should follow its 
 [CODE OF CONDUCT](https://github.com/hedythedev/starcli/blob/main/CODE_OF_CONDUCT.md).
