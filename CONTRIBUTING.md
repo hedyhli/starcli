@@ -42,7 +42,7 @@ $ source venv/bin/activate
 
 The `pip install` command will install all the requirements needed to run starcli, as well as dev-dependencies like `black`, `pylint`, `codespell`, etc.
 
-Remember to use the `python3` and `pip3` command instead of `python` and `pip` if system also has Python 2 installed.
+Remember to use the `python3` and `pip3` command instead of `python` and `pip` if your system also has Python 2 installed.
 
 Check if the setup worked by running starcli from your local folder. 
 
