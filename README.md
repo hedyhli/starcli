@@ -34,7 +34,7 @@ pip install starcli
 ## Usage
 
 ```sh
-usage: __main__.py [-h] [-l LANG] [-d DATE] [-L {list,table}] [-s STARS] [-r LIMIT_RESULTS] [-o {desc,asc}] [--debug]
+usage: starcli [-h] [-l LANG] [-d DATE] [-L {list,table}] [-s STARS] [-r LIMIT_RESULTS] [-o {desc,asc}] [--debug]
 
 Browse trending repos on GitHub by stars
 
