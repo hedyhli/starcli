@@ -12,9 +12,12 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![GitHub license MIT](https://img.shields.io/github/license/hedythedev/starcli.svg)](https://github.com/hedythedev/starcli/blob/main/LICENSE)
 
+<br>
 
 <!--Below is a demo gif-->
 ![starcli demo.gif](https://github.com/hedythedev/starcli/blob/main/demo.gif)
+
+
 
 
 ## Prerequisites
@@ -26,6 +29,7 @@
 ```sh
 pip install starcli
 ```
+*Remember to use `pip3` instead of `pip` if you also have Python 2 installed on your system*
 
 ## Usage
 
@@ -49,20 +53,31 @@ optional arguments:
   --debug               Turn on debugging mode
 ```
 
-## Development
+## Issues, feature request, and feedback
 
-This section is work in progress...
+* Issues, bug reports, or feature request: Don't hesitate to open an issue in this repo
+* Feedback: any general feedback or questions about using StarCLI you can leave a comment 
+on our [Product Hunt page](https://www.producthunt.com/posts/starcli), remember to be nice :smiley:
+
+
+## Development    [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+
+For contributing guidlines and how to set up your development environment, please 
+read [`CONTRIBUTING.md`](https://github.com/hedythedev/starcli/blob/main/CONTRIBUTING.md).
+Remember that all contributions to this project should follow its 
+[CODE OF CONDUCT](https://github.com/hedythedev/starcli/blob/main/CODE_OF_CONDUCT.md).
 
 ## Uses
 
 * CommandLine Argument parser: [`argparse`](https://github.com/python/cpython/blob/master/Lib/argparse.py)
+(Planning to switch to `click`)
 * Colored and table console print: [`rich`](https://github.com/willmcgugan/rich)
 * HTTP library to send requests: [`requests`](https://github.com/psf/requests)
 
 
 ## Credits
 
-This project is "headlessly" forked from
+This project was forked from
 [`githunt` (python)](https://github.com/SriNandan33/githunt)
 made by [Srinivasa Rao](https://github.com/SriNandan33), which
 in turn, is inspired by
