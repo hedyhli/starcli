@@ -15,7 +15,7 @@ Starcli does not have a chat community as of now, so any feedback you have, you 
 
 ### Opening a pull request
 
-Once you've worked on your feature/bugfix etc, you can open a pull request using the `develop` branch as the base branch. Write a clear and concise PR title, and a detailed description of why you made the change, whether it is related to any issues etc. And I will review it as soon as I can.
+Once you've worked on your feature/bugfix etc, you can open a pull request using the `main` branch as the base branch. Write a clear and concise PR title, and a detailed description of why you made the change, whether it is related to any issues etc. And I will review it as soon as I can.
 
 ### Setting up development environment
 
