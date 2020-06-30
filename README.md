@@ -5,7 +5,6 @@
 *from your command line!* 💻
 
 ![checks](https://github.com/hedythedev/starcli/workflows/checks/badge.svg)
-![pr checks](https://github.com/hedythedev/starcli/workflows/pr%20checks/badge.svg)
 [![pypi version](https://img.shields.io/pypi/v/starcli)](https://pypi.org/project/starcli/)
 [![pypi downloads per month](https://img.shields.io/pypi/dm/starcli)](https://pypi.org/project/starcli/)
 [![Python Requirements](https://img.shields.io/pypi/pyversions/starcli)](https://pypi.org/project/starcli/)
