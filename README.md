@@ -68,7 +68,7 @@ Remember that all contributions to this project should follow its
 
 ## Uses
 
-* CommandLine Argument parser: [`argparse`](https://github.com/python/cpython/blob/master/Lib/argparse.py)
+* CommandLine Argument parser: Click
 (Planning to switch to `click`)
 * Colored and table console print: [`rich`](https://github.com/willmcgugan/rich)
 * HTTP library to send requests: [`requests`](https://github.com/psf/requests)
