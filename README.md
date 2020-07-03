@@ -33,23 +33,22 @@ pip install starcli
 ## Usage
 
 ```sh
-usage: starcli [-h] [-l LANG] [-d DATE] [-L {list,table}] [-s STARS] [-r LIMIT_RESULTS] [-o {desc,asc}] [--debug]
+Usage: starcli [OPTIONS]
 
-Browse trending repos on GitHub by stars
+  Browse trending repos on GitHub by stars
 
-optional arguments:
-  -h, --help            show this help message and exit
-  -l LANG, --lang LANG  Language filter eg:python
-  -d DATE, --date DATE  Specify repo creation date in ISO8601 format YYYY-MM-DD
-  -L {list,table}, --layout {list,table}
-                        The output format (list or table), default is list
-  -s STARS, --stars STARS
-                        Range of stars required, default is '>=50'
-  -r LIMIT_RESULTS, --limit-results LIMIT_RESULTS
-                        Limit the number of results shown. Default: 7
-  -o {desc,asc}, --order {desc,asc}
-                        Specify the order of repos by stars that is shown, 'desc' or 'asc', default: desc
-  --debug               Turn on debugging mode
+Options:
+  -l, --lang TEXT              Language filter eg: python
+  -d, --date TEXT              Specify repo creation date in ISO8601 format
+                               YYYY-MM-DD
+  -L, --layout [list|table]    The output format (list or table), default is
+                               list
+  -s, --stars TEXT             Range of stars required, default is '>=50'
+  -r, --limit-results INTEGER  Limit the number of results shown. Default: 7
+  -o, --order [desc|asc]       Specify the order of repos by stars that is
+                               shown, 'desc' or 'asc', default: desc
+  --debug                      Turn on debugging mode
+  --help                       Show this message and exit.
 ```
 
 ## Issues, feature request, and feedback
