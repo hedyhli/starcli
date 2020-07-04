@@ -42,10 +42,12 @@ def list_layout(repos):
             print()
             click.echo(
                 click.style(
-                " " * ((side_width) + (len(separator) - len(stats))) + stats
-            , fg="bright_cyan"))
+                    " " * ((side_width) + (len(separator) - len(stats))) + stats,
+                    fg="bright_magenta",
+                )
+            )
         else:
-            click.echo(stats + "\n\n")
+            click.echo(click.style(stats + "\n\n", fg="bright_magenta"))
 
         console.print(" " * side_width, repo["language"], style="bold cyan", end="\n\n")
         console.print(
