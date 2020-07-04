@@ -42,7 +42,9 @@ def list_layout(repos):
             print()
             click.echo(
                 click.style(
-                    " " * ((side_width) + (len(separator) - len(stats))) + stats,
+                    " " * ((side_width) + (len(separator) - len(stats)))
+                    + stats
+                    + "\n\n",
                     fg="bright_magenta",
                 )
             )
