@@ -25,7 +25,7 @@ def list_layout(repos):
         console.print(
             " " * side_width,
             f"[link={repo['html_url']}]{repo['full_name']}[/link]",
-            style="yellow",
+            style="bold yellow",
             end="  ",
         )
 
