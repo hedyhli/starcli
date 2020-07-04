@@ -10,7 +10,7 @@ on:
   
 
 jobs:
-  build:
+  lint:
     if: "! contains(toJSON(github.event.commits.*.message), '[skip ci]')"
     runs-on: ubuntu-latest
     strategy:
