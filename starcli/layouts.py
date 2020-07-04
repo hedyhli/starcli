@@ -6,6 +6,8 @@ import textwrap
 # Third party imports
 from rich.console import Console
 from rich.table import Table
+import click
+import colorama
 
 from .terminal_size import terminal_size
 
@@ -38,11 +40,12 @@ def list_layout(repos):
 
         if len(repo["full_name"] + stats) > len(separator + "   "):
             print()
-            console.print(
-                " " * ((side_width) + (len(separator) - len(stats))), stats, end="\n\n"
-            )
+            click.echo(
+                click.style(
+                " " * ((side_width) + (len(separator) - len(stats))) + stats
+            , fg="bright_cyan"))
         else:
-            console.print(stats, end="\n\n")
+            click.echo(stats + "\n\n")
 
         console.print(" " * side_width, repo["language"], style="bold cyan", end="\n\n")
         console.print(
