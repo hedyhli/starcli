@@ -13,6 +13,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "hexbee",
+      "name": "hexbee",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/26668583?v=4",
+      "profile": "https://github.com/hexbee",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
