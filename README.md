@@ -73,13 +73,7 @@ Remember that all contributions to this project should follow its
 * HTTP library to send requests: [`requests`](https://github.com/psf/requests)
 
 
-## Credits
 
-This project was forked from
-[`githunt` (python)](https://github.com/SriNandan33/githunt)
-made by [Srinivasa Rao](https://github.com/SriNandan33), which
-in turn, is inspired by
-[`githunt` (the JavaScript Web App)](https://github.com/kamranahmedse/githunt).
 
 
 ## Contributors ✨
@@ -101,3 +95,18 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
+
+## Credits
+
+This project was forked from
+[`githunt` (python)](https://github.com/SriNandan33/githunt)
+made by [Srinivasa Rao](https://github.com/SriNandan33), which
+in turn, is inspired by
+[`githunt` (the JavaScript Web App)](https://github.com/kamranahmedse/githunt).
+
+
+
+---
+
+Liked this project? Don't forget to give it a ⭐
