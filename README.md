@@ -5,14 +5,6 @@
 *from your command line!* 💻
 
 
-
-
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-
-
-
 ![checks](https://github.com/hedythedev/starcli/workflows/checks/badge.svg)
 [![pypi version](https://img.shields.io/pypi/v/starcli)](https://pypi.org/project/starcli/)
 [![pypi downloads per month](https://img.shields.io/pypi/dm/starcli)](https://pypi.org/project/starcli/)
