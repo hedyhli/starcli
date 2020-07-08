@@ -6,6 +6,9 @@ import textwrap
 # Third party imports
 from rich.console import Console
 from rich.table import Table
+from rich.text import Text
+from rich.panel import Panel
+from rich.columns import Columns
 
 from .terminal_size import terminal_size
 
@@ -89,3 +92,45 @@ def table_layout(repos):
 
     console = Console()
     console.print(table)
+
+def grid_layout(repos):
+    """ Displays repositories in a grid format using rich """
+
+    max_description_len = 90
+
+    panels = []
+    for repo in repos*4:
+
+        stats = (
+            str(repo["stargazers_count"])
+            + "⭐, "
+            + str(repo["forks_count"])
+            + "🍴, "
+            + str(repo["watchers_count"])
+            + "👀"
+        )
+
+        if not repo["language"]:  # if language is not provided
+            repo["language"] = "None"  # make it a string
+        if not repo["description"]:
+            repo["description"] = "None"
+
+        if len(repo["description"]) > max_description_len:
+            repo["description"] = repo["description"][:max_description_len - 1].strip() + '…'
+
+        name = Text(repo["name"], style="yellow")
+        language = Text(repo["language"], style="cyan")
+        description = Text(repo["description"], style="green")
+        stats = Text(stats, style="magenta")
+
+        repo_summary = Text.assemble(
+            name, '\n',
+            stats, '\n',
+            language, '\n',
+            description,
+        )
+        panels.append(Panel(repo_summary, expand=True))
+
+
+    console = Console()
+    console.print((Columns(panels, width=30, expand=True)))
