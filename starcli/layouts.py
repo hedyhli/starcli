@@ -81,7 +81,7 @@ def table_layout(repos):
         if not repo["language"]:  # if language is not provided
             repo["language"] = "None"  # make it a string
         if not repo["description"]:
-            repo["description"]: "None"
+            repo["description"] = "None"
 
         table.add_row(
             repo["name"] + "\n\n",
