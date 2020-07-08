@@ -100,7 +100,7 @@ def grid_layout(repos):
     max_description_len = 90
 
     panels = []
-    for repo in repos * 4:
+    for repo in repos:
 
         stats = (
             str(repo["stargazers_count"])
