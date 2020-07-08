@@ -15,7 +15,7 @@
 <br>
 
 <!--Below is a demo gif-->
-![starcli demo.gif](https://github.com/hedythedev/starcli/blob/main/demo.gif)
+![starcli demo.gif](https://github.com/hedythedev/starcli/blob/main/starcli-demo2.gif)
 
 
 
