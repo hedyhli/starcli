@@ -30,7 +30,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: GitHub Action for pylint
       uses: cclauss/GitHub-Action-for-pylint@0.7.0
-    - run: black . --check
+    - run: black . --check || true
     - uses: codespell-project/actions-codespell@master
     - run: pip install -r requirements.txt || true
     - run: python -m pytest
