@@ -4,7 +4,7 @@ from argparse import Namespace
 
 import click
 
-from .layouts import list_layout, table_layout
+from .layouts import list_layout, table_layout, grid_layout
 from .search import search
 
 # from .parser import args
@@ -21,8 +21,8 @@ from .search import search
 @click.option(
     "--layout",
     "-L",
-    type=click.Choice(["list", "table"], case_sensitive=False),
-    help="The output format (list or table), default is list",
+    type=click.Choice(["list", "table", "grid"], case_sensitive=False),
+    help="The output format (list, table, or grid), default is list",
 )
 @click.option(
     "--stars",
@@ -59,6 +59,10 @@ def cli(lang, date, layout, stars, limit_results, order, debug):
 
     if layout == "table":
         table_layout(repos)
+        return
+
+    if layout == "grid":
+        grid_layout(repos)
         return
     list_layout(repos)
 

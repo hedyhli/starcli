@@ -42,8 +42,8 @@ Options:
   -l, --lang TEXT              Language filter eg: python
   -d, --date TEXT              Specify repo creation date in ISO8601 format
                                YYYY-MM-DD
-  -L, --layout [list|table]    The output format (list or table), default is
-                               list
+  -L, --layout [list|table|grid]  The output format (list, table, or grid),
+                                  default is list
   -s, --stars TEXT             Range of stars required, default is '>=50'
   -r, --limit-results INTEGER  Limit the number of results shown. Default: 7
   -o, --order [desc|asc]       Specify the order of repos by stars that is
