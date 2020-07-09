@@ -42,10 +42,7 @@ from .search import search, debug_requests_on
     help="Specify the order of repos by stars that is shown, 'desc' or 'asc', default: desc",
 )
 @click.option(
-    "--long-stats",
-    "-lst",
-    is_flag=True,
-    help="Print the actual stats[1300 instead of 1.3k]",
+    "--long-stats", is_flag=True, help="Print the actual stats[1300 instead of 1.3k]",
 )
 @click.option("--debug", is_flag=True, default=False, help="Turn on debugging mode")
 def cli(lang, date, layout, stars, limit_results, order, long_stats, debug):
