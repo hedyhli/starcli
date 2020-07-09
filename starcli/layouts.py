@@ -15,6 +15,9 @@ from rich.columns import Columns
 
 def shorten_count(number):
     """Shortens number"""
+    if number < 1000:
+        return str(number)
+
     number = int(number)
     new_number = math.ceil(round(number / 100.0, 1)) * 100
 
@@ -57,8 +60,10 @@ def list_layout(repos):
         if len(repo["full_name"] + stats) > len(separator + "   "):
             print()
             console.print(
-                " " * ((side_width) + (len(separator) - len(stats))), stats, end="\n\n",
-                style="blue"
+                " " * ((side_width) + (len(separator) - len(stats))),
+                stats,
+                end="\n\n",
+                style="blue",
             )
         else:
             console.print(stats, end="\n\n", style="blue")
