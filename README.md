@@ -39,17 +39,19 @@ Usage: starcli [OPTIONS]
   Browse trending repos on GitHub by stars
 
 Options:
-  -l, --lang TEXT              Language filter eg: python
-  -d, --date TEXT              Specify repo creation date in ISO8601 format
-                               YYYY-MM-DD
+  -l, --lang TEXT                 Language filter eg: python
+  -d, --date TEXT                 Specify repo creation date in ISO8601 format
+                                  YYYY-MM-DD
   -L, --layout [list|table|grid]  The output format (list, table, or grid),
                                   default is list
-  -s, --stars TEXT             Range of stars required, default is '>=50'
-  -r, --limit-results INTEGER  Limit the number of results shown. Default: 7
-  -o, --order [desc|asc]       Specify the order of repos by stars that is
-                               shown, 'desc' or 'asc', default: desc
-  --debug                      Turn on debugging mode
-  --help                       Show this message and exit.
+  -s, --stars TEXT                Range of stars required, default is '>=50'
+  -r, --limit-results INTEGER     Limit the number of results shown. Default:
+                                  7
+  -o, --order [desc|asc]          Specify the order of repos by stars that is
+                                  shown, 'desc' or 'asc', default: desc
+  --long-stats                    Print the actual stats[1300 instead of 1.3k]
+  --debug                         Turn on debugging mode
+  --help                          Show this message and exit.
 ```
 
 ## Issues, feature request, and feedback
