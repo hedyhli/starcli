@@ -16,7 +16,8 @@ request can resolve an issue when merged.
 
 **More details**
 
+[optional]
 More specific details to include (eg: the logic used, and references, code formats,
 have you tested your code, etc.)
 
-Remember that your code will be checked by the black formatter, pylint, codespell, and pytest.
+<!--Remember that your code will be checked by the black formatter, pylint, codespell, and pytest.-->
