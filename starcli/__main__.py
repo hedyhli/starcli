@@ -3,7 +3,7 @@
 import click
 
 from .layouts import list_layout, table_layout, grid_layout
-from .search import search
+from .search import search, debug_requests_on
 
 
 @click.command()
@@ -44,6 +44,10 @@ from .search import search
 @click.option("--debug", is_flag=True, default=False, help="Turn on debugging mode")
 def cli(lang, date, layout, stars, limit_results, order, debug):
     """ Browse trending repos on GitHub by stars """
+    if debug:
+        import logging
+
+        debug_requests_on()
 
     tmp_repos = search(lang, date, stars, debug, order)
     if not tmp_repos:  # if search() returned None
