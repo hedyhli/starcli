@@ -18,6 +18,8 @@ def shorten_count(number):
     number = int(number)
     new_number = math.ceil(round(number / 100.0, 1)) * 100
 
+    if new_number % 1000 == 0:
+        return str(new_number)[0] + "k"
     if new_number < 1000:
         # returns the same old integer if no changes were made
         return number
