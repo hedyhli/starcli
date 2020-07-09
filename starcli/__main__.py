@@ -1,13 +1,9 @@
 """ starcli.__main__ """
 
-from argparse import Namespace
-
 import click
 
 from .layouts import list_layout, table_layout, grid_layout
 from .search import search
-
-# from .parser import args
 
 
 @click.command()
@@ -64,7 +60,8 @@ def cli(lang, date, layout, stars, limit_results, order, debug):
     if layout == "grid":
         grid_layout(repos)
         return
-    list_layout(repos)
+
+    list_layout(repos)  # if layout isn't a grid or table, then use list.
 
 
 if __name__ == "__main__":

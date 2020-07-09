@@ -120,10 +120,10 @@ def grid_layout(repos):
                 repo["description"][: max_description_len - 1].strip() + "…"
             )
 
-        name = Text(repo["name"], style="yellow")
-        language = Text(repo["language"], style="cyan")
+        name = Text(repo["name"], style="bold yellow")
+        language = Text(repo["language"], style="magenta")
         description = Text(repo["description"], style="green")
-        stats = Text(stats, style="magenta")
+        stats = Text(stats, style="blue")
 
         repo_summary = Text.assemble(
             name, "\n", stats, "\n", language, "\n", description,

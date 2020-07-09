@@ -5,14 +5,16 @@ from datetime import datetime, timedelta
 
 # Third party imports
 import requests
+from click import echo, style
+import colorama
 
 
 API_URL = "https://api.github.com/search/repositories"
 
 
 def search(language=None, date=None, stars=">=50", debug=False, order="desc"):
-    """ Returns repositories based on the language.
-        repositories are sorted by stars
+    """ Returns repositories based on the language, date, and stars
+
     """
     date_format = "%Y-%m-%d"  # date format in iso format
     if debug:
@@ -26,7 +28,9 @@ def search(language=None, date=None, stars=">=50", debug=False, order="desc"):
         try:
             tmp_date = datetime.strptime(date, date_format)
         except ValueError:
-            print("invalid date format: " + date + " must be yyyy-mm-dd")
+            echo(
+                style("Invalid date: " + date + " must be yyyy-mm-dd", fg="bright_red")
+            )
             return
         end_date = (tmp_date + timedelta(days=1)).strftime(date_format)
         start_date = tmp_date.strftime(date_format)
@@ -41,6 +45,10 @@ def search(language=None, date=None, stars=">=50", debug=False, order="desc"):
     if debug:
         print("DEBUG: search: url:", url)  # print the url when debugging
 
-    repositories = requests.get(url).json()
+    try:
+        repositories = requests.get(url).json()
+    except requests.exceptions.ConnectionError:
+        echo(style("Internet connection error...", fg="bright_red"))
+        return
 
     return repositories["items"]
