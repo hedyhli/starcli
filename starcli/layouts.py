@@ -11,18 +11,19 @@ from rich.table import Table
 from rich.text import Text
 from rich.panel import Panel
 from rich.columns import Columns
+
+
 def shorten_count(number):
     """Shortens number"""
     number = int(number)
-    new_number = math.ceil(round(number/100.0,1))*100
+    new_number = math.ceil(round(number / 100.0, 1)) * 100
 
     if new_number < 1000:
         # returns the same old integer if no changes were made
         return number
     else:
         # returns a new string if the number was shortened
-        return str(new_number/1000.0)+'k'
-
+        return str(new_number / 1000.0) + "k"
 
 
 def list_layout(repos):

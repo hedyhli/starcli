@@ -49,7 +49,7 @@ from .search import search
     "-lst",
     is_flag=True,
     help="Print the actual stats[1300 instead of 1.3k]",
-        )
+)
 @click.option("--debug", is_flag=True, default=False, help="Turn on debugging mode")
 def cli(lang, date, layout, stars, limit_results, order, long_stats, debug):
     """ Browse trending repos on GitHub by stars """
@@ -64,9 +64,9 @@ def cli(lang, date, layout, stars, limit_results, order, long_stats, debug):
 
     if not long_stats:
         for repo in repos:
-            repo['stargazers_count']=shorten_count(repo['stargazers_count'])
-            repo['watchers_count']=shorten_count(repo['watchers_count'])
-            repo['forks_count']=shorten_count(repo['forks_count'])
+            repo["stargazers_count"] = shorten_count(repo["stargazers_count"])
+            repo["watchers_count"] = shorten_count(repo["watchers_count"])
+            repo["forks_count"] = shorten_count(repo["forks_count"])
     if layout == "table":
         table_layout(repos)
         return
