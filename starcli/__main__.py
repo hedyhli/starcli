@@ -1,7 +1,6 @@
 """ starcli.__main__ """
 
 from argparse import Namespace
-from pprint import pprint
 import click
 
 from .layouts import list_layout, table_layout, grid_layout, shorten_count
