@@ -2,7 +2,7 @@
 
 import click
 
-from .layouts import list_layout, table_layout, grid_layout
+from .layouts import list_layout, table_layout, grid_layout, shorten_count
 from .search import search, debug_requests_on
 
 
@@ -41,8 +41,14 @@ from .search import search, debug_requests_on
     default="desc",
     help="Specify the order of repos by stars that is shown, 'desc' or 'asc', default: desc",
 )
+@click.option(
+    "--long-stats",
+    "-lst",
+    is_flag=True,
+    help="Print the actual stats[1300 instead of 1.3k]",
+)
 @click.option("--debug", is_flag=True, default=False, help="Turn on debugging mode")
-def cli(lang, date, layout, stars, limit_results, order, debug):
+def cli(lang, date, layout, stars, limit_results, order, long_stats, debug):
     """ Browse trending repos on GitHub by stars """
     if debug:
         import logging
@@ -57,6 +63,11 @@ def cli(lang, date, layout, stars, limit_results, order, debug):
     for i in range(limit_results):
         repos.append(tmp_repos[i])
 
+    if not long_stats:
+        for repo in repos:
+            repo["stargazers_count"] = shorten_count(repo["stargazers_count"])
+            repo["watchers_count"] = shorten_count(repo["watchers_count"])
+            repo["forks_count"] = shorten_count(repo["forks_count"])
     if layout == "table":
         table_layout(repos)
         return
