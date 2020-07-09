@@ -2,6 +2,7 @@
 
 # Standard library imports
 import textwrap
+import math
 from shutil import get_terminal_size
 
 # Third party imports
@@ -10,6 +11,16 @@ from rich.table import Table
 from rich.text import Text
 from rich.panel import Panel
 from rich.columns import Columns
+def shorten_count(number):
+    """Shortens number"""
+    number = int(number)
+    new_number = math.ceil(round(number/100.0,1))*100
+
+    if new_number < 1000:
+        return number
+    else:
+        return str(new_number/1000.0)+'k'
+
 
 
 def list_layout(repos):
