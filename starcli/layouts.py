@@ -57,10 +57,11 @@ def list_layout(repos):
         if len(repo["full_name"] + stats) > len(separator + "   "):
             print()
             console.print(
-                " " * ((side_width) + (len(separator) - len(stats))), stats, end="\n\n"
+                " " * ((side_width) + (len(separator) - len(stats))), stats, end="\n\n",
+                style="blue"
             )
         else:
-            console.print(stats, end="\n\n")
+            console.print(stats, end="\n\n", style="blue")
 
         console.print(" " * side_width, repo["language"], style="bold cyan", end="\n\n")
         console.print(
