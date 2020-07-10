@@ -50,14 +50,14 @@ def list_layout(repos):
 
         stats = (
             str(repo["stargazers_count"])
-            + ":star:, "
+            + "⭐, "
             + str(repo["forks_count"])
-            + ":fork_and_knife:, "
+            + "🍴, "
             + str(repo["watchers_count"])
-            + ":eyes:"
+            + "👀"
         )
 
-        if len(repo["full_name"] + stats) > len(separator + "   "):
+        if len(repo["full_name"] + stats) > len(separator + " "):
             print()
             console.print(
                 " " * ((side_width) + (len(separator) - len(stats))),
@@ -86,17 +86,17 @@ def table_layout(repos):
 
     table.add_column("Name", style="bold cyan", no_wrap=True, width=45)
     table.add_column("Language", style="green", no_wrap=True, width=23)
-    table.add_column("Description", style="blue", no_wrap=False, width=160)
-    table.add_column("Stats", style="magenta", no_wrap=True, width=45)
+    table.add_column("Description", style="blue", no_wrap=True, width=140)
+    table.add_column("Stats", style="magenta", no_wrap=False, width=57)
 
     for repo in repos:
         stats = (
             str(repo["stargazers_count"])
-            + ":star:, "
+            + "⭐, "
             + str(repo["forks_count"])
-            + ":fork_and_knife:, "
+            + "🍴, "
             + str(repo["watchers_count"])
-            + ":eyes:"
+            + "👀"
         )
 
         if not repo["language"]:  # if language is not provided
