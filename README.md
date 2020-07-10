@@ -32,6 +32,7 @@ pip install starcli
 ```
 *Remember to use `pip3` instead of `pip` if you also have Python 2 installed on your system*
 
+
 ## Usage
 
 ```sh
@@ -55,6 +56,78 @@ Options:
   --help                          Show this message and exit.
 ```
 
+
+### Layouts
+
+Switch layouts using `--layout {list|table|grid}`, or use the short option `-L`
+
+**list**
+
+<img src="https://raw.githubusercontent.com/hedythedev/starcli/main/demo-pics/list.png" width="400px;" alt="demo list"/> 
+
+**table**
+
+<img src="https://raw.githubusercontent.com/hedythedev/starcli/main/demo-pics/table.png" width="800px;" alt=""/>
+
+**grid**
+
+<img src="https://raw.githubusercontent.com/hedythedev/starcli/main/demo-pics/grid.png" width="800px;" alt="demo grid"/>
+
+
+### Filtering by language
+
+For example, you only want to find popular Python repos, you can use `--lang` or `-l`:
+
+```
+starcli --lang python
+```
+
+Here, we used `starcli -l python -L grid`, which is python with grid layout:
+
+<img src="https://raw.githubusercontent.com/hedythedev/starcli/main/demo-pics/lang.png" width="800px;" alt="demo grid"/>
+
+
+### Specify the number (or range) of stars
+
+(Recommended to be used with `--date`)
+
+The default range is >=50, you can change that! Use `--stars` or `-s` to specify what you want,
+for example, if you want to find repos that has more than 100 stars, you can use:
+
+```
+starcli -s '>100'
+```
+
+Note that if you do something like `>1000` not many repos can have
+more than 1000 and is created within 100 days, to specify date of creation, use `--date`, see below.
+
+### Specify the date of creation
+
+Want to find newer, older, or just created repos? Just use `--date` or `-d`, and then
+provide a date in ISO8601 format: yyyy-mm-dd
+
+For example, to 1st January 2014, use:
+```
+starcli --date 2014-01-01
+```
+
+### Limit the number of results shown
+Don't like the default 7? You can change it to something else,
+using `--limit-results` or `-r` followed by an integer:
+
+```
+starcli -r 2
+```
+
+The above will only give you two repos. This is useful if
+you want to put it in your `.bashrc`, `.zshrc`, or `config.fish`.
+
+Just add `starcli -r 3 -L grid` to that file, and every time you open your terminal,
+you will find 3 trending repos printed neatly in a grid format, great way to start your
+day (bit like the [Hacker Tab Extension](https://chrome.google.com/webstore/detail/hacker-tab/ibomigipadcieapbemkegkmadbbanbgm?hl=en) 😆 ).
+
+
+
 ## Issues, feature request, and feedback
 
 * Issues, bug reports, or feature request: Don't hesitate to open an issue in this repo
@@ -69,19 +142,18 @@ read [`CONTRIBUTING.md`](https://github.com/hedythedev/starcli/blob/main/CONTRIB
 Remember that all contributions to this project should follow its 
 [CODE OF CONDUCT](https://github.com/hedythedev/starcli/blob/main/CODE_OF_CONDUCT.md).
 
+
 ## Uses
 
 * CommandLine Argument parser: [Click](https://github.com/pallets/click)
-* Colored and table console print: [`rich`](https://github.com/willmcgugan/rich)
+* Colored and table console print: [`rich`](https://github.com/willmcgugan/rich) (with click and colorama)
 * HTTP library to send requests: [`requests`](https://github.com/psf/requests)
-
-
 
 
 
 ## Contributors ✨
 
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+Thanks goes to all of these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
