@@ -1,4 +1,4 @@
-![Cover image](https://github.com/hedythedev/starcli/blob/main/starcli-small-cover.png)
+![Cover image](https://raw.githubusercontent.com/hedythedev/starcli/main/starcli-small-cover.png)
 
 *Browse trending repos on Github by*
 ⭐stars⭐
@@ -15,7 +15,8 @@
 <br>
 
 <!--Below is a demo gif-->
-![starcli demo.gif](https://github.com/hedythedev/starcli/blob/main/starcli-demo2.gif)
+![starcli demo.gif](https://raw.githubusercontent.com/hedythedev/starcli/main/starcli-demo2.gif)
+
 
 
 
