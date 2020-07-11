@@ -35,20 +35,26 @@ def list_layout(repos):
     """ Displays repositories in list layout using rich """
 
     console = Console()  # initialise rich
-    separator = "+==============================================================+"
+    separator = "+=============================================================+"
     term_width = get_terminal_size().columns
+
+    # side_width is the number of columns from the left of the terminal to
+    # where the separator starts:
+    # {here...       to here}+===================+
     side_width = int((term_width - len(separator)) / 2)
 
-    console.print(separator, justify="center", end="\n\n")
+    console.print(separator, justify="center", end="\n\n")  # print the separation
+
     for repo in repos:
-        console.print(
+
+        console.print(  # print the repo full name (user/repo)
             " " * side_width,
             f"[link={repo['html_url']}]{repo['full_name']}[/link]",
             style="yellow",
             end="  ",
         )
 
-        stats = (
+        stats = (  # construct the stats info
             str(repo["stargazers_count"])
             + "⭐, "
             + str(repo["forks_count"])
@@ -58,17 +64,22 @@ def list_layout(repos):
         )
 
         if len(repo["full_name"] + stats) > len(separator + " "):
-            print()
-            console.print(
+            # if lenth of stats is not enough to print after the repo full name
+            print()  # print new line
+            console.print(  # and print the stats
                 " " * ((side_width) + (len(separator) - len(stats))),
                 stats,
                 end="\n\n",
                 style="blue",
             )
         else:
-            console.print(stats, end="\n\n", style="blue")
+            # if instead it is enough to print after repo full name
+            console.print(stats, end="\n\n", style="blue")  # then we print it
 
+        # print language
         console.print(" " * side_width, repo["language"], style="bold cyan", end="\n\n")
+
+        # print description
         console.print(
             " " * side_width,
             ("\n" + " " * side_width).join(
@@ -77,20 +88,25 @@ def list_layout(repos):
             style="green",
             end="\n\n",
         )
+
+        # print separation
         console.print(separator, justify="center", end="\n\n")
 
 
 def table_layout(repos):
     """ Displays repositories in a table format using rich """
+
     table = Table()
 
+    # make the columns
     table.add_column("Name", style="bold cyan", no_wrap=True, width=45)
     table.add_column("Language", style="green", no_wrap=True, width=23)
     table.add_column("Description", style="blue", no_wrap=True, width=140)
     table.add_column("Stats", style="magenta", no_wrap=False, width=57)
 
     for repo in repos:
-        stats = (
+
+        stats = (  # construct the stats info
             str(repo["stargazers_count"])
             + "⭐, "
             + str(repo["forks_count"])
@@ -101,7 +117,7 @@ def table_layout(repos):
 
         if not repo["language"]:  # if language is not provided
             repo["language"] = "None"  # make it a string
-        if not repo["description"]:
+        if not repo["description"]:  # same here
             repo["description"] = "None"
 
         table.add_row(

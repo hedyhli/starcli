@@ -3,6 +3,7 @@
 # Standard library imports
 from datetime import datetime, timedelta
 import logging
+from random import randint
 
 # Third party imports
 import requests
@@ -14,6 +15,7 @@ API_URL = "https://api.github.com/search/repositories"
 
 
 def debug_requests_on():
+    """ Turn on the logging for requests """
     logger = logging.getLogger(__name__)
     try:
         from http.client import HTTPConnection
@@ -31,25 +33,35 @@ def debug_requests_on():
     requests_log.propagate = True
 
 
-def search(language=None, date=None, stars=">=50", debug=False, order="desc"):
+def search(language=None, date_created=None, stars=">=100", debug=False, order="desc"):
     """ Returns repositories based on the language, date, and stars
 
     """
     date_format = "%Y-%m-%d"  # date format in iso format
     if debug:
         debug_requests_on()
-        print("DEBUG: search: date param:", date)
+        print("DEBUG: search: date_created param:", date_created)
         print("DEBUG: search: order param: ", order)
 
-    if not date:
-        start_date = (datetime.utcnow() + timedelta(days=-100)).strftime(date_format)
+    day_range = 0 - randint(100, 400)  # random negative from 100 to 400
+
+    if not date_created:  # if date_created not provided
+        # creation date: start, is the time now minus a random number of days
+        # 100 to 400 days - which was stored in day_range
+        start_date = (datetime.utcnow() + timedelta(days=day_range)).strftime(
+            date_format
+        )
         end_date = (datetime.utcnow() + timedelta(days=1)).strftime(date_format)
-    else:
+    else:  # if date_created is provided
         try:
-            tmp_date = datetime.strptime(date, date_format)
-        except ValueError:
+            # try to turn the string into a date-time object
+            tmp_date = datetime.strptime(date_created, date_format)
+        except ValueError:  # ValueError will be thrown if format is invalid
             echo(
-                style("Invalid date: " + date + " must be yyyy-mm-dd", fg="bright_red")
+                style(
+                    "Invalid date: " + date_created + " must be yyyy-mm-dd",
+                    fg="bright_red",
+                )
             )
             return
         end_date = (tmp_date + timedelta(days=1)).strftime(date_format)
@@ -59,14 +71,14 @@ def search(language=None, date=None, stars=">=50", debug=False, order="desc"):
         print("DEBUG: search: start date:", start_date)
         print("DEBUG: search: end_date:", end_date)
 
-    query = f"stars:{stars}+created:{start_date}..{end_date}"
-    query += f"+language:{language}" if language else ""
-    url = f"{API_URL}?q={query}&sort=stars&order={order}"
+    query = f"stars:{stars}+created:{start_date}..{end_date}"  # construct query
+    query += f"+language:{language}" if language else ""  # add language to query
+    url = f"{API_URL}?q={query}&sort=stars&order={order}"  # use query to construct url
     if debug:
         print("DEBUG: search: url:", url)  # print the url when debugging
 
     try:
-        repositories = requests.get(url).json()
+        repositories = requests.get(url).json()  # get the response using the url
     except requests.exceptions.ConnectionError:
         echo(style("Internet connection error...", fg="bright_red"))
         return

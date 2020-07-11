@@ -9,7 +9,7 @@ from .search import search, debug_requests_on
 @click.command()
 @click.option("--lang", "-l", type=str, default="", help="Language filter eg: python")
 @click.option(
-    "--date",
+    "--date-created",
     "-d",
     default="",
     help="Specify repo creation date in ISO8601 format YYYY-MM-DD",
@@ -24,8 +24,8 @@ from .search import search, debug_requests_on
     "--stars",
     "-s",
     type=str,
-    default=">=50",
-    help="Range of stars required, default is '>=50'",
+    default=">=100",
+    help="Range of stars required, default is '>=100'",
 )
 @click.option(
     "--limit-results",
@@ -45,14 +45,14 @@ from .search import search, debug_requests_on
     "--long-stats", is_flag=True, help="Print the actual stats[1300 instead of 1.3k]",
 )
 @click.option("--debug", is_flag=True, default=False, help="Turn on debugging mode")
-def cli(lang, date, layout, stars, limit_results, order, long_stats, debug):
+def cli(lang, date_created, layout, stars, limit_results, order, long_stats, debug):
     """ Browse trending repos on GitHub by stars """
     if debug:
         import logging
 
         debug_requests_on()
 
-    tmp_repos = search(lang, date, stars, debug, order)
+    tmp_repos = search(lang, date_created, stars, debug, order)
     if not tmp_repos:  # if search() returned None
         return
 
