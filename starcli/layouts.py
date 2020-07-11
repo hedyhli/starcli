@@ -118,11 +118,12 @@ def table_layout(repos):
 def grid_layout(repos):
     """ Displays repositories in a grid format using rich """
 
-    max_description_len = 90
+    max_desc_len = 90
 
     panels = []
     for repo in repos:
 
+        # constructing the stats info
         stats = (
             str(repo["stargazers_count"])
             + "⭐, "
@@ -137,15 +138,16 @@ def grid_layout(repos):
         if not repo["description"]:
             repo["description"] = "None"
 
-        if len(repo["description"]) > max_description_len:
-            repo["description"] = (
-                repo["description"][: max_description_len - 1].strip() + "…"
-            )
-
         name = Text(repo["name"], style="bold yellow")
         language = Text(repo["language"], style="magenta")
         description = Text(repo["description"], style="green")
         stats = Text(stats, style="blue")
+
+        # truncate rest of the description if
+        # it's more than 90 (max_desc_len) chars
+        # using truncate() is better because it also
+        # takes care of asian characters
+        description.truncate(max_desc_len, overflow="ellipsis")
 
         repo_summary = Text.assemble(
             name, "\n", stats, "\n", language, "\n", description,
