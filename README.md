@@ -120,9 +120,9 @@ starcli -r 2
 ```
 
 The above will only give you two repos. This is useful if
-you want to put it in your `.bashrc`, `.zshrc`, or `config.fish`.
+you want to put it in your `.bashrc`, `.zshrc`, or `fish_greeting` function.
 
-Just add `starcli -r 3 -L grid` to that file, and every time you open your terminal,
+Just add `starcli -r 3 -L grid` in there, and every time you open your terminal,
 you will find 3 trending repos printed neatly in a grid format, great way to start your
 day (bit like the [Hacker Tab Extension](https://chrome.google.com/webstore/detail/hacker-tab/ibomigipadcieapbemkegkmadbbanbgm?hl=en) 😆 ).
 
@@ -132,7 +132,7 @@ day (bit like the [Hacker Tab Extension](https://chrome.google.com/webstore/deta
 
 * Issues, bug reports, or feature request: Don't hesitate to open an issue in this repo
 * Feedback: any general feedback or questions about using StarCLI you can leave a comment 
-on our [Product Hunt page](https://www.producthunt.com/posts/starcli), remember to be nice :smiley:
+on our [Product Hunt page](https://www.producthunt.com/posts/starcli), remember to be nice :) 
 
 
 ## Development    [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
