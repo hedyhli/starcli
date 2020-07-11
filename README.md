@@ -42,11 +42,11 @@ Usage: starcli [OPTIONS]
 
 Options:
   -l, --lang TEXT                 Language filter eg: python
-  -d, --date TEXT                 Specify repo creation date in ISO8601 format
+  -d, --date-created TEXT         Specify repo creation date in ISO8601 format
                                   YYYY-MM-DD
   -L, --layout [list|table|grid]  The output format (list, table, or grid),
                                   default is list
-  -s, --stars TEXT                Range of stars required, default is '>=50'
+  -s, --stars TEXT                Range of stars required, default is '>=100'
   -r, --limit-results INTEGER     Limit the number of results shown. Default:
                                   7
   -o, --order [desc|asc]          Specify the order of repos by stars that is
@@ -63,7 +63,7 @@ Switch layouts using `--layout {list|table|grid}`, or use the short option `-L`
 
 **list**
 
-<img src="https://raw.githubusercontent.com/hedythedev/starcli/main/demo-pics/list.png" width="400px;" alt="demo list"/> 
+<img src="https://raw.githubusercontent.com/hedythedev/starcli/main/demo-pics/list.png" width="400px;" alt="demo list"/>
 
 **table**
 
@@ -89,9 +89,10 @@ Here, we used `starcli -l python -L grid`, which is python with grid layout:
 
 ### Specify the number (or range) of stars
 
-(Recommended to be used with `--date`)
+(Recommended to be used with `--date-created`)
 
-The default range is >=50, you can change that! Use `--stars` or `-s` to specify what you want,
+The default range is >=100, you can change that!
+Use `--stars` or `-s` to specify what you want,
 for example, if you want to find repos that has more than 100 stars, you can use:
 
 ```
@@ -99,16 +100,18 @@ starcli -s '>100'
 ```
 
 Note that if you do something like `>1000` not many repos can have
-more than 1000 and is created within 100 days, to specify date of creation, use `--date`, see below.
+more than 1000 and is created within around 200 days,
+to specify date of creation, use `--date-created`, see below.
 
 ### Specify the date of creation
 
-Want to find newer, older, or just created repos? Just use `--date` or `-d`, and then
+Want to find newer, older, or just created repos?
+Just use `--date-created` or `-d`, and then
 provide a date in ISO8601 format: yyyy-mm-dd
 
 For example, to 1st January 2014, use:
 ```
-starcli --date 2014-01-01
+starcli --date-created 2014-01-01
 ```
 
 ### Limit the number of results shown
