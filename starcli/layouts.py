@@ -64,7 +64,7 @@ def list_layout(repos):
         )
 
         if len(repo["full_name"] + stats) > len(separator + " "):
-            # if lenth of stats is not enough to print after the repo full name
+            # if length of stats is not enough to print after the repo full name
             print()  # print new line
             console.print(  # and print the stats
                 " " * ((side_width) + (len(separator) - len(stats))),
