@@ -34,7 +34,7 @@ setup(
         "Click>=7.0",
         "colorama>=0.4.3",
         "requests>=2.22.0",
-        "rich>=2.1.0",
+        "rich>=3.3.0,<4.0.0",
     ],
     entry_points={"console_scripts": ["starcli=starcli.__main__:cli",]},
 )

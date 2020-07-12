@@ -72,7 +72,7 @@ def list_layout(repos):
 
     def column(renderable):
         """Constrain width and align to center to create a column."""
-        return Align.center(Constrain(renderable, width=LAYOUT_WIDTH))
+        return Align.center(renderable, width=LAYOUT_WIDTH, pad=False)
 
     console = Console()  # initialise rich
     for repo in repos:
@@ -83,13 +83,13 @@ def list_layout(repos):
 def table_layout(repos):
     """ Displays repositories in a table format using rich """
 
-    table = Table()
+    table = Table(leading=1)
 
     # make the columns
-    table.add_column("Name", style="bold cyan", no_wrap=True, width=45)
-    table.add_column("Language", style="green", no_wrap=True, width=23)
-    table.add_column("Description", style="blue", no_wrap=True, width=140)
-    table.add_column("Stats", style="magenta", no_wrap=False, width=57)
+    table.add_column("Name", style="bold cyan")
+    table.add_column("Language", style="green")
+    table.add_column("Description", style="blue")
+    table.add_column("Stats", style="magenta")
 
     for repo in repos:
 
@@ -108,8 +108,8 @@ def table_layout(repos):
             repo["description"] = "None"
 
         table.add_row(
-            repo["name"] + "\n\n",
-            repo["language"] + "\n\n",  # so that it can work here
+            repo["name"],
+            repo["language"],  # so that it can work here
             repo["description"],
             stats,
         )
