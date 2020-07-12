@@ -49,14 +49,14 @@ def list_layout(repos):
         title_table = Table.grid(padding=(0, 1))
         title_table.expand = True
         stats = "{stargazers_count} ⭐ {forks_count} 🍴 {watchers_count} 👀".format(**repo)
-        title = Text(repo["full_name"])
+        title = Text(repo["full_name"], overflow="fold")
         title.stylize_all(f"yellow link {repo['html_url']}")
         title_table.add_row(title, Text(stats, style="bold blue"))
         title_table.columns[1].no_wrap = True
         title_table.columns[1].justify = "right"
         yield title_table
         yield ""
-        # Language 
+        # Language
         language = repo["language"]
         if language:
             yield Text(language, style="bold cyan")
