@@ -8,7 +8,6 @@ from shutil import get_terminal_size
 # Third party imports
 from rich.align import Align
 from rich.console import Console, render_group
-from rich.constrain import Constrain
 from rich.rule import Rule
 from rich.table import Table
 from rich.text import Text
