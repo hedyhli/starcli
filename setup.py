@@ -7,7 +7,7 @@ from setuptools import setup
 with io.open("README.md", "rt", encoding="utf8") as f:
     LONG_DESC = f.read()
 
-VERSION = "2.9.5"
+VERSION = "2.10.0"
 
 # This call to setup() does all the work
 setup(
