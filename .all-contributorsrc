@@ -40,6 +40,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "willmcgugan",
+      "name": "Will McGugan",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/554369?v=4",
+      "profile": "https://www.willmcgugan.com",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
