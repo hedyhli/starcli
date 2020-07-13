@@ -167,6 +167,7 @@ Thanks goes to all of these wonderful people ([emoji key](https://allcontributor
     <td align="center"><a href="https://github.com/hexbee"><img src="https://avatars2.githubusercontent.com/u/26668583?v=4" width="100px;" alt=""/><br /><sub><b>hexbee</b></sub></a><br /><a href="https://github.com/hedythedev/starcli/issues?q=author%3Ahexbee" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://github.com/swellander"><img src="https://avatars0.githubusercontent.com/u/22231097?v=4" width="100px;" alt=""/><br /><sub><b>Sam Wellander</b></sub></a><br /><a href="https://github.com/hedythedev/starcli/commits?author=swellander" title="Code">💻</a></td>
     <td align="center"><a href="https://www.shivamsinha.xyz/"><img src="https://avatars0.githubusercontent.com/u/32016929?v=4" width="100px;" alt=""/><br /><sub><b>Shivam Sinha</b></sub></a><br /><a href="https://github.com/hedythedev/starcli/commits?author=shivam212" title="Code">💻</a></td>
+    <td align="center"><a href="https://www.willmcgugan.com"><img src="https://avatars3.githubusercontent.com/u/554369?v=4" width="100px;" alt=""/><br /><sub><b>Will McGugan</b></sub></a><br /><a href="https://github.com/hedythedev/starcli/commits?author=willmcgugan" title="Code">💻</a></td>
   </tr>
 </table>
 
