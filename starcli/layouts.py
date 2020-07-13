@@ -41,7 +41,7 @@ def list_layout(repos):
     @render_group()
     def render_repo(repo):
         """Yields renderables for a single repo."""
-        yield Rule()
+        yield Rule(style="bright_yellow")
         yield ""
         # Table with description and stats
         title_table = Table.grid(padding=(0, 1))
@@ -76,7 +76,7 @@ def list_layout(repos):
     console = Console()  # initialise rich
     for repo in repos:
         console.print(column(render_repo(repo)))
-    console.print(column(Rule()))
+    console.print(column(Rule(style="bright_yellow")))
 
 
 def table_layout(repos):
