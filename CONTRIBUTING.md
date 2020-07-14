@@ -23,36 +23,37 @@ Once you've worked on your feature/bugfix etc, you can open a pull request using
 
 This project is written in Python, requires **Python 3.6 or higher**, and uses `pip` with `setup.py`.
 
-Before you set up your environment, you must at least have the appropriate version of Python and Pip on your PATH, with a recent version of Git on your system.
-
-To setup your environment, first **fork** this repo
-
-and clone it
+To set it up, just fork + clone it, create a virtual environment and install all the dependencies:
 
 ```bash
-$ git clone https://github.com/<your_username>/starcli.git
-$ cd starcli
+$ pip install -r requirements_dev.txt
 ```
 
-Then, create a virtual environment to manage the dependencies needed for starcli. Name it anything you like, but most people name it `venv` or `env`. Don't worry about accidentally pushing the folder onto GitHub, these folders are ignored by git through the `.gitignore`file. You can use another virtual environment tool if  you like, of course.
-
-```bash
-$ pip install virtualenv && python -m virtualenv venv
-$ source venv/bin/activate
-(venv) $ pip install -r requirements_dev.txt
-```
-
-The `pip install` command will install all the requirements needed to run starcli, as well as dev-dependencies like `black`, `pylint`, `codespell`, etc.
+The command will install all the requirements needed to run starcli, as well as dev-dependencies like `black`, `pylint`, `codespell`, etc.
 
 Remember to use the `python3` and `pip3` command instead of `python` and `pip` if your system also has Python 2 installed.
 
 Check if the setup worked by running starcli from your local folder. 
 
 ```bash
-(venv) $ python -m starcli --help
+$ python -m starcli --help
 ```
 
 If the above command displayed the help and usage, you are good to go 👍 you can also test all
 the other features like list and table output, debug, etc. 
 
+**Running tests**
+```bash
+python -m pytest
+```
 
+**Linting checks**
+
+```bash
+pylint *.py
+```
+
+**Formatting & code spell**
+```bash
+black . && codespell --skip=".git,*.gif,*.png,*.PNG,venv/"
+```
