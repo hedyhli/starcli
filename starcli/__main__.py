@@ -15,6 +15,12 @@ from .search import search, debug_requests_on
     help="Specify repo creation date in ISO8601 format YYYY-MM-DD",
 )
 @click.option(
+    "--last-updated",
+    "-u",
+    default="",
+    help="Filter repos based on time of last update in ISO8601 format YYYY-MM-DD",
+)
+@click.option(
     "--layout",
     "-L",
     type=click.Choice(["list", "table", "grid"], case_sensitive=False),
@@ -45,14 +51,24 @@ from .search import search, debug_requests_on
     "--long-stats", is_flag=True, help="Print the actual stats[1300 instead of 1.3k]",
 )
 @click.option("--debug", is_flag=True, default=False, help="Turn on debugging mode")
-def cli(lang, date_created, layout, stars, limit_results, order, long_stats, debug):
+def cli(
+    lang,
+    date_created,
+    last_updated,
+    layout,
+    stars,
+    limit_results,
+    order,
+    long_stats,
+    debug,
+):
     """ Browse trending repos on GitHub by stars """
     if debug:
         import logging
 
         debug_requests_on()
 
-    tmp_repos = search(lang, date_created, stars, debug, order)
+    tmp_repos = search(lang, date_created, last_updated, stars, debug, order)
     if not tmp_repos:  # if search() returned None
         return
 
