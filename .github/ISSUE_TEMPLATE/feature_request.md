@@ -11,7 +11,7 @@ assignees: ''
 
 
 
-**Why is it neccessary? (or how would it make it better)**
+**Why is it necessary? (or how would it make it better)**
 
 
 
