@@ -72,9 +72,7 @@ def cli(
     if not tmp_repos:  # if search() returned None
         return
 
-    repos = []
-    for i in range(limit_results):
-        repos.append(tmp_repos[i])
+    repos = tmp_repos[0:limit_results]
 
     if not long_stats:
         for repo in repos:
