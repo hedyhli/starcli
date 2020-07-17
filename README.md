@@ -120,7 +120,7 @@ starcli --date-created 2014-01-01
 ### Filtering by topics
 
 This option helps you to filter by topics. You can use `--topics`or `-t` to include
-a topic in search. For multiple topics, use this option mutliple times.
+a topic in search. For more than one topic, use this option mutliple times.
 
 ```
 starcli  -l python -d 2020-07-06 -t deep-learning
