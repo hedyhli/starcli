@@ -124,7 +124,7 @@ a topic in search.
 This option can be used multiple times.
 
 ```
-starcli  -l python -d 2020-07-06 -t deep-learning -t pytorch
+starcli -l python -d 2020-07-06 -t deep-learning -t pytorch
 ```
 
 ### Limit the number of results shown
@@ -148,14 +148,14 @@ day (bit like the [Hacker Tab Extension](https://chrome.google.com/webstore/deta
 
 * Issues, bug reports, or feature request: Don't hesitate to open an issue in this repo
 * Feedback: any general feedback or questions about using StarCLI you can leave a comment 
-on our [Product Hunt page](https://www.producthunt.com/posts/starcli), remember to be nice :) 
+on our [Product Hunt page](https://www.producthunt.com/posts/starcli), remember to be nice :)
 
 
 ## Development    [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-For contributing guidelines and how to set up your development environment, please 
+For contributing guidelines and how to set up your development environment, please
 read [`CONTRIBUTING.md`](https://github.com/hedythedev/starcli/blob/main/CONTRIBUTING.md).
-Remember that all contributions to this project should follow its 
+Remember that all contributions to this project should follow its
 [CODE OF CONDUCT](https://github.com/hedythedev/starcli/blob/main/CODE_OF_CONDUCT.md).
 
 
