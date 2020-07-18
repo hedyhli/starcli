@@ -196,9 +196,9 @@ This project follows the [all-contributors](https://github.com/all-contributors/
 
 This project was forked from
 [`githunt` (python)](https://github.com/SriNandan33/githunt)
-made by [Srinivasa Rao](https://github.com/SriNandan33), which
-in turn, is inspired by
-[`githunt` (the JavaScript Web App)](https://github.com/kamranahmedse/githunt).
+and its initial intention was to rewrite that project to use
+Rich instead of colorama + tabulate, but now it has so much more features
+than before, thanks everyone!
 
 
 
