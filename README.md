@@ -129,6 +129,16 @@ This option can be used multiple times.
 starcli -l python -d 2020-07-06 -t deep-learning -t pytorch
 ```
 
+### Specifying last updated date
+
+Use this `--last-updated` or `-u` when you want to find popular repos that are
+last updated on a given date, say 2020-01-01 for 1st of Jan
+2020:
+
+```
+starcli -u 2020-01-01
+```
+
 ### Limit the number of results shown
 Don't like the default 7? You can change it to something else,
 using `--limit-results` or `-r` followed by an integer:
