@@ -33,7 +33,7 @@ def debug_requests_on():
     requests_log.propagate = True
 
 
-def search(language=None, date_created=None, stars=">=100", debug=False, order="desc"):
+def search(language=None, date_created=None, stars=">=100", topics=[], debug=False, order="desc"):
     """ Returns repositories based on the language, date, and stars
 
     """
@@ -73,6 +73,8 @@ def search(language=None, date_created=None, stars=">=100", debug=False, order="
 
     query = f"stars:{stars}+created:{start_date}..{end_date}"  # construct query
     query += f"+language:{language}" if language else ""  # add language to query
+    query += f"".join(["+topic:" + i for i in topics])  # add topics to query
+
     url = f"{API_URL}?q={query}&sort=stars&order={order}"  # use query to construct url
     if debug:
         print("DEBUG: search: url:", url)  # print the url when debugging

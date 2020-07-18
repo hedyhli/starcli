@@ -44,6 +44,9 @@ Options:
   -l, --lang TEXT                 Language filter eg: python
   -d, --date-created TEXT         Specify repo creation date in ISO8601 format
                                   YYYY-MM-DD
+  -t, --topics TEXT               Search by topic. Can be specified multiple
+                                  times. Multiple topics will be conjugated
+                                  using &
   -L, --layout [list|table|grid]  The output format (list, table, or grid),
                                   default is list
   -s, --stars TEXT                Range of stars required, default is '>=100'
@@ -112,6 +115,16 @@ provide a date in ISO8601 format: yyyy-mm-dd
 For example, to 1st January 2014, use:
 ```
 starcli --date-created 2014-01-01
+```
+
+### Filtering by topics
+
+This option helps you to filter by topics. You can use `--topics`or `-t` to include
+a topic in search.
+This option can be used multiple times.
+
+```
+starcli  -l python -d 2020-07-06 -t deep-learning -t pytorch
 ```
 
 ### Limit the number of results shown
