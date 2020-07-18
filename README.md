@@ -47,6 +47,8 @@ Options:
   -t, --topics TEXT               Search by topic. Can be specified multiple
                                   times. Multiple topics will be conjugated
                                   using &
+  -u, --last-updated TEXT         Filter repos based on time of last update in
+                                  ISO8601 format YYYY-MM-DD
   -L, --layout [list|table|grid]  The output format (list, table, or grid),
                                   default is list
   -s, --stars TEXT                Range of stars required, default is '>=100'
