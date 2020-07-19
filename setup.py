@@ -13,7 +13,7 @@ VERSION = "2.10.0"
 setup(
     name="starcli",
     version=VERSION,
-    description="Browse popular repos on github by star trends from your command line!",
+    description="Browse popular projects on github by star trends from your command line",
     long_description=LONG_DESC,
     long_description_content_type="text/markdown",
     python_requires=">=3.6",
