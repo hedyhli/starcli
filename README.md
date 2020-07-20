@@ -42,6 +42,7 @@ Usage: starcli [OPTIONS]
 
 Options:
   -l, --lang TEXT                 Language filter eg: python
+  -S, --spoken-language TEXT      Spoken Language filter eg: en for English, zh for Chinese, etc
   -d, --date-created TEXT         Specify repo creation date in ISO8601 format
                                   YYYY-MM-DD
   -t, --topics TEXT               Search by topic. Can be specified multiple
@@ -91,6 +92,15 @@ Here, we used `starcli -l python -L grid`, which is python with grid layout:
 
 <img src="https://raw.githubusercontent.com/hedythedev/starcli/main/demo-pics/lang.png" width="800px;" alt="demo grid"/>
 
+### Filtering by spoken language
+
+If you wanted to find repos in your native language, you can use `--spoken-language` or `-S`:
+
+```
+starcli --spoken-language zh
+```
+
+The above command lists down repos written in Chinese. A full list of language codes is available [here]('./spoken-languages.json')
 
 ### Specify the number (or range) of stars
 
