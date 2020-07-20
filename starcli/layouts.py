@@ -51,7 +51,6 @@ def list_layout(repos):
         )
         stats += f"{repo['forks_count']} 🍴" if repo["forks_count"] != "-1" else ""
         stats += f"{repo['watchers_count']} 👀 " if repo["watchers_count"] else ""
-        # stats = "{stargazers_count} ⭐ {forks_count} 🍴 {watchers_count} 👀".format(**repo)
         title = Text(repo["full_name"], overflow="fold")
         title.stylize_all(f"yellow link {repo['html_url']}")
         title_table.add_row(title, Text(stats, style="bold blue"))
@@ -109,15 +108,6 @@ def table_layout(repos):
             (str(repo["watchers_count"]) + "👀") if repo["watchers_count"] else ""
         )
 
-        # stats = (  # construct the stats info
-        #     str(repo["stargazers_count"])
-        #     + "⭐, "
-        #     + str(repo["forks_count"])
-        #     + "🍴, "
-        #     + str(repo["watchers_count"])
-        #     + "👀"
-        # )
-
         stats = stars_string + forks_string + watchers_string
 
         if not repo["language"]:  # if language is not provided
@@ -157,14 +147,6 @@ def grid_layout(repos):
         watchers_string = (
             (str(repo["watchers_count"]) + "👀") if repo["watchers_count"] else ""
         )
-        # stats = (
-        #     str(repo["stargazers_count"])
-        #     + "⭐, "
-        #     + str(repo["forks_count"])
-        #     + "🍴, "
-        #     + str(repo["watchers_count"])
-        #     + "👀"
-        # )
 
         stats = stars_string + forks_string + watchers_string
 
