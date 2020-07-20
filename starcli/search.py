@@ -4,12 +4,13 @@
 from datetime import datetime, timedelta
 import logging
 from random import randint
+import re
 
 # Third party imports
 import requests
 from click import echo, style
 import colorama
-
+from bs4 import BeautifulSoup
 
 API_URL = "https://api.github.com/search/repositories"
 
@@ -103,6 +104,7 @@ def search(
         f"+pushed:{start_last_updated}..{end_last_updated}"  # add last updated to query
     )
     query += f"+language:{language}" if language else ""  # add language to query
+    # query += f"+spoken_language:{spoken_language}" if spoken_language else "" # add spoken language code to query
     query += f"".join(["+topic:" + i for i in topics])  # add topics to query
 
     url = f"{API_URL}?q={query}&sort=stars&order={order}"  # use query to construct url
@@ -115,4 +117,64 @@ def search(
         echo(style("Internet connection error...", fg="bright_red"))
         return None
 
+    # print(repositories["items"][0])
     return repositories["items"]
+
+
+def search_by_spoken_language(
+    language=None, spoken_language=None, order="desc", stars=">=10"
+):
+    API_URL = "https://github.com/trending"  # filter for spoken language is available only here
+    if language:
+        API_URL += "{language}"  # filter by programming language
+    query = f"?spoken_language_code={spoken_language}"  # filter by spoken language
+    url = f"{API_URL}{query}"
+    try:
+        page = requests.get(url).text
+    except requests.exceptions.ConnectionError:
+        echo(style("Internet connection error...", fg="bright_red"))
+        return None
+
+    soup = BeautifulSoup(page, "lxml")
+    repo_list = soup.find_all("article", class_="Box-row")
+    repositories = []
+    for repo in repo_list:
+        repo_dict = {}
+        repo_dict["full_name"] = repo.h1.a.text.replace(" ", "").replace("\n", "")
+        repo_dict["name"] = repo_dict["full_name"].split("/")[1]
+        repo_dict["html_url"] = f"https://github.com/{repo_dict['full_name']}"
+        div = repo.find("div", class_="f6 text-gray mt-2")
+        anchor_list = div.find_all("a")
+        # if stars present
+        repo_dict["stargazers_count"] = (
+            int(anchor_list[0].text.strip().replace(",", ""))
+            if anchor_list[0].text
+            else -1
+        )
+        # if forks count present
+        repo_dict["forks_count"] = (
+            int(anchor_list[1].text.strip().replace(",", ""))
+            if anchor_list[1].text
+            else -1
+        )
+        language_span = div.span.find_all("span")
+        # if language is present
+        repo_dict["language"] = (
+            language_span[1].text.strip() if len(language_span) > 0 else None
+        )
+        # if description is present
+        repo_dict["description"] = repo.p.text.strip() if repo.p else None
+        repo_dict["watchers_count"] = None  # watchers count not available
+        # filter by number of stars
+        num = [int(s) for s in re.findall(r"\d+", stars)][0]
+        if (
+            ("<" in stars and repo_dict["stargazers_count"] < num)
+            or ("<=" in stars and repo_dict["stargazers_count"] <= num)
+            or (">" in stars and repo_dict["stargazers_count"] > num)
+            or (">=" in stars and repo_dict["stargazers_count"] >= num)
+        ):
+            repositories.append(repo_dict)
+
+    if order == "asc":
+        return sorted(repositories, key=lambda repo: repo["stargazers_count"])
+    return sorted(repositories, key=lambda repo: repo["stargazers_count"], reverse=True)

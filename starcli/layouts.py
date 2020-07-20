@@ -46,7 +46,12 @@ def list_layout(repos):
         # Table with description and stats
         title_table = Table.grid(padding=(0, 1))
         title_table.expand = True
-        stats = "{stargazers_count} ⭐ {forks_count} 🍴 {watchers_count} 👀".format(**repo)
+        stats = (
+            f"{repo['stargazers_count']} ⭐ " if repo["stargazers_count"] != "-1" else ""
+        )
+        stats += f"{repo['forks_count']} 🍴" if repo["forks_count"] != "-1" else ""
+        stats += f"{repo['watchers_count']} 👀 " if repo["watchers_count"] else ""
+        # stats = "{stargazers_count} ⭐ {forks_count} 🍴 {watchers_count} 👀".format(**repo)
         title = Text(repo["full_name"], overflow="fold")
         title.stylize_all(f"yellow link {repo['html_url']}")
         title_table.add_row(title, Text(stats, style="bold blue"))
@@ -92,14 +97,28 @@ def table_layout(repos):
 
     for repo in repos:
 
-        stats = (  # construct the stats info
-            str(repo["stargazers_count"])
-            + "⭐, "
-            + str(repo["forks_count"])
-            + "🍴, "
-            + str(repo["watchers_count"])
-            + "👀"
+        stars_string = (
+            (str(repo["stargazers_count"]) + "⭐, ")
+            if repo["stargazers_count"] != "-1"
+            else ""
         )
+        forks_string = (
+            (str(repo["forks_count"]) + "🍴, ") if repo["forks_count"] != "-1" else ""
+        )
+        watchers_string = (
+            (str(repo["watchers_count"]) + "👀") if repo["watchers_count"] else ""
+        )
+
+        # stats = (  # construct the stats info
+        #     str(repo["stargazers_count"])
+        #     + "⭐, "
+        #     + str(repo["forks_count"])
+        #     + "🍴, "
+        #     + str(repo["watchers_count"])
+        #     + "👀"
+        # )
+
+        stats = stars_string + forks_string + watchers_string
 
         if not repo["language"]:  # if language is not provided
             repo["language"] = "None"  # make it a string
@@ -126,14 +145,28 @@ def grid_layout(repos):
     for repo in repos:
 
         # constructing the stats info
-        stats = (
-            str(repo["stargazers_count"])
-            + "⭐, "
-            + str(repo["forks_count"])
-            + "🍴, "
-            + str(repo["watchers_count"])
-            + "👀"
+
+        stars_string = (
+            (str(repo["stargazers_count"]) + "⭐, ")
+            if repo["stargazers_count"] != "-1"
+            else ""
         )
+        forks_string = (
+            (str(repo["forks_count"]) + "🍴, ") if repo["forks_count"] != "-1" else ""
+        )
+        watchers_string = (
+            (str(repo["watchers_count"]) + "👀") if repo["watchers_count"] else ""
+        )
+        # stats = (
+        #     str(repo["stargazers_count"])
+        #     + "⭐, "
+        #     + str(repo["forks_count"])
+        #     + "🍴, "
+        #     + str(repo["watchers_count"])
+        #     + "👀"
+        # )
+
+        stats = stars_string + forks_string + watchers_string
 
         if not repo["language"]:  # if language is not provided
             repo["language"] = "None"  # make it a string

@@ -3,11 +3,18 @@
 import click
 
 from .layouts import list_layout, table_layout, grid_layout, shorten_count
-from .search import search, debug_requests_on
+from .search import search, debug_requests_on, search_by_spoken_language
 
 
 @click.command()
 @click.option("--lang", "-l", type=str, default="", help="Language filter eg: python")
+@click.option(
+    "--spoken-language",
+    "-S",
+    type=str,
+    default="",
+    help="Spoken Language filter eg: en for English, zh for Chinese, etc",
+)
 @click.option(
     "--date-created",
     "-d",
@@ -60,6 +67,7 @@ from .search import search, debug_requests_on
 @click.option("--debug", is_flag=True, default=False, help="Turn on debugging mode")
 def cli(
     lang,
+    spoken_language,
     date_created,
     topics,
     last_updated,
@@ -75,27 +83,46 @@ def cli(
         import logging
 
         debug_requests_on()
+    if not spoken_language:  # if filtering by spoken language not required
+        tmp_repos = search(
+            lang, date_created, last_updated, stars, topics, debug, order
+        )
+        if not tmp_repos:  # if search() returned None
+            return
+        repos = tmp_repos[0:limit_results]
 
-    tmp_repos = search(lang, date_created, last_updated, stars, topics, debug, order)
-    if not tmp_repos:  # if search() returned None
-        return
+        if not long_stats:
+            for repo in repos:
+                repo["stargazers_count"] = shorten_count(repo["stargazers_count"])
+                repo["watchers_count"] = shorten_count(repo["watchers_count"])
+                repo["forks_count"] = shorten_count(repo["forks_count"])
+        if layout == "table":
+            table_layout(repos)
+            return
 
-    repos = tmp_repos[0:limit_results]
+        if layout == "grid":
+            grid_layout(repos)
+            return
 
-    if not long_stats:
-        for repo in repos:
-            repo["stargazers_count"] = shorten_count(repo["stargazers_count"])
-            repo["watchers_count"] = shorten_count(repo["watchers_count"])
-            repo["forks_count"] = shorten_count(repo["forks_count"])
-    if layout == "table":
-        table_layout(repos)
-        return
+        list_layout(repos)  # if layout isn't a grid or table, then use list.
+    else:
+        tmp_repos = search_by_spoken_language(lang, spoken_language, order, stars)
+        if not tmp_repos:
+            return
+        repos = tmp_repos[0:limit_results]
+        if not long_stats:
+            for repo in repos:
+                repo["stargazers_count"] = shorten_count(repo["stargazers_count"])
+                repo["forks_count"] = shorten_count(repo["forks_count"])
+        if layout == "table":
+            table_layout(repos)
+            return
 
-    if layout == "grid":
-        grid_layout(repos)
-        return
+        if layout == "grid":
+            grid_layout(repos)
+            return
 
-    list_layout(repos)  # if layout isn't a grid or table, then use list.
+        list_layout(repos)  # if layout isn't a grid or table, then use list.
 
 
 if __name__ == "__main__":
