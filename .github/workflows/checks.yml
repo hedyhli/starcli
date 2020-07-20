@@ -27,6 +27,6 @@ jobs:
     - run: black . --check || true
     - uses: codespell-project/actions-codespell@master
       with: 
-        skip: "*.json,*.png,*.gif,*.PNG,.git/"
+        skip: "*.json,*.png,*.gif,*.PNG,.git/*"
     - run: pip install -r requirements.txt || true
     - run: python -m pytest
