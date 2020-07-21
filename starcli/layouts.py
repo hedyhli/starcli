@@ -62,12 +62,23 @@ def list_layout(repos):
         title_table.columns[1].justify = "right"
         yield title_table
         yield ""
-        # Language
-        language = repo["language"]
-        if language:
-            yield Text(language, style="bold cyan")
-        else:
-            yield "[i cyan]unknown language"
+        # Language and date range are added to single row
+        lang_table = Table.grid(padding=(0, 1))
+        lang_table.expand = True
+        language_col = (
+            Text(repo["language"], style="bold cyan")
+            if repo["language"]
+            else Text("unknown language")
+        )
+        date_range_col = (
+            Text(repo["date_range"].replace("stars", "⭐"), style="bold cyan")
+            if "date_range" in repo.keys() and repo["date_range"]
+            else Text("")
+        )
+        lang_table.add_row(language_col, date_range_col)
+        lang_table.columns[1].no_wrap = True
+        lang_table.columns[1].justify = "right"
+        yield lang_table
         yield ""
         # Descripion
         description = repo["description"]
@@ -101,6 +112,11 @@ def table_layout(repos):
     for repo in repos:
 
         stats = get_stats(repo)
+        stats += (
+            " " + repo["date_range"].replace("stars", "⭐")
+            if "date_range" in repo.keys() and repo["date_range"]
+            else ""
+        )
 
         if not repo["language"]:  # if language is not provided
             repo["language"] = "None"  # make it a string
@@ -127,6 +143,11 @@ def grid_layout(repos):
     for repo in repos:
 
         stats = get_stats(repo)
+        stats += (
+            " " + repo["date_range"].replace("stars", "⭐")
+            if "date_range" in repo.keys() and repo["date_range"]
+            else ""
+        )
 
         if not repo["language"]:  # if language is not provided
             repo["language"] = "None"  # make it a string

@@ -118,6 +118,17 @@ Note that if you do something like `>1000` not many repos can have
 more than 1000 and is created within around 200 days,
 to specify date of creation, use `--date-created`, see below.
 
+### Filter by stars daily, weekly or monthly
+
+Wish to know what's trending this week?!
+You can view the number of stars a repo recieved today, this week or this month by using the `--date-range` or `-D` option:
+
+```
+starcli -D this-week -L table
+```
+
+This command will also display the number of stars recieved for each repo this week in the form of a table.
+
 ### Specify the date of creation
 
 Want to find newer, older, or just created repos?
@@ -131,7 +142,7 @@ starcli --date-created 2014-01-01
 
 ### Filtering by topics
 
-This option helps you to filter by topics. You can use `--topics`or `-t` to include
+This option helps you to filter by topics. You can use `--topics` or `-t` to include
 a topic in search.
 This option can be used multiple times.
 

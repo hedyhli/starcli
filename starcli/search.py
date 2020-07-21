@@ -14,6 +14,8 @@ from bs4 import BeautifulSoup
 
 API_URL = "https://api.github.com/search/repositories"
 
+date_range_map = {"today": "daily", "this-week": "weekly", "this-month": "monthly"}
+
 
 def debug_requests_on():
     """ Turn on the logging for requests """
@@ -121,14 +123,16 @@ def search(
     return repositories["items"]
 
 
-def search_by_spoken_language(
-    language=None, spoken_language=None, order="desc", stars=">=10"
+def search_github_trending(
+    language=None, spoken_language=None, order="desc", stars=">=10", date_range=None
 ):
     """ Returns trending repositories from github trending page """
     API_URL = "https://github.com/trending"  # filter for spoken language is available only here
     if language:
         API_URL += "{language}"  # filter by programming language
     query = f"?spoken_language_code={spoken_language}"  # filter by spoken language
+    if date_range:
+        query += f"&since={date_range_map[date_range]}"
     url = f"{API_URL}{query}"
     try:
         page = requests.get(url).text
@@ -146,6 +150,7 @@ def search_by_spoken_language(
         repo_dict["html_url"] = f"https://github.com/{repo_dict['full_name']}"
         div = repo.find("div", class_="f6 text-gray mt-2")
         anchor_list = div.find_all("a")
+        span_list = div.find_all("span")
         # if stars present
         repo_dict["stargazers_count"] = (
             int(anchor_list[0].text.strip().replace(",", ""))
@@ -158,13 +163,22 @@ def search_by_spoken_language(
             if anchor_list[1].text
             else -1
         )
-        language_span = div.span.find_all("span")
         # if language is present
+        language_span = div.span.find_all("span")
         repo_dict["language"] = (
             language_span[1].text.strip() if len(language_span) > 0 else None
         )
         # if description is present
         repo_dict["description"] = repo.p.text.strip() if repo.p else None
+        # if stars date range is present
+        if date_range:
+            repo_dict["date_range"] = (
+                span_list[-1].text.replace("\n", "").strip()
+                if len(span_list) > 0
+                else None
+            )
+        else:
+            repo_dict["date_range"] = None
         repo_dict["watchers_count"] = None  # watchers count not available
         # filter by number of stars
         num = [int(s) for s in re.findall(r"\d+", stars)][0]

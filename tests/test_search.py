@@ -1,6 +1,6 @@
 """ tests.test_search """
 
-from starcli.search import search, search_by_spoken_language
+from starcli.search import search, search_github_trending
 
 
 def test_search():
@@ -37,7 +37,7 @@ def test_no_results():
 
 def test_spoken_language():
     """ Test search by spoken_languages """
-    repos = search_by_spoken_language("javascript", "zh")  # zh = chinese
+    repos = search_github_trending("javascript", "zh")  # zh = chinese
     for repo in repos:
         assert repo["stargazers_count"] >= 0 or repo["stargazers_count"] == -1
         assert repo["forks_count"] >= 0 or repo["forks_count"] == -1
