@@ -100,7 +100,7 @@ If you wanted to find repos in your native language, you can use `--spoken-langu
 starcli --spoken-language zh
 ```
 
-The above command lists down repos written in Chinese. A full list of language codes is available [here](./spoken-languages.json)
+The above command lists down repos written in Chinese. A full list of language codes is available [here](./starcli/spoken-languages.json)
 
 ### Specify the number (or range) of stars
 
