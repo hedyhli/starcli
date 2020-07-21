@@ -31,10 +31,10 @@ setup(
     packages=["starcli"],
     include_package_data=True,
     install_requires=[
-        "beautifulsoup4==4.9.1",
+        "beautifulsoup4>=4.9.1",
         "Click>=7.0",
         "colorama>=0.4.3",
-        "lxml==4.5.2",
+        "lxml>=4.5.2",
         "requests>=2.22.0",
         "rich>=3.3.0,<4.0.0",
     ],
