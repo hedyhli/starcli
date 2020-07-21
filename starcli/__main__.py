@@ -87,42 +87,27 @@ def cli(
         tmp_repos = search(
             lang, date_created, last_updated, stars, topics, debug, order
         )
-        if not tmp_repos:  # if search() returned None
-            return
-        repos = tmp_repos[0:limit_results]
-
-        if not long_stats:
-            for repo in repos:
-                repo["stargazers_count"] = shorten_count(repo["stargazers_count"])
-                repo["watchers_count"] = shorten_count(repo["watchers_count"])
-                repo["forks_count"] = shorten_count(repo["forks_count"])
-        if layout == "table":
-            table_layout(repos)
-            return
-
-        if layout == "grid":
-            grid_layout(repos)
-            return
-
-        list_layout(repos)  # if layout isn't a grid or table, then use list.
     else:
         tmp_repos = search_by_spoken_language(lang, spoken_language, order, stars)
-        if not tmp_repos:
-            return
-        repos = tmp_repos[0:limit_results]
-        if not long_stats:
-            for repo in repos:
-                repo["stargazers_count"] = shorten_count(repo["stargazers_count"])
-                repo["forks_count"] = shorten_count(repo["forks_count"])
-        if layout == "table":
-            table_layout(repos)
-            return
+    if not tmp_repos:  # if search() returned None
+        return
+    repos = tmp_repos[0:limit_results]
 
-        if layout == "grid":
-            grid_layout(repos)
-            return
+    if not long_stats:
+        for repo in repos:
+            repo["stargazers_count"] = shorten_count(repo["stargazers_count"])
+            repo["forks_count"] = shorten_count(repo["forks_count"])
+            if repo["watchers_count"]:
+                repo["watchers_count"] = shorten_count(repo["watchers_count"])
+    if layout == "table":
+        table_layout(repos)
+        return
 
-        list_layout(repos)  # if layout isn't a grid or table, then use list.
+    if layout == "grid":
+        grid_layout(repos)
+        return
+
+    list_layout(repos)  # if layout isn't a grid or table, then use list.
 
 
 if __name__ == "__main__":
