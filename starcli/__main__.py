@@ -68,7 +68,7 @@ from .search import search, debug_requests_on, search_github_trending
     "--date-range",
     "-D",
     type=click.Choice(["today", "this-week", "this-month"], case_sensitive=False),
-    help="View stars recieved today, this week or this month",
+    help="View stars received today, this week or this month",
 )
 @click.option("--debug", is_flag=True, default=False, help="Turn on debugging mode")
 def cli(

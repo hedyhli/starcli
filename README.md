@@ -121,7 +121,7 @@ to specify date of creation, use `--date-created`, see below.
 ### Filter by stars daily, weekly or monthly
 
 Wish to know what's trending this week?!
-You can view the number of stars a repo recieved today, this week or this month by using the `--date-range` or `-D` option:
+You can view the number of stars a repo received today, this week or this month by using the `--date-range` or `-D` option:
 
 ```
 starcli -D this-week -L table
