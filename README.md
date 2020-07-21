@@ -127,7 +127,7 @@ You can view the number of stars a repo received today, this week or this month 
 starcli -D this-week -L table
 ```
 
-This command will also display the number of stars recieved for each repo this week in the form of a table.
+This command will also display the number of stars received for each repo this week in the form of a table.
 
 ### Specify the date of creation
 
