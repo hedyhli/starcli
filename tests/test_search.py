@@ -1,7 +1,7 @@
 """ tests.test_search """
 
-from starcli.search import search
 from datetime import datetime, timedelta
+from starcli.search import search
 
 
 def test_search():
@@ -25,9 +25,10 @@ def test_search_topic():
         assert repo["watchers_count"] >= 0
         assert repo["forks_count"] >= 0
         assert repo["language"].lower() == "python"
-        assert (repo["description"] == None) or repo["description"]
+        assert (repo["description"] is None) or repo["description"]
         assert repo["full_name"].count("/") >= 1
         assert repo["html_url"] == "https://github.com/" + repo["full_name"]
+
 
 def test_search_topics():
     """
@@ -38,9 +39,10 @@ def test_search_topics():
         assert repo["stargazers_count"] >= 0
         assert repo["watchers_count"] >= 0
         assert repo["forks_count"] >= 0
-        assert (repo["description"] == None) or repo["description"]
+        assert (repo["description"] is None) or repo["description"]
         assert repo["full_name"].count("/") >= 1
         assert repo["html_url"] == "https://github.com/" + repo["full_name"]
+
 
 def test_search_created_date():
     """
@@ -53,11 +55,20 @@ def test_search_created_date():
         assert repo["stargazers_count"] >= 0
         assert repo["watchers_count"] >= 0
         assert repo["forks_count"] >= 0
-        assert (repo["description"] == None) or repo["description"]
+        assert (repo["description"] is None) or repo["description"]
         assert repo["full_name"].count("/") >= 1
         assert repo["html_url"] == "https://github.com/" + repo["full_name"]
         # Need to account for min and max created dates
-        assert (datetime.strptime(repo["created_at"].split("T")[0], date_format) >= datetime.strptime(created_date_value, date_format) and datetime.strptime(repo["created_at"].split("T")[0], date_format) <= datetime.strptime(created_date_value, date_format) + timedelta(days=1))
+        assert datetime.strptime(
+            repo["created_at"].split("T")[0], date_format
+        ) >= datetime.strptime(created_date_value, date_format) and datetime.strptime(
+            repo["created_at"].split("T")[0], date_format
+        ) <= datetime.strptime(
+            created_date_value, date_format
+        ) + timedelta(
+            days=1
+        )
+
 
 def test_search_updated_date():
     """
@@ -70,11 +81,20 @@ def test_search_updated_date():
         assert repo["stargazers_count"] >= 0
         assert repo["watchers_count"] >= 0
         assert repo["forks_count"] >= 0
-        assert (repo["description"] == None) or repo["description"]
+        assert (repo["description"] is None) or repo["description"]
         assert repo["full_name"].count("/") >= 1
         assert repo["html_url"] == "https://github.com/" + repo["full_name"]
         # Need to account for min and max updated dates
-        assert (datetime.strptime(repo["updated_at"].split("T")[0], date_format) >= datetime.strptime(updated_date_value, date_format) and datetime.strptime(repo["updated_at"].split("T")[0], date_format) <= datetime.strptime(updated_date_value, date_format) + timedelta(days=1))
+        assert datetime.strptime(
+            repo["updated_at"].split("T")[0], date_format
+        ) >= datetime.strptime(updated_date_value, date_format) and datetime.strptime(
+            repo["updated_at"].split("T")[0], date_format
+        ) <= datetime.strptime(
+            updated_date_value, date_format
+        ) + timedelta(
+            days=1
+        )
+
 
 def test_search_stars():
     """
@@ -85,9 +105,10 @@ def test_search_stars():
         assert repo["stargazers_count"] == 1
         assert repo["watchers_count"] >= 0
         assert repo["forks_count"] >= 0
-        assert (repo["description"] == None) or repo["description"]
+        assert (repo["description"] is None) or repo["description"]
         assert repo["full_name"].count("/") >= 1
         assert repo["html_url"] == "https://github.com/" + repo["full_name"]
+
 
 def test_no_results():
     """ Test if no search results found """
