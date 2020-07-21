@@ -78,7 +78,7 @@ def cli(
     long_stats,
     debug,
 ):
-    """ Browse trending repos on GitHub by stars """
+    """ Find trending repos on GitHub """
     if debug:
         import logging
 
