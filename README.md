@@ -206,6 +206,9 @@ Thanks goes to all of these wonderful people ([emoji key](https://allcontributor
     <td align="center"><a href="https://github.com/ashikjm"><img src="https://avatars1.githubusercontent.com/u/12744524?v=4" width="100px;" alt=""/><br /><sub><b>Ashik J M</b></sub></a><br /><a href="https://github.com/hedythedev/starcli/commits?author=ashikjm" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/ylchao"><img src="https://avatars0.githubusercontent.com/u/15059429?v=4" width="100px;" alt=""/><br /><sub><b>Yu-Lin Chao</b></sub></a><br /><a href="https://github.com/hedythedev/starcli/commits?author=ylchao" title="Code">💻</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/Saif807380"><img src="https://avatars2.githubusercontent.com/u/50794619?v=4" width="100px;" alt=""/><br /><sub><b>Saif Kazi</b></sub></a><br /><a href="https://github.com/hedythedev/starcli/commits?author=Saif807380" title="Code">💻</a> <a href="https://github.com/hedythedev/starcli/commits?author=Saif807380" title="Documentation">📖</a></td>
+  </tr>
 </table>
 
 <!-- markdownlint-enable -->
