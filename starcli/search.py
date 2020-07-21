@@ -8,7 +8,7 @@ import re
 
 # Third party imports
 import requests
-from click import echo, style
+from click import secho
 import colorama
 from bs4 import BeautifulSoup
 
@@ -40,7 +40,9 @@ def convert_datetime(date, date_format):
         # try to turn the string into a date-time object
         tmp_date = datetime.strptime(date, date_format)
     except ValueError:  # ValueError will be thrown if format is invalid
-        echo(style("Invalid date: " + date + " must be yyyy-mm-dd", fg="bright_red",))
+        secho(
+            "Invalid date: " + date + " must be yyyy-mm-dd", fg="bright_red",
+        )
         return None
     return tmp_date
 
@@ -113,7 +115,7 @@ def search(
     try:
         repositories = requests.get(url).json()  # get the response using the url
     except requests.exceptions.ConnectionError:
-        echo(style("Internet connection error...", fg="bright_red"))
+        secho("Internet connection error...", fg="bright_red")
         return None
 
     return repositories["items"]
@@ -131,7 +133,7 @@ def search_by_spoken_language(
     try:
         page = requests.get(url).text
     except requests.exceptions.ConnectionError:
-        echo(style("Internet connection error...", fg="bright_red"))
+        secho("Internet connection error...", fg="bright_red")
         return None
 
     soup = BeautifulSoup(page, "lxml")
