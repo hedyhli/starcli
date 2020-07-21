@@ -33,6 +33,14 @@ def shorten_count(number):
         return str(new_number / 1000.0) + "k"
 
 
+def get_stats(repo):
+    """ return formatted string of repo stats """
+    stats = f"{repo['stargazers_count']} ⭐ " if repo["stargazers_count"] != "-1" else ""
+    stats += f"{repo['forks_count']} 🍴" if repo["forks_count"] != "-1" else ""
+    stats += f"{repo['watchers_count']} 👀 " if repo["watchers_count"] else ""
+    return stats
+
+
 def list_layout(repos):
     """ Displays repositories in list layout using rich """
 
@@ -46,7 +54,7 @@ def list_layout(repos):
         # Table with description and stats
         title_table = Table.grid(padding=(0, 1))
         title_table.expand = True
-        stats = "{stargazers_count} ⭐ {forks_count} 🍴 {watchers_count} 👀".format(**repo)
+        stats = get_stats(repo)
         title = Text(repo["full_name"], overflow="fold")
         title.stylize_all(f"yellow link {repo['html_url']}")
         title_table.add_row(title, Text(stats, style="bold blue"))
@@ -92,14 +100,7 @@ def table_layout(repos):
 
     for repo in repos:
 
-        stats = (  # construct the stats info
-            str(repo["stargazers_count"])
-            + "⭐, "
-            + str(repo["forks_count"])
-            + "🍴, "
-            + str(repo["watchers_count"])
-            + "👀"
-        )
+        stats = get_stats(repo)
 
         if not repo["language"]:  # if language is not provided
             repo["language"] = "None"  # make it a string
@@ -125,15 +126,7 @@ def grid_layout(repos):
     panels = []
     for repo in repos:
 
-        # constructing the stats info
-        stats = (
-            str(repo["stargazers_count"])
-            + "⭐, "
-            + str(repo["forks_count"])
-            + "🍴, "
-            + str(repo["watchers_count"])
-            + "👀"
-        )
+        stats = get_stats(repo)
 
         if not repo["language"]:  # if language is not provided
             repo["language"] = "None"  # make it a string
