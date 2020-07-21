@@ -122,6 +122,7 @@ def search(
 def search_by_spoken_language(
     language=None, spoken_language=None, order="desc", stars=">=10"
 ):
+    """ Returns trending repositories from github trending page """
     API_URL = "https://github.com/trending"  # filter for spoken language is available only here
     if language:
         API_URL += "{language}"  # filter by programming language

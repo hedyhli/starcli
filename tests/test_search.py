@@ -1,6 +1,6 @@
 """ tests.test_search """
 
-from starcli.search import search
+from starcli.search import search, search_by_spoken_language
 
 
 def test_search():
@@ -33,3 +33,15 @@ def test_no_results():
     """ Test if no search results found """
     repos = search("python", "2020-01-01", "2019-01-01")
     assert repos == []
+
+
+def test_spoken_language():
+    """ Test search by spoken_languages """
+    repos = search_by_spoken_language("javascript", "zh")  # zh = chinese
+    for repo in repos:
+        assert repo["stargazers_count"] >= 0 or repo["stargazers_count"] == -1
+        assert repo["forks_count"] >= 0 or repo["forks_count"] == -1
+        assert repo["language"].lower() == "javascript"
+        assert (repo["description"] == None) or repo["description"]
+        assert repo["full_name"].count("/") >= 1
+        assert repo["html_url"] == "https://github.com/" + repo["full_name"]
