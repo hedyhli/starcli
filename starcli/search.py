@@ -104,7 +104,6 @@ def search(
         f"+pushed:{start_last_updated}..{end_last_updated}"  # add last updated to query
     )
     query += f"+language:{language}" if language else ""  # add language to query
-    # query += f"+spoken_language:{spoken_language}" if spoken_language else "" # add spoken language code to query
     query += f"".join(["+topic:" + i for i in topics])  # add topics to query
 
     url = f"{API_URL}?q={query}&sort=stars&order={order}"  # use query to construct url
@@ -117,7 +116,6 @@ def search(
         echo(style("Internet connection error...", fg="bright_red"))
         return None
 
-    # print(repositories["items"][0])
     return repositories["items"]
 
 
