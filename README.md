@@ -1,8 +1,6 @@
 ![Cover image](https://raw.githubusercontent.com/hedythedev/starcli/main/starcli-small-cover.png)
 
-*Browse trending repos on Github by*
-⭐stars⭐
-*from your command line!* 💻
+Browse trending projects on Github from your command line 💻
 
 
 ![checks](https://github.com/hedythedev/starcli/workflows/checks/badge.svg)
