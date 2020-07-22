@@ -40,7 +40,8 @@ Usage: starcli [OPTIONS]
 
 Options:
   -l, --lang TEXT                 Language filter eg: python
-  -S, --spoken-language TEXT      Spoken Language filter eg: en for English, zh for Chinese, etc
+  -S, --spoken-language TEXT      Spoken Language filter eg: en for English,
+                                  zh for Chinese, etc
   -d, --date-created TEXT         Specify repo creation date in ISO8601 format
                                   YYYY-MM-DD
   -t, --topics TEXT               Search by topic. Can be specified multiple
@@ -56,6 +57,9 @@ Options:
   -o, --order [desc|asc]          Specify the order of repos by stars that is
                                   shown, 'desc' or 'asc', default: desc
   --long-stats                    Print the actual stats[1300 instead of 1.3k]
+  -D, --date-range [today|this-week|this-month]
+                                  View stars received within time range,
+                                  choose from: today, this-week, this-month
   --debug                         Turn on debugging mode
   --help                          Show this message and exit.
 ```
@@ -98,7 +102,11 @@ If you wanted to find repos in your native language, you can use `--spoken-langu
 starcli --spoken-language zh
 ```
 
-The above command lists down repos written in Chinese. A full list of language codes is available [here](./starcli/spoken-languages.json)
+The above command lists down repos written in Chinese.
+A full list of language codes is available [here](./starcli/spoken-languages.json)
+
+Note that (like `--date-range`) options like `--topics`, `--last-updated`, `--date-created` won't take effect
+because `-D` uses a different search mechanism to find results.
 
 ### Specify the number (or range) of stars
 
@@ -157,6 +165,18 @@ last updated on a given date, say 2020-01-01 for 1st of Jan
 ```
 starcli -u 2020-01-01
 ```
+
+### Using date ranges
+You can use `--date-range` or `-D` and specify today, this-week, or this-month,
+so that GitHub Trending search function will be used to find popular repos
+and tell you how much stars are gained this day/week/month depending on the
+option you used.
+
+```
+starcli -D this-week
+```
+Note that (like `--spoken-language`) options like `--topics`, `--last-updated`, `--date-created` won't take effect
+because `-D` uses a different search mechanism to find results.
 
 ### Limit the number of results shown
 Don't like the default 7? You can change it to something else,
