@@ -167,9 +167,15 @@ def search_github_trending(
         )
         # if language is present
         language_span = div.span.find_all("span")
-        repo_dict["language"] = (
-            language_span[1].text.strip() if len(language_span) > 0 else None
-        )
+        if len(language_span) > 0:
+            if (
+                language_span[1].text.strip().lower() == language
+            ):  # if major lang of repo is same as language
+                repo_dict["language"] = language_span[1].text.strip()
+            else:
+                repo_dict["language"] = language
+        else:
+            repo_dict["language"] = None
         # if description is present
         repo_dict["description"] = repo.p.text.strip() if repo.p else None
         # if stars date range is present
@@ -181,7 +187,7 @@ def search_github_trending(
             )
         else:
             repo_dict["date_range"] = None
-        repo_dict["watchers_count"] = None  # watchers count not available
+        repo_dict["watchers_count"] = -1  # watchers count not available
         # filter by number of stars
         num = [int(s) for s in re.findall(r"\d+", stars)][0]
         if (

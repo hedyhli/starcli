@@ -108,8 +108,7 @@ def cli(
         for repo in repos:
             repo["stargazers_count"] = shorten_count(repo["stargazers_count"])
             repo["forks_count"] = shorten_count(repo["forks_count"])
-            if repo["watchers_count"]:
-                repo["watchers_count"] = shorten_count(repo["watchers_count"])
+            repo["watchers_count"] = shorten_count(repo["watchers_count"])
             if "date_range" in repo.keys() and repo["date_range"]:
                 num_stars = repo["date_range"].split()[0]
                 repo["date_range"] = repo["date_range"].replace(
