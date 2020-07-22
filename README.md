@@ -175,6 +175,9 @@ option you used.
 ```
 starcli -D this-week
 ```
+
+<img src="https://raw.githubusercontent.com/hedythedev/starcli/main/demo-pics/daterange.png" width="800px;" alt="demo date range"/>
+
 Note that (like `--spoken-language`) options like `--topics`, `--last-updated`, `--date-created` won't take effect
 because `-D` uses a different search mechanism to find results.
 
