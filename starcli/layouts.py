@@ -27,7 +27,7 @@ def shorten_count(number):
         return str(new_number)[0] + "k"
     if new_number < 1000:
         # returns the same old integer if no changes were made
-        return number
+        return str(number)
     else:
         # returns a new string if the number was shortened
         return str(new_number / 1000.0) + "k"
@@ -36,8 +36,8 @@ def shorten_count(number):
 def get_stats(repo):
     """ return formatted string of repo stats """
     stats = f"{repo['stargazers_count']} ⭐ " if repo["stargazers_count"] != "-1" else ""
-    stats += f"{repo['forks_count']} 🍴" if repo["forks_count"] != "-1" else ""
-    stats += f"{repo['watchers_count']} 👀 " if repo["watchers_count"] else ""
+    stats += f"{repo['forks_count']} 🍴 " if repo["forks_count"] != "-1" else ""
+    stats += f"{repo['watchers_count']} 👀 " if repo["watchers_count"] != "-1" else ""
     return stats
 
 
@@ -62,12 +62,23 @@ def list_layout(repos):
         title_table.columns[1].justify = "right"
         yield title_table
         yield ""
-        # Language
-        language = repo["language"]
-        if language:
-            yield Text(language, style="bold cyan")
-        else:
-            yield "[i cyan]unknown language"
+        # Language and date range are added to single row
+        lang_table = Table.grid(padding=(0, 1))
+        lang_table.expand = True
+        language_col = (
+            Text(repo["language"], style="bold cyan")
+            if repo["language"]
+            else Text("unknown language")
+        )
+        date_range_col = (
+            Text(repo["date_range"].replace("stars", "⭐"), style="bold cyan")
+            if "date_range" in repo.keys() and repo["date_range"]
+            else Text("")
+        )
+        lang_table.add_row(language_col, date_range_col)
+        lang_table.columns[1].no_wrap = True
+        lang_table.columns[1].justify = "right"
+        yield lang_table
         yield ""
         # Descripion
         description = repo["description"]
@@ -101,6 +112,11 @@ def table_layout(repos):
     for repo in repos:
 
         stats = get_stats(repo)
+        stats += (
+            "\n" + repo["date_range"].replace("stars", "⭐")
+            if "date_range" in repo.keys() and repo["date_range"]
+            else ""
+        )
 
         if not repo["language"]:  # if language is not provided
             repo["language"] = "None"  # make it a string
@@ -127,6 +143,13 @@ def grid_layout(repos):
     for repo in repos:
 
         stats = get_stats(repo)
+        # '\n' added here as it would group both text and new line together
+        # hence if date_range isn't present the new line will also not be displayed
+        date_range_str = (
+            repo["date_range"].replace("stars", "⭐") + "\n"
+            if "date_range" in repo.keys() and repo["date_range"]
+            else ""
+        )
 
         if not repo["language"]:  # if language is not provided
             repo["language"] = "None"  # make it a string
@@ -145,7 +168,7 @@ def grid_layout(repos):
         description.truncate(max_desc_len, overflow="ellipsis")
 
         repo_summary = Text.assemble(
-            name, "\n", stats, "\n", language, "\n", description,
+            name, "\n", stats, "\n", date_range_str, language, "\n", description,
         )
         panels.append(Panel(repo_summary, expand=True))
 
