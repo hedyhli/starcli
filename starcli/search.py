@@ -127,15 +127,13 @@ def search_github_trending(
     language=None, spoken_language=None, order="desc", stars=">=10", date_range=None
 ):
     """ Returns trending repositories from github trending page """
-    API_URL = "https://github.com/trending/"  # filter for spoken language is available only here
+    url = "https://github.com/trending?"  # filter for spoken language is available only here
     if language:
-        API_URL += f"{language}?"  # filter by programming language
-    query = ""
+        url += f"language={language}"  # filter by programming language
     if spoken_language:
-        query += f"spoken_language_code={spoken_language}"  # filter by spoken language
+        url += f"&spoken_language_code={spoken_language}"  # filter by spoken language
     if date_range:
-        query += f"&since={date_range_map[date_range]}"
-    url = f"{API_URL}{query}"
+        url += f"&since={date_range_map[date_range]}"
     try:
         page = requests.get(url).text
     except requests.exceptions.ConnectionError:
