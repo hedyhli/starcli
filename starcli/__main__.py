@@ -68,7 +68,7 @@ from .search import search, debug_requests_on, search_github_trending
     "--date-range",
     "-D",
     type=click.Choice(["today", "this-week", "this-month"], case_sensitive=False),
-    help="View stars received today, this week or this month",
+    help="View stars received within time range, choose from: today, this-week, this-month",
 )
 @click.option("--debug", is_flag=True, default=False, help="Turn on debugging mode")
 def cli(
@@ -104,7 +104,7 @@ def cli(
         return
     repos = tmp_repos[0:limit_results]
 
-    if not long_stats:
+    if not long_stats:  # shorten the stat counts when not --long-stats
         for repo in repos:
             repo["stargazers_count"] = shorten_count(repo["stargazers_count"])
             repo["forks_count"] = shorten_count(repo["forks_count"])

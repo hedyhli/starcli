@@ -113,7 +113,7 @@ def table_layout(repos):
 
         stats = get_stats(repo)
         stats += (
-            " " + repo["date_range"].replace("stars", "⭐")
+            "\n" + repo["date_range"].replace("stars", "⭐")
             if "date_range" in repo.keys() and repo["date_range"]
             else ""
         )
