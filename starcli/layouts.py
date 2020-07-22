@@ -143,7 +143,7 @@ def grid_layout(repos):
     for repo in repos:
 
         stats = get_stats(repo)
-        # '\n' added here as it would group both text and new line together 
+        # '\n' added here as it would group both text and new line together
         # hence if date_range isn't present the new line will also not be displayed
         date_range_str = (
             repo["date_range"].replace("stars", "⭐") + "\n"
