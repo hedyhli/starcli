@@ -167,7 +167,7 @@ def search_github_trending(
         language_span = div.span.find_all("span")
         if len(language_span) > 0:
             if (
-                language_span[1].text.strip().lower() == language
+                not language or language_span[1].text.strip().lower() == language
             ):  # if major lang of repo is same as language
                 repo_dict["language"] = language_span[1].text.strip()
             else:

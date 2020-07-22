@@ -143,8 +143,10 @@ def grid_layout(repos):
     for repo in repos:
 
         stats = get_stats(repo)
-        stats += (
-            " " + repo["date_range"].replace("stars", "⭐")
+        # '\n' added here as it would group both text and new line together 
+        # hence if date_range isn't present the new line will also not be displayed
+        date_range_str = (
+            repo["date_range"].replace("stars", "⭐") + "\n"
             if "date_range" in repo.keys() and repo["date_range"]
             else ""
         )
@@ -166,7 +168,7 @@ def grid_layout(repos):
         description.truncate(max_desc_len, overflow="ellipsis")
 
         repo_summary = Text.assemble(
-            name, "\n", stats, "\n", language, "\n", description,
+            name, "\n", stats, "\n", date_range_str, language, "\n", description,
         )
         panels.append(Panel(repo_summary, expand=True))
 
