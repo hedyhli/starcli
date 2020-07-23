@@ -77,6 +77,16 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "arcanearronax",
+      "name": "arcanearronax",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/16456078?v=4",
+      "profile": "http://arcanedomain.duckdns.org",
+      "contributions": [
+        "test",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
