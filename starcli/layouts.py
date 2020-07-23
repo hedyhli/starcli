@@ -36,7 +36,7 @@ def shorten_count(number):
 def get_stats(repo):
     """ return formatted string of repo stats """
     stats = f"{repo['stargazers_count']} ⭐ " if repo["stargazers_count"] != "-1" else ""
-    stats += f"{repo['forks_count']} 🍴 " if repo["forks_count"] != "-1" else ""
+    stats += f"{repo['forks_count']} ⎇ " if repo["forks_count"] != "-1" else ""
     stats += f"{repo['watchers_count']} 👀 " if repo["watchers_count"] != "-1" else ""
     return stats
 
