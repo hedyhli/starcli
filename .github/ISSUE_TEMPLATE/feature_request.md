@@ -20,6 +20,4 @@ assignees: ''
 
 
 
-
-
-**Anything you would like to include**
+<!--please also state whether or not you would like to work on this if accepted-->
