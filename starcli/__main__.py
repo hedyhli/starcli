@@ -75,7 +75,7 @@ from .search import search, debug_requests_on, search_github_trending
     "-U",
     type=str,
     default="",
-    help="Search for trending repositories by username"
+    help="Search for trending repositories by username",
 )
 @click.option("--debug", is_flag=True, default=False, help="Turn on debugging mode")
 def cli(

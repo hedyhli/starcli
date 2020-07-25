@@ -132,6 +132,7 @@ def test_search_user():
         assert repo["full_name"].split("/")[0] == user
         assert repo["html_url"] == "https://github.com/" + repo["full_name"]
 
+
 def test_no_results():
     """ Test if no search results found """
     repos = search("python", "2020-01-01", "2019-01-01")
