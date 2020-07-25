@@ -16,10 +16,10 @@ from .search import search, debug_requests_on, search_github_trending
     help="Spoken Language filter eg: en for English, zh for Chinese, etc",
 )
 @click.option(
-    "--date-created",
-    "-d",
+    "--created",
+    "-c",
     default="",
-    help="Specify repo creation date in ISO8601 format YYYY-MM-DD",
+    help="Specify repo creation date in YYYY-MM-DD, prefixing with >, <= etc is allowed",
 )
 @click.option(
     "--topics",
@@ -66,7 +66,7 @@ from .search import search, debug_requests_on, search_github_trending
 )
 @click.option(
     "--date-range",
-    "-D",
+    "-d",
     type=click.Choice(["today", "this-week", "this-month"], case_sensitive=False),
     help="View stars received within time range, choose from: today, this-week, this-month",
 )
@@ -81,7 +81,7 @@ from .search import search, debug_requests_on, search_github_trending
 def cli(
     lang,
     spoken_language,
-    date_created,
+    created,
     topics,
     last_updated,
     layout,
@@ -102,7 +102,7 @@ def cli(
         not spoken_language and not date_range
     ):  # if filtering by spoken language and date range not required
         tmp_repos = search(
-            lang, date_created, last_updated, stars, topics, user, debug, order
+            lang, created, last_updated, stars, topics, user, debug, order
         )
     else:
         tmp_repos = search_github_trending(

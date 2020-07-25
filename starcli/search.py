@@ -51,7 +51,7 @@ def convert_datetime(date, date_format):
 
 def search(
     language=None,
-    date_created=None,
+    created=None,
     last_updated=None,
     stars=">=100",
     topics=[],
@@ -59,30 +59,36 @@ def search(
     debug=False,
     order="desc",
 ):
-    """ Returns repositories based on the language, date, and stars
+    """ Returns repositories searched from GitHub API
 
     """
     date_format = "%Y-%m-%d"  # date format in iso format
     if debug:
         debug_requests_on()
-        print("DEBUG: search: date_created param:", date_created)
+        print("DEBUG: search: created param:", created)
         print("DEBUG: search: order param: ", order)
 
     day_range = 0 - randint(100, 400)  # random negative from 100 to 400
 
-    if not date_created:  # if date_created not provided
+    if not created:  # if created not provided
         # creation date: start, is the time now minus a random number of days
         # 100 to 400 days - which was stored in day_range
-        start_date_created = (datetime.utcnow() + timedelta(days=day_range)).strftime(
+        created_str = ">=" + (datetime.utcnow() + timedelta(days=day_range)).strftime(
             date_format
         )
-        end_date_created = (datetime.utcnow() + timedelta(days=1)).strftime(date_format)
-    else:  # if date_created is provided
-        tmp_date = convert_datetime(date_created, date_format)
-        if tmp_date is None:
+    else:  # if created is provided
+        prefix = ""
+        if (">" or "=" or "<") in created[0]:
+            if "=" in created[1]:
+                prefix = created[:2]
+                created = created.strip(prefix)
+            else:
+                prefix = created[0]
+                created = created.strip(prefix)
+        tmp_date = convert_datetime(created, date_format)
+        if not tmp_date:
             return None
-        end_date_created = (tmp_date + timedelta(days=1)).strftime(date_format)
-        start_date_created = tmp_date.strftime(date_format)
+        created_str = prefix + tmp_date.strftime(date_format)
 
     if not last_updated:  # if last_updated not provided
         # update date: start, is the time now minus a random number of days
@@ -99,8 +105,6 @@ def search(
         start_last_updated = tmp_date.strftime(date_format)
 
     if debug:  # print start_date and end_date if debugging
-        print("DEBUG: search: start_date_created:", start_date_created)
-        print("DEBUG: search: end_date_created:", end_date_created)
         print("DEBUG: search: start_last_updated:", start_last_updated)
         print("DEBUG: search: end_last_updated:", end_last_updated)
 
@@ -109,7 +113,7 @@ def search(
     else:
         query = ""
 
-    query += f"stars:{stars}+created:{start_date_created}..{end_date_created}"  # construct query
+    query += f"stars:{stars}+created:{created_str}"  # construct query
     query += (
         f"+pushed:{start_last_updated}..{end_last_updated}"  # add last updated to query
     )

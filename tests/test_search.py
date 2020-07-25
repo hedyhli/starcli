@@ -55,7 +55,7 @@ def test_search_created_date():
     created_date_value = (datetime.utcnow() + timedelta(days=day_range)).strftime(
         date_format
     )
-    repos = search(language="python", date_created=created_date_value)
+    repos = search(language="python", created=created_date_value)
     for repo in repos:
         assert repo["stargazers_count"] >= 0
         assert repo["watchers_count"] >= 0
