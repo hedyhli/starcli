@@ -33,6 +33,12 @@ The command will install all the requirements needed to run starcli, as well as 
 
 Remember to use the `python3` and `pip3` command instead of `python` and `pip` if your system also has Python 2 installed.
 
+Alternatively, if you're going to use `pipenv`, you will need to use the `--pre` flag when installing in order for `black` to work:
+
+```bash
+$ pipenv install -r requirements_dev.txt --pre
+```
+
 Check if the setup worked by running starcli from your local folder. 
 
 ```bash
