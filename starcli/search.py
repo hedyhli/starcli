@@ -55,6 +55,7 @@ def search(
     last_updated=None,
     stars=">=100",
     topics=[],
+    user=None,
     debug=False,
     order="desc",
 ):
@@ -103,7 +104,12 @@ def search(
         print("DEBUG: search: start_last_updated:", start_last_updated)
         print("DEBUG: search: end_last_updated:", end_last_updated)
 
-    query = f"stars:{stars}+created:{start_date_created}..{end_date_created}"  # construct query
+    if user:
+        query = f"user:{user}+"
+    else:
+        query = ""
+
+    query += f"stars:{stars}+created:{start_date_created}..{end_date_created}"  # construct query
     query += (
         f"+pushed:{start_last_updated}..{end_last_updated}"  # add last updated to query
     )
