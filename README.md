@@ -42,8 +42,8 @@ Options:
   -l, --lang TEXT                 Language filter eg: python
   -S, --spoken-language TEXT      Spoken Language filter eg: en for English,
                                   zh for Chinese, etc
-  -d, --date-created TEXT         Specify repo creation date in ISO8601 format
-                                  YYYY-MM-DD
+  -c, --created TEXT              Specify repo creation date in YYYY-MM-DD,
+                                  prefixing with >, <= etc is allowed
   -t, --topics TEXT               Search by topic. Can be specified multiple
                                   times. Multiple topics will be conjugated
                                   using &
@@ -57,9 +57,10 @@ Options:
   -o, --order [desc|asc]          Specify the order of repos by stars that is
                                   shown, 'desc' or 'asc', default: desc
   --long-stats                    Print the actual stats[1300 instead of 1.3k]
-  -D, --date-range [today|this-week|this-month]
+  -d, --date-range [today|this-week|this-month]
                                   View stars received within time range,
                                   choose from: today, this-week, this-month
+  -U, --user TEXT                 Search for trending repositories by username
   --debug                         Turn on debugging mode
   --help                          Show this message and exit.
 ```
@@ -105,12 +106,12 @@ starcli --spoken-language zh
 The above command lists down repos written in Chinese.
 A full list of language codes is available [here](./starcli/spoken-languages.json)
 
-Note that (like `--date-range`) options like `--topics`, `--last-updated`, `--date-created` won't take effect
-because `-D` uses a different search mechanism to find results.
+Note that (like `--date-range`) options like `--topics`, `--last-updated`, `--created` won't take effect
+because `-d` uses a different search mechanism to find results.
 
 ### Specify the number (or range) of stars
 
-(Recommended to be used with `--date-created`)
+(Recommended to be used with `--created`)
 
 The default range is >=100, you can change that!
 Use `--stars` or `-s` to specify what you want,
@@ -122,15 +123,15 @@ starcli -s '>100'
 
 Note that if you do something like `>1000` not many repos can have
 more than 1000 and is created within around 200 days,
-to specify date of creation, use `--date-created`, see below.
+to specify date of creation, use `--created`, see below.
 
 ### Filter by stars daily, weekly or monthly
 
 Wish to know what's trending this week?!
-You can view the number of stars a repo received today, this week or this month by using the `--date-range` or `-D` option:
+You can view the number of stars a repo received today, this week or this month by using the `--date-range` or `-d` option:
 
 ```
-starcli -D this-week -L table
+starcli -d this-week -L table
 ```
 
 This command will also display the number of stars received for each repo this week in the form of a table.
@@ -138,12 +139,17 @@ This command will also display the number of stars received for each repo this w
 ### Specify the date of creation
 
 Want to find newer, older, or just created repos?
-Just use `--date-created` or `-d`, and then
+Just use `--created` or `-c`, and then
 provide a date in ISO8601 format: yyyy-mm-dd
 
-For example, to 1st January 2014, use:
+For example, for repos created on 1st January 2014, use:
 ```
-starcli --date-created 2014-01-01
+starcli --created 2014-01-01
+```
+
+To search for repos that are created *on or after* 1st January 2014, use:
+```
+starcli --created '>=2014-01-01'
 ```
 
 ### Filtering by topics
@@ -167,19 +173,19 @@ starcli -u 2020-01-01
 ```
 
 ### Using date ranges
-You can use `--date-range` or `-D` and specify today, this-week, or this-month,
+You can use `--date-range` or `-d` and specify today, this-week, or this-month,
 so that GitHub Trending search function will be used to find popular repos
 and tell you how much stars are gained this day/week/month depending on the
 option you used.
 
 ```
-starcli -D this-week
+starcli -d this-week
 ```
 
 <img src="https://raw.githubusercontent.com/hedythedev/starcli/main/demo-pics/daterange.png" width="800px;" alt="demo date range"/>
 
-Note that (like `--spoken-language`) options like `--topics`, `--last-updated`, `--date-created` won't take effect
-because `-D` uses a different search mechanism to find results.
+Note that (like `--spoken-language`) options like `--topics`, `--last-updated`, `--created` won't take effect
+because `-d` uses a different search mechanism to find results.
 
 ### Limit the number of results shown
 Don't like the default 7? You can change it to something else,
