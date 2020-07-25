@@ -91,7 +91,7 @@ def cli(
     long_stats,
     date_range,
     user,
-    debug=True,
+    debug=False,
 ):
     """ Find trending repos on GitHub """
     if debug:

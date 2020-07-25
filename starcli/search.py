@@ -56,7 +56,7 @@ def search(
     stars=">=100",
     topics=[],
     user=None,
-    debug=True,
+    debug=False,
     order="desc",
 ):
     """ Returns repositories based on the language, date, and stars
