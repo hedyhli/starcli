@@ -60,6 +60,7 @@ Options:
   -D, --date-range [today|this-week|this-month]
                                   View stars received within time range,
                                   choose from: today, this-week, this-month
+  -U, --user TEXT                 Search for trending repositories by username
   --debug                         Turn on debugging mode
   --help                          Show this message and exit.
 ```
@@ -166,7 +167,20 @@ last updated on a given date, say 2020-01-01 for 1st of Jan
 starcli -u 2020-01-01
 ```
 
+### Searching by user
+
+Recommended to be used with `--stars` and/or `--date-created`.
+
+Finding trending projects by GitHub username is supported too. Use `--user` or `-U` to do so,
+provide a valid GitHub username after that, like:
+
+```
+starcli -U hedythedev
+starcli -U gvanrossum
+```
+
 ### Using date ranges
+
 You can use `--date-range` or `-D` and specify today, this-week, or this-month,
 so that GitHub Trending search function will be used to find popular repos
 and tell you how much stars are gained this day/week/month depending on the
