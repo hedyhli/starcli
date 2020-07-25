@@ -119,6 +119,19 @@ def test_search_stars():
         assert repo["html_url"] == "https://github.com/" + repo["full_name"]
 
 
+def test_search_user():
+    """
+    Test the search functionality for starcli.search.
+    """
+    repos = search(language="python", stars="1", user="hedythedev")
+    for repo in repos:
+        assert repo["stargazers_count"] == 1
+        assert repo["watchers_count"] >= 0
+        assert repo["forks_count"] >= 0
+        assert (repo["description"] is None) or repo["description"]
+        assert repo["full_name"].split("/")[0] == user
+        assert repo["html_url"] == "https://github.com/" + repo["full_name"]
+
 def test_no_results():
     """ Test if no search results found """
     repos = search("python", "2020-01-01", "2019-01-01")

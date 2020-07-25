@@ -70,6 +70,13 @@ from .search import search, debug_requests_on, search_github_trending
     type=click.Choice(["today", "this-week", "this-month"], case_sensitive=False),
     help="View stars received within time range, choose from: today, this-week, this-month",
 )
+@click.option(
+    "--user",
+    "-U",
+    type=str,
+    default="",
+    help="Search for trending repositories by username"
+)
 @click.option("--debug", is_flag=True, default=False, help="Turn on debugging mode")
 def cli(
     lang,
@@ -83,7 +90,8 @@ def cli(
     order,
     long_stats,
     date_range,
-    debug,
+    user,
+    debug=True,
 ):
     """ Find trending repos on GitHub """
     if debug:
@@ -94,7 +102,7 @@ def cli(
         not spoken_language and not date_range
     ):  # if filtering by spoken language and date range not required
         tmp_repos = search(
-            lang, date_created, last_updated, stars, topics, debug, order
+            lang, date_created, last_updated, stars, topics, user, debug, order
         )
     else:
         tmp_repos = search_github_trending(
