@@ -16,6 +16,11 @@ API_URL = "https://api.github.com/search/repositories"
 
 date_range_map = {"today": "daily", "this-week": "weekly", "this-month": "monthly"}
 
+STATUS_RETRY = 'retry'
+STATUS_EXIT = 'exit'
+STATUS_NOT_FOUND = 'not found'
+STATUS_VALID = 'valid'
+STATUS_UNSUPPORTED = 'unsupported'
 
 def debug_requests_on():
     """ Turn on the logging for requests """
@@ -125,10 +130,15 @@ def search(
         print("DEBUG: search: url:", url)  # print the url when debugging
 
     try:
-        repositories = requests.get(url).json()  # get the response using the url
+        #repositories = requests.get(url).json()  # get the response using the url
+        request = requests.get(url)
     except requests.exceptions.ConnectionError:
         secho("Internet connection error...", fg="bright_red")
         return None
+
+    assert request.status_code in (200, 202), f'HTTP Status Code: {request.status_code}'
+
+    repositories = request.json()
 
     return repositories["items"]
 
@@ -209,3 +219,21 @@ def search_github_trending(
     if order == "asc":
         return sorted(repositories, key=lambda repo: repo["stargazers_count"])
     return sorted(repositories, key=lambda repo: repo["stargazers_count"], reverse=True)
+
+def search_error(status_code):
+    """
+    This returns a directive on how to handle a given HTTP status code.
+    """
+    int_status_code = int(status_code) # Need to make sure the status code is an integer
+    if int_status_code == 403:
+        return STATUS_RETRY
+    elif int_status_code == 404:
+        return STATUS_NOT_FOUND
+    elif int_status_code == 422:
+        return STATUS_NOT_FOUND
+    elif int_status_code >= 200 and int_status_code < 300: # This should not be used
+        return STATUS_VALID
+    elif int_status_code >= 500 and int_status_code < 600:
+        return STATUS_EXIT
+    else:
+        return STATUS_UNSUPPORTED
