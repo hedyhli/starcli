@@ -5,7 +5,7 @@
 
 ---
 
-Thanks for taking the time to look at `CONTRIBUTING.md`, we appreciate your time. 
+Thanks for taking the time to look at `CONTRIBUTING.md`.
 
 All contributions to this project should follow the `CODE_OF_CONDUCT.md`.
 
@@ -61,5 +61,5 @@ pylint *.py
 
 **Formatting & code spell**
 ```bash
-black . && codespell --skip=".git,*.gif,*.png,*.PNG,venv/"
+black . && codespell --skip=".git,*.json,demo-pics/,venv/"
 ```
