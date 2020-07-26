@@ -56,7 +56,7 @@ def list_layout(repos):
         title_table.expand = True
         stats = get_stats(repo)
         title = Text(repo["full_name"], overflow="fold")
-        title.stylize_all(f"yellow link {repo['html_url']}")
+        title.stylize(f"yellow link {repo['html_url']}")
         title_table.add_row(title, Text(stats, style="bold blue"))
         title_table.columns[1].no_wrap = True
         title_table.columns[1].justify = "right"
