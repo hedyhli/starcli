@@ -131,6 +131,8 @@ def search(
         print("DEBUG: search: url:", url)  # print the url when debugging
 
     request = get_valid_request(url)
+    if request is None:
+        return request
 
     return request.json()["items"]
 
@@ -148,6 +150,9 @@ def search_github_trending(
         url += f"&since={date_range_map[date_range]}"
 
     request = get_valid_request(url)
+    if request is None:
+        return request
+
     page = request.text
 
     soup = BeautifulSoup(page, "lxml")
