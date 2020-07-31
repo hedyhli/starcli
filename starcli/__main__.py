@@ -4,17 +4,7 @@ import click
 from time import sleep
 
 from .layouts import list_layout, table_layout, grid_layout, shorten_count
-from .search import (
-    search,
-    debug_requests_on,
-    search_github_trending,
-    search_error,
-    STATUS_RETRY,
-    STATUS_EXIT,
-    STATUS_NOT_FOUND,
-    STATUS_VALID,
-    STATUS_UNSUPPORTED,
-)
+from .search import search, debug_requests_on, search_github_trending, search_error, status_actions
 
 
 @click.command()
@@ -126,25 +116,14 @@ def cli(
         except AssertionError as ae:  # If a request is unsuccessful, expect an assertion error
             status_code = str(ae).split(" ")[3]
             handling_code = search_error(status_code)
-            if handling_code == STATUS_RETRY:
+            if handling_code == "retry":
                 for i in range(15, 0, -1):
                     print(
-                        f"Failed to retrieve data. Retrying in {i} seconds...", end="\r"
+                        f"{status_actions[handling_code]} {i} seconds...", end="\r"
                     )  # Print and update a timer
                     sleep(1)
-            elif handling_code == STATUS_EXIT:
-                print("The server was unable to process the request.")
-                return
-            elif handling_code == STATUS_NOT_FOUND:
-                print("The server indicated no data was found.")
-                return
-            elif handling_code == STATUS_UNSUPPORTED:
-                print("An unknown error occurred.")
-                return
-            elif handling_code == STATUS_VALID:
-                print(
-                    "The request returned successfully, but an unknown exception occurred."
-                )
+            elif handling_code in status_actions:
+                print(status_actions[handling_code])
                 return
             else:
                 print("An invalid handling code was returned.")

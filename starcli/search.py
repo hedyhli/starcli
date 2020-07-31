@@ -16,11 +16,14 @@ API_URL = "https://api.github.com/search/repositories"
 
 date_range_map = {"today": "daily", "this-week": "weekly", "this-month": "monthly"}
 
-STATUS_RETRY = "retry"
-STATUS_EXIT = "exit"
-STATUS_NOT_FOUND = "not found"
-STATUS_VALID = "valid"
-STATUS_UNSUPPORTED = "unsupported"
+status_actions = {
+    "retry":"Failed to retrieve data. Retrying in ",
+    "invalid": "The server was unable to process the request.",
+    "not_found": "The server indicated no data was found.",
+    "unsupported": "The request is not supported.",
+    "unknown": "An unknown error occurred.",
+    "valid": "The request returned successfully, but an unknown exception occurred.",
+}
 
 
 def debug_requests_on():
@@ -236,15 +239,22 @@ def search_error(status_code):
     int_status_code = int(
         status_code
     )  # Need to make sure the status code is an integer
-    if int_status_code == 403:
-        return STATUS_RETRY
-    elif int_status_code == 404:
-        return STATUS_NOT_FOUND
-    elif int_status_code == 422:
-        return STATUS_NOT_FOUND
-    elif int_status_code >= 200 and int_status_code < 300:  # This should not be used
-        return STATUS_VALID
-    elif int_status_code >= 500 and int_status_code < 600:
-        return STATUS_EXIT
-    else:
-        return STATUS_UNSUPPORTED
+
+    http_code_handling = {
+        "200": "valid",
+        "202": "valid",
+        "204": "valid",
+        "400": "invalid",
+        "401": "retry",
+        "403": "retry",
+        "404": "not_found",
+        "405": "invalid",
+        "422": "not_found",
+        "500": "invalid",
+        "501": "invalid",
+    }
+
+    try:
+        return http_code_handling[str(int_status_code)]
+    except KeyError as ke:
+        return "unsupported"
