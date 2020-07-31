@@ -1,9 +1,16 @@
 """ starcli.__main__ """
 
 import click
+from time import sleep
 
 from .layouts import list_layout, table_layout, grid_layout, shorten_count
-from .search import search, debug_requests_on, search_github_trending
+from .search import (
+    search,
+    debug_requests_on,
+    search_github_trending,
+    search_error,
+    status_actions,
+)
 
 
 @click.command()
@@ -98,16 +105,36 @@ def cli(
         import logging
 
         debug_requests_on()
-    if (
-        not spoken_language and not date_range
-    ):  # if filtering by spoken language and date range not required
-        tmp_repos = search(
-            lang, created, last_updated, stars, topics, user, debug, order
-        )
-    else:
-        tmp_repos = search_github_trending(
-            lang, spoken_language, order, stars, date_range
-        )
+
+    while True:
+        try:
+            if (
+                not spoken_language and not date_range
+            ):  # if filtering by spoken language and date range not required
+                tmp_repos = search(
+                    lang, created, last_updated, stars, topics, user, debug, order
+                )
+            else:
+                tmp_repos = search_github_trending(
+                    lang, spoken_language, order, stars, date_range
+                )
+            break  # Need this here to break out of the loop if the request is successful
+        except AssertionError as ae:  # If a request is unsuccessful, expect an assertion error
+            status_code = str(ae).split(" ")[3]
+            handling_code = search_error(status_code)
+            if handling_code == "retry":
+                for i in range(15, 0, -1):
+                    print(
+                        f"{status_actions[handling_code]} {i} seconds...", end="\r"
+                    )  # Print and update a timer
+                    sleep(1)
+            elif handling_code in status_actions:
+                print(status_actions[handling_code])
+                return
+            else:
+                print("An invalid handling code was returned.")
+                return
+
     if not tmp_repos:  # if search() returned None
         return
     repos = tmp_repos[0:limit_results]

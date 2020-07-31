@@ -16,6 +16,15 @@ API_URL = "https://api.github.com/search/repositories"
 
 date_range_map = {"today": "daily", "this-week": "weekly", "this-month": "monthly"}
 
+status_actions = {
+    "retry": "Failed to retrieve data. Retrying in ",
+    "invalid": "The server was unable to process the request.",
+    "not_found": "The server indicated no data was found.",
+    "unsupported": "The request is not supported.",
+    "unknown": "An unknown error occurred.",
+    "valid": "The request returned successfully, but an unknown exception occurred.",
+}
+
 
 def debug_requests_on():
     """ Turn on the logging for requests """
@@ -124,13 +133,11 @@ def search(
     if debug:
         print("DEBUG: search: url:", url)  # print the url when debugging
 
-    try:
-        repositories = requests.get(url).json()  # get the response using the url
-    except requests.exceptions.ConnectionError:
-        secho("Internet connection error...", fg="bright_red")
-        return None
+    request = get_valid_request(url)
+    if request is None:
+        return request
 
-    return repositories["items"]
+    return request.json()["items"]
 
 
 def search_github_trending(
@@ -144,11 +151,12 @@ def search_github_trending(
         url += f"&spoken_language_code={spoken_language}"  # filter by spoken language
     if date_range:
         url += f"&since={date_range_map[date_range]}"
-    try:
-        page = requests.get(url).text
-    except requests.exceptions.ConnectionError:
-        secho("Internet connection error...", fg="bright_red")
-        return None
+
+    request = get_valid_request(url)
+    if request is None:
+        return request
+
+    page = request.text
 
     soup = BeautifulSoup(page, "lxml")
     repo_list = soup.find_all("article", class_="Box-row")
@@ -209,3 +217,44 @@ def search_github_trending(
     if order == "asc":
         return sorted(repositories, key=lambda repo: repo["stargazers_count"])
     return sorted(repositories, key=lambda repo: repo["stargazers_count"], reverse=True)
+
+
+def get_valid_request(url):
+    """
+    Provide a URL to submit a GET request for and handle a connection error or raise an assertion error if an HTTP status code indicating anything other than a success was received.
+    """
+    try:
+        request = requests.get(url)
+    except requests.exceptions.ConnectionError:
+        secho("Internet connection error...", fg="bright_red")
+        return None
+    assert request.status_code in (200, 202), f"HTTP Status Code: {request.status_code}"
+    return request
+
+
+def search_error(status_code):
+    """
+    This returns a directive on how to handle a given HTTP status code.
+    """
+    int_status_code = int(
+        status_code
+    )  # Need to make sure the status code is an integer
+
+    http_code_handling = {
+        "200": "valid",
+        "202": "valid",
+        "204": "valid",
+        "400": "invalid",
+        "401": "retry",
+        "403": "retry",
+        "404": "not_found",
+        "405": "invalid",
+        "422": "not_found",
+        "500": "invalid",
+        "501": "invalid",
+    }
+
+    try:
+        return http_code_handling[str(int_status_code)]
+    except KeyError as ke:
+        return "unsupported"
