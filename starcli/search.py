@@ -17,7 +17,7 @@ API_URL = "https://api.github.com/search/repositories"
 date_range_map = {"today": "daily", "this-week": "weekly", "this-month": "monthly"}
 
 status_actions = {
-    "retry":"Failed to retrieve data. Retrying in ",
+    "retry": "Failed to retrieve data. Retrying in ",
     "invalid": "The server was unable to process the request.",
     "not_found": "The server indicated no data was found.",
     "unsupported": "The request is not supported.",

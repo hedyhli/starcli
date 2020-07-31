@@ -4,7 +4,13 @@ import click
 from time import sleep
 
 from .layouts import list_layout, table_layout, grid_layout, shorten_count
-from .search import search, debug_requests_on, search_github_trending, search_error, status_actions
+from .search import (
+    search,
+    debug_requests_on,
+    search_github_trending,
+    search_error,
+    status_actions,
+)
 
 
 @click.command()
