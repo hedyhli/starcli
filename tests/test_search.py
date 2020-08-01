@@ -75,16 +75,16 @@ def test_search_created_date():
         )
 
 
-def test_search_updated_date():
+def test_search_pushed_date():
     """
     Test the search functionality with updated date
     """
     date_format = "%Y-%m-%d"
     day_range = 0 - randint(100, 400)
-    updated_date_value = (datetime.utcnow() + timedelta(days=day_range)).strftime(
+    pushed_date_value = (datetime.utcnow() + timedelta(days=day_range)).strftime(
         date_format
     )
-    repos = search(language="python", last_updated=updated_date_value)
+    repos = search(language="python", pushed=pushed_date_value)
     for repo in repos:
         assert repo["stargazers_count"] >= 0
         assert repo["watchers_count"] >= 0
@@ -96,10 +96,10 @@ def test_search_updated_date():
         # Need to account for min and max updated dates
         assert datetime.strptime(
             repo["pushed_at"].split("T")[0], date_format
-        ) >= datetime.strptime(updated_date_value, date_format) and datetime.strptime(
+        ) >= datetime.strptime(pushed_date_value, date_format) and datetime.strptime(
             repo["pushed_at"].split("T")[0], date_format
         ) <= datetime.strptime(
-            updated_date_value, date_format
+            pushed_date_value, date_format
         ) + timedelta(
             days=1
         )

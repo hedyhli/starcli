@@ -45,7 +45,7 @@ def debug_requests_on():
     requests_log.propagate = True
 
 
-def convert_datetime(date, date_format):
+def convert_datetime(date, date_format="%Y-%m-%d"):
     """ Safely convert a date string to datetime """
     try:
         # try to turn the string into a date-time object
@@ -58,10 +58,26 @@ def convert_datetime(date, date_format):
     return tmp_date
 
 
+def get_date(date):
+    """ Finds the date info in a string """
+    prefix = ""
+    if (">" or "=" or "<") in date[0]:
+        if "=" in date[1]:
+            prefix = date[:2]
+            date = date.strip(prefix)
+        else:
+            prefix = date[0]
+            date = date.strip(prefix)
+    tmp_date = convert_datetime(date)
+    if not tmp_date:
+        return None
+    return prefix + tmp_date.strftime("%Y-%m-%d")
+
+
 def search(
     language=None,
     created=None,
-    last_updated=None,
+    pushed=None,
     stars=">=100",
     topics=[],
     user=None,
@@ -80,42 +96,26 @@ def search(
     day_range = 0 - randint(100, 400)  # random negative from 100 to 400
 
     if not created:  # if created not provided
-        # creation date: start, is the time now minus a random number of days
+        # creation date: the time now minus a random number of days
         # 100 to 400 days - which was stored in day_range
         created_str = ">=" + (datetime.utcnow() + timedelta(days=day_range)).strftime(
             date_format
         )
     else:  # if created is provided
-        prefix = ""
-        if (">" or "=" or "<") in created[0]:
-            if "=" in created[1]:
-                prefix = created[:2]
-                created = created.strip(prefix)
-            else:
-                prefix = created[0]
-                created = created.strip(prefix)
-        tmp_date = convert_datetime(created, date_format)
-        if not tmp_date:
+        created_str = get_date(created)
+        if not created_str:
             return None
-        created_str = prefix + tmp_date.strftime(date_format)
 
-    if not last_updated:  # if last_updated not provided
-        # update date: start, is the time now minus a random number of days
+    if not pushed:  # if pushed not provided
+        # pushed date: start, is the time now minus a random number of days
         # 100 to 400 days - which was stored in day_range
-        start_last_updated = (datetime.utcnow() + timedelta(days=day_range)).strftime(
+        pushed_str = ">=" + (datetime.utcnow() + timedelta(days=day_range)).strftime(
             date_format
         )
-        end_last_updated = (datetime.utcnow() + timedelta(days=1)).strftime(date_format)
-    else:  # if last_updated is provided
-        tmp_date = convert_datetime(last_updated, date_format)
-        if tmp_date is None:
+    else:  # if pushed is provided
+        pushed_str = get_date(pushed)
+        if not pushed_str:
             return None
-        end_last_updated = (tmp_date + timedelta(days=1)).strftime(date_format)
-        start_last_updated = tmp_date.strftime(date_format)
-
-    if debug:  # print start_date and end_date if debugging
-        print("DEBUG: search: start_last_updated:", start_last_updated)
-        print("DEBUG: search: end_last_updated:", end_last_updated)
 
     if user:
         query = f"user:{user}+"
@@ -123,9 +123,7 @@ def search(
         query = ""
 
     query += f"stars:{stars}+created:{created_str}"  # construct query
-    query += (
-        f"+pushed:{start_last_updated}..{end_last_updated}"  # add last updated to query
-    )
+    query += f"+pushed:{pushed_str}"  # add pushed info to query
     query += f"+language:{language}" if language else ""  # add language to query
     query += f"".join(["+topic:" + i for i in topics])  # add topics to query
 
