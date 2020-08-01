@@ -259,6 +259,7 @@ Thanks goes to all of these wonderful people ([emoji key](https://allcontributor
   <tr>
     <td align="center"><a href="https://github.com/Saif807380"><img src="https://avatars2.githubusercontent.com/u/50794619?v=4" width="100px;" alt=""/><br /><sub><b>Saif Kazi</b></sub></a><br /><a href="https://github.com/hedythedev/starcli/commits?author=Saif807380" title="Code">💻</a> <a href="https://github.com/hedythedev/starcli/commits?author=Saif807380" title="Documentation">📖</a></td>
     <td align="center"><a href="http://arcanedomain.duckdns.org"><img src="https://avatars3.githubusercontent.com/u/16456078?v=4" width="100px;" alt=""/><br /><sub><b>arcanearronax</b></sub></a><br /><a href="https://github.com/hedythedev/starcli/commits?author=arcanearronax" title="Tests">⚠️</a> <a href="https://github.com/hedythedev/starcli/commits?author=arcanearronax" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/jSadoski"><img src="https://avatars1.githubusercontent.com/u/1865629?v=4" width="100px;" alt=""/><br /><sub><b>jSadoski</b></sub></a><br /><a href="https://github.com/hedythedev/starcli/commits?author=jSadoski" title="Documentation">📖</a></td>
   </tr>
 </table>
 
