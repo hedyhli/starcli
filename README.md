@@ -172,7 +172,14 @@ last updated on a given date, say 2020-01-01 for 1st of Jan
 starcli -p 2020-01-01
 ```
 
-You can also prefix the value with ">=<" like `-p '>2020-01-01'`
+You can also prefix the value with ">=<" like:
+
+```
+starcli -p '>=2020-01-01'
+```
+
+This is find repos that have last pushed after or on January the 1st, 2020.
+Read more about the >=< syntax: [GitHub Docs](https://docs.github.com/en/github/searching-for-information-on-github/understanding-the-search-syntax#query-for-values-greater-or-less-than-another-value)
 
 ### Searching by user
 
