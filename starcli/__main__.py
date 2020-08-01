@@ -38,10 +38,10 @@ from .search import (
     help="Search by topic. Can be specified multiple times. Multiple topics will be conjugated using &",
 )
 @click.option(
-    "--last-updated",
-    "-u",
+    "--pushed",
+    "-p",
     default="",
-    help="Filter repos based on time of last update in ISO8601 format YYYY-MM-DD",
+    help="Specify date of last push in ISO8601 format YYYY-MM-DD",
 )
 @click.option(
     "--layout",
@@ -81,7 +81,7 @@ from .search import (
 )
 @click.option(
     "--user",
-    "-U",
+    "-u",
     type=str,
     default="",
     help="Search for trending repositories by username",
@@ -92,7 +92,7 @@ def cli(
     spoken_language,
     created,
     topics,
-    last_updated,
+    pushed,
     layout,
     stars,
     limit_results,
@@ -114,7 +114,7 @@ def cli(
                 not spoken_language and not date_range
             ):  # if filtering by spoken language and date range not required
                 tmp_repos = search(
-                    lang, created, last_updated, stars, topics, user, debug, order
+                    lang, created, pushed, stars, topics, user, debug, order
                 )
             else:
                 tmp_repos = search_github_trending(

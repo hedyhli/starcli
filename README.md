@@ -47,10 +47,12 @@ Options:
   -t, --topics TEXT               Search by topic. Can be specified multiple
                                   times. Multiple topics will be conjugated
                                   using &
-  -u, --last-updated TEXT         Filter repos based on time of last update in
-                                  ISO8601 format YYYY-MM-DD
+  -p, --pushed TEXT               Specify date of last push in ISO8601 format
+                                  YYYY-MM-DD
   -L, --layout [list|table|grid]  The output format (list, table, or grid),
                                   default is list
+
+
   -s, --stars TEXT                Range of stars required, default is '>=100'
   -r, --limit-results INTEGER     Limit the number of results shown. Default:
                                   7
@@ -60,7 +62,7 @@ Options:
   -d, --date-range [today|this-week|this-month]
                                   View stars received within time range,
                                   choose from: today, this-week, this-month
-  -U, --user TEXT                 Search for trending repositories by username
+  -u, --user TEXT                 Search for trending repositories by username
   --debug                         Turn on debugging mode
   --help                          Show this message and exit.
 ```
@@ -106,7 +108,7 @@ starcli --spoken-language zh
 The above command lists down repos written in Chinese.
 A full list of language codes is available [here](./starcli/spoken-languages.json)
 
-Note that (like `--date-range`) options like `--topics`, `--last-updated`, `--created` won't take effect
+Note that (like `--date-range`) options like `--topics`, `--pushed`, `--created` won't take effect
 because `-d` uses a different search mechanism to find results.
 
 ### Specify the number (or range) of stars
@@ -164,24 +166,24 @@ starcli -l python -d 2020-07-06 -t deep-learning -t pytorch
 
 ### Specifying last updated date
 
-Use this `--last-updated` or `-u` when you want to find popular repos that are
+Use this `--pushed` or `-p` when you want to find popular repos that are
 last updated on a given date, say 2020-01-01 for 1st of Jan
 2020:
 
 ```
-starcli -u 2020-01-01
+starcli -p 2020-01-01
 ```
 
 ### Searching by user
 
 Recommended to be used with `--stars` and/or `--date-created`.
 
-Finding trending projects by GitHub username is supported too. Use `--user` or `-U` to do so,
+Finding trending projects by GitHub username is supported too. Use `--user` or `-u` to do so,
 provide a valid GitHub username after that, like:
 
 ```
-starcli -U hedythedev
-starcli -U gvanrossum
+starcli -u hedythedev
+starcli -u gvanrossum
 ```
 
 ### Using date ranges
@@ -196,7 +198,7 @@ starcli -d this-week
 
 <img src="https://raw.githubusercontent.com/hedythedev/starcli/main/images/daterange.png" width="800px;" alt="demo date range"/>
 
-Note that (like `--spoken-language`) options like `--topics`, `--last-updated`, `--created` won't take effect
+Note that (like `--spoken-language`) options like `--topics`, `--pushed`, `--created` won't take effect
 because `-d` uses a different search mechanism to find results.
 
 ### Limit the number of results shown
