@@ -1,4 +1,4 @@
-![Cover image](https://raw.githubusercontent.com/hedythedev/starcli/main/starcli-small-cover.png)
+![Cover image](https://raw.githubusercontent.com/hedythedev/starcli/main/images/starcli-small-cover.png)
 
 Browse trending projects on Github from your command line 💻
 
@@ -13,7 +13,7 @@ Browse trending projects on Github from your command line 💻
 <br>
 
 <!--Below is a demo gif-->
-![starcli demo.gif](https://raw.githubusercontent.com/hedythedev/starcli/main/starcli-demo2.gif)
+![starcli demo.gif](https://raw.githubusercontent.com/hedythedev/starcli/main/images/starcli-demo2.gif)
 
 
 
@@ -72,15 +72,15 @@ Switch layouts using `--layout {list|table|grid}`, or use the short option `-L`
 
 **list**
 
-<img src="https://raw.githubusercontent.com/hedythedev/starcli/main/demo-pics/list.png" width="400px;" alt="demo list"/>
+<img src="https://raw.githubusercontent.com/hedythedev/starcli/main/images/list.png" width="400px;" alt="demo list"/>
 
 **table**
 
-<img src="https://raw.githubusercontent.com/hedythedev/starcli/main/demo-pics/table.png" width="800px;" alt=""/>
+<img src="https://raw.githubusercontent.com/hedythedev/starcli/main/images/table.png" width="800px;" alt=""/>
 
 **grid**
 
-<img src="https://raw.githubusercontent.com/hedythedev/starcli/main/demo-pics/grid.png" width="800px;" alt="demo grid"/>
+<img src="https://raw.githubusercontent.com/hedythedev/starcli/main/images/grid.png" width="800px;" alt="demo grid"/>
 
 
 ### Filtering by language
@@ -93,7 +93,7 @@ starcli --lang python
 
 Here, we used `starcli -l python -L grid`, which is python with grid layout:
 
-<img src="https://raw.githubusercontent.com/hedythedev/starcli/main/demo-pics/lang.png" width="800px;" alt="demo grid"/>
+<img src="https://raw.githubusercontent.com/hedythedev/starcli/main/images/lang.png" width="800px;" alt="demo grid"/>
 
 ### Filtering by spoken language
 
@@ -194,7 +194,7 @@ option you used.
 starcli -d this-week
 ```
 
-<img src="https://raw.githubusercontent.com/hedythedev/starcli/main/demo-pics/daterange.png" width="800px;" alt="demo date range"/>
+<img src="https://raw.githubusercontent.com/hedythedev/starcli/main/images/daterange.png" width="800px;" alt="demo date range"/>
 
 Note that (like `--spoken-language`) options like `--topics`, `--last-updated`, `--created` won't take effect
 because `-d` uses a different search mechanism to find results.
