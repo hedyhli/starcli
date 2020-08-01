@@ -1,7 +1,9 @@
 """ starcli.__main__ """
 
-import click
 from time import sleep
+
+import click
+from requests.exceptions import HTTPError
 
 from .layouts import list_layout, table_layout, grid_layout, shorten_count
 from .search import (
@@ -119,20 +121,22 @@ def cli(
                     lang, spoken_language, order, stars, date_range
                 )
             break  # Need this here to break out of the loop if the request is successful
-        except AssertionError as ae:  # If a request is unsuccessful, expect an assertion error
-            status_code = str(ae).split(" ")[3]
+        except HTTPError as e:  # If a request is unsuccessful
+            status_code = str(e).split(" ")[3]
             handling_code = search_error(status_code)
             if handling_code == "retry":
                 for i in range(15, 0, -1):
-                    print(
-                        f"{status_actions[handling_code]} {i} seconds...", end="\r"
+                    click.secho(
+                        f"{status_actions[handling_code]} {i} seconds...",
+                        fg="bright_yellow",
+                        end="\r",
                     )  # Print and update a timer
                     sleep(1)
             elif handling_code in status_actions:
-                print(status_actions[handling_code])
+                click.secho(status_actions[handling_code], fg="bright_yellow")
                 return
             else:
-                print("An invalid handling code was returned.")
+                click.secho("An invalid handling code was returned.", fg="bright_red")
                 return
 
     if not tmp_repos:  # if search() returned None

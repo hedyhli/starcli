@@ -228,7 +228,9 @@ def get_valid_request(url):
     except requests.exceptions.ConnectionError:
         secho("Internet connection error...", fg="bright_red")
         return None
-    assert request.status_code in (200, 202), f"HTTP Status Code: {request.status_code}"
+
+    if not request.status_code in (200, 202):
+        raise requests.exceptions.HTTPError(f"HTTP Status Code: {request.status_code}")
     return request
 
 
