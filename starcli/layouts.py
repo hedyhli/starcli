@@ -163,8 +163,8 @@ def grid_layout(repos):
 
         # truncate rest of the description if
         # it's more than 90 (max_desc_len) chars
-        # using truncate() is better because it also
-        # takes care of asian characters
+        # using truncate() is better than textwrap
+        # because it also takes care of asian characters
         description.truncate(max_desc_len, overflow="ellipsis")
 
         repo_summary = Text.assemble(
