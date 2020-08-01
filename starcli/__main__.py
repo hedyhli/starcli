@@ -71,7 +71,7 @@ from .search import (
     help="Specify the order of repos by stars that is shown, 'desc' or 'asc', default: desc",
 )
 @click.option(
-    "--long-stats", is_flag=True, help="Print the actual stats[1300 instead of 1.3k]",
+    "--long-stats", is_flag=True, help="Print the actual stats number (1300 instead of 1.3k)",
 )
 @click.option(
     "--date-range",

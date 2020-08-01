@@ -56,7 +56,7 @@ Options:
                                   7
   -o, --order [desc|asc]          Specify the order of repos by stars that is
                                   shown, 'desc' or 'asc', default: desc
-  --long-stats                    Print the actual stats[1300 instead of 1.3k]
+  --long-stats                    Print the actual stats number (1300 instead of 1.3k)
   -d, --date-range [today|this-week|this-month]
                                   View stars received within time range,
                                   choose from: today, this-week, this-month
