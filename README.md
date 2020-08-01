@@ -44,7 +44,7 @@ Options:
                                   zh for Chinese, etc
   -c, --created TEXT              Specify repo creation date in YYYY-MM-DD,
                                   prefixing with >, <= etc is allowed
-  -t, --topics TEXT               Search by topic, can be specified multiple
+  -t, --topic TEXT                Search by topic, can be specified multiple
                                   times
   -p, --pushed TEXT               Specify date of last push in YYYY-MM-DD, >=<
                                   allowed

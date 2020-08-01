@@ -31,7 +31,7 @@ from .search import (
     help="Specify repo creation date in YYYY-MM-DD, prefixing with >, <= etc is allowed",
 )
 @click.option(
-    "--topics",
+    "--topic",
     "-t",
     default="",
     multiple=True,
