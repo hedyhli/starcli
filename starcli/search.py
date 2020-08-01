@@ -74,6 +74,49 @@ def get_date(date):
     return prefix + tmp_date.strftime("%Y-%m-%d")
 
 
+def get_valid_request(url):
+    """
+    Provide a URL to submit a GET request for and handle a connection error or raise an assertion error if an HTTP status code indicating anything other than a success was received.
+    """
+    try:
+        request = requests.get(url)
+    except requests.exceptions.ConnectionError:
+        secho("Internet connection error...", fg="bright_red")
+        return None
+
+    if not request.status_code in (200, 202):
+        raise requests.exceptions.HTTPError(f"HTTP Status Code: {request.status_code}")
+    return request
+
+
+def search_error(status_code):
+    """
+    This returns a directive on how to handle a given HTTP status code.
+    """
+    int_status_code = int(
+        status_code
+    )  # Need to make sure the status code is an integer
+
+    http_code_handling = {
+        "200": "valid",
+        "202": "valid",
+        "204": "valid",
+        "400": "invalid",
+        "401": "retry",
+        "403": "retry",
+        "404": "not_found",
+        "405": "invalid",
+        "422": "not_found",
+        "500": "invalid",
+        "501": "invalid",
+    }
+
+    try:
+        return http_code_handling[str(int_status_code)]
+    except KeyError as ke:
+        return "unsupported"
+
+
 def search(
     language=None,
     created=None,
@@ -84,9 +127,7 @@ def search(
     debug=False,
     order="desc",
 ):
-    """ Returns repositories searched from GitHub API
-
-    """
+    """ Returns repositories searched from GitHub API """
     date_format = "%Y-%m-%d"  # date format in iso format
     if debug:
         debug_requests_on()
@@ -215,46 +256,3 @@ def search_github_trending(
     if order == "asc":
         return sorted(repositories, key=lambda repo: repo["stargazers_count"])
     return sorted(repositories, key=lambda repo: repo["stargazers_count"], reverse=True)
-
-
-def get_valid_request(url):
-    """
-    Provide a URL to submit a GET request for and handle a connection error or raise an assertion error if an HTTP status code indicating anything other than a success was received.
-    """
-    try:
-        request = requests.get(url)
-    except requests.exceptions.ConnectionError:
-        secho("Internet connection error...", fg="bright_red")
-        return None
-
-    if not request.status_code in (200, 202):
-        raise requests.exceptions.HTTPError(f"HTTP Status Code: {request.status_code}")
-    return request
-
-
-def search_error(status_code):
-    """
-    This returns a directive on how to handle a given HTTP status code.
-    """
-    int_status_code = int(
-        status_code
-    )  # Need to make sure the status code is an integer
-
-    http_code_handling = {
-        "200": "valid",
-        "202": "valid",
-        "204": "valid",
-        "400": "invalid",
-        "401": "retry",
-        "403": "retry",
-        "404": "not_found",
-        "405": "invalid",
-        "422": "not_found",
-        "500": "invalid",
-        "501": "invalid",
-    }
-
-    try:
-        return http_code_handling[str(int_status_code)]
-    except KeyError as ke:
-        return "unsupported"
