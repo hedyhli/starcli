@@ -41,7 +41,7 @@ from .search import (
     "--pushed",
     "-p",
     default="",
-    help="Specify date of last push in ISO8601 format YYYY-MM-DD",
+    help="Specify date of last push in YYYY-MM-DD, >=< allowed",
 )
 @click.option(
     "--layout",

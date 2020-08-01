@@ -47,12 +47,10 @@ Options:
   -t, --topics TEXT               Search by topic. Can be specified multiple
                                   times. Multiple topics will be conjugated
                                   using &
-  -p, --pushed TEXT               Specify date of last push in ISO8601 format
-                                  YYYY-MM-DD
+  -p, --pushed TEXT               Specify date of last push in YYYY-MM-DD, >=<
+                                  allowed
   -L, --layout [list|table|grid]  The output format (list, table, or grid),
                                   default is list
-
-
   -s, --stars TEXT                Range of stars required, default is '>=100'
   -r, --limit-results INTEGER     Limit the number of results shown. Default:
                                   7
@@ -164,7 +162,7 @@ This option can be used multiple times.
 starcli -l python -d 2020-07-06 -t deep-learning -t pytorch
 ```
 
-### Specifying last updated date
+### Specifying last pushed date
 
 Use this `--pushed` or `-p` when you want to find popular repos that are
 last updated on a given date, say 2020-01-01 for 1st of Jan
@@ -173,6 +171,8 @@ last updated on a given date, say 2020-01-01 for 1st of Jan
 ```
 starcli -p 2020-01-01
 ```
+
+You can also prefix the value with ">=<" like `-p '>2020-01-01'`
 
 ### Searching by user
 
