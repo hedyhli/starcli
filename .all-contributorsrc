@@ -87,6 +87,15 @@
         "test",
         "code"
       ]
+    },
+    {
+      "login": "jSadoski",
+      "name": "jSadoski",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/1865629?v=4",
+      "profile": "https://github.com/jSadoski",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
