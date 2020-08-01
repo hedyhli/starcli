@@ -44,19 +44,19 @@ Options:
                                   zh for Chinese, etc
   -c, --created TEXT              Specify repo creation date in YYYY-MM-DD,
                                   prefixing with >, <= etc is allowed
-  -t, --topics TEXT               Search by topic. Can be specified multiple
-                                  times. Multiple topics will be conjugated
-                                  using &
+  -t, --topics TEXT               Search by topic, can be specified multiple
+                                  times
   -p, --pushed TEXT               Specify date of last push in YYYY-MM-DD, >=<
                                   allowed
   -L, --layout [list|table|grid]  The output format (list, table, or grid),
                                   default is list
-  -s, --stars TEXT                Range of stars required, default is '>=100'
-  -r, --limit-results INTEGER     Limit the number of results shown. Default:
-                                  7
-  -o, --order [desc|asc]          Specify the order of repos by stars that is
-                                  shown, 'desc' or 'asc', default: desc
-  --long-stats                    Print the actual stats number (1300 instead of 1.3k)
+  -s, --stars TEXT                Amount of stars required, default is
+                                  '>=100'. Can use 123, <10, etc.
+  -r, --limit-results INTEGER     Limit the number of results. Default: 7
+  -o, --order [desc|asc]          Order of repos by stars shown, 'desc' or
+                                  'asc', default: desc
+  --long-stats                    Print the actual stats number (1300 instead
+                                  of 1.3k)
   -d, --date-range [today|this-week|this-month]
                                   View stars received within time range,
                                   choose from: today, this-week, this-month

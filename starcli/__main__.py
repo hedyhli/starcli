@@ -35,7 +35,7 @@ from .search import (
     "-t",
     default="",
     multiple=True,
-    help="Search by topic. Can be specified multiple times. Multiple topics will be conjugated using &",
+    help="Search by topic, can be specified multiple times",
 )
 @click.option(
     "--pushed",
@@ -54,24 +54,26 @@ from .search import (
     "-s",
     type=str,
     default=">=100",
-    help="Range of stars required, default is '>=100'",
+    help="Amount of stars required, default is '>=100'. Can use 123, <10, etc.",
 )
 @click.option(
     "--limit-results",
     "-r",
     type=int,
     default=7,
-    help="Limit the number of results shown. Default: 7",
+    help="Limit the number of results. Default: 7",
 )
 @click.option(
     "--order",
     "-o",
     type=click.Choice(["desc", "asc"], case_sensitive=False),
     default="desc",
-    help="Specify the order of repos by stars that is shown, 'desc' or 'asc', default: desc",
+    help="Order of repos by stars shown, 'desc' or 'asc', default: desc",
 )
 @click.option(
-    "--long-stats", is_flag=True, help="Print the actual stats number (1300 instead of 1.3k)",
+    "--long-stats",
+    is_flag=True,
+    help="Print the actual stats number (1300 instead of 1.3k)",
 )
 @click.option(
     "--date-range",
