@@ -93,7 +93,7 @@ def cli(
     lang,
     spoken_language,
     created,
-    topics,
+    topic,
     pushed,
     layout,
     stars,
@@ -116,7 +116,7 @@ def cli(
                 not spoken_language and not date_range
             ):  # if filtering by spoken language and date range not required
                 tmp_repos = search(
-                    lang, created, pushed, stars, topics, user, debug, order
+                    lang, created, pushed, stars, topic, user, debug, order
                 )
             else:
                 tmp_repos = search_github_trending(
