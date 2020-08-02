@@ -130,8 +130,7 @@ def cli(
                 for i in range(15, 0, -1):
                     click.secho(
                         f"{status_actions[handling_code]} {i} seconds...",
-                        fg="bright_yellow",
-                        end="\r",
+                        fg="bright_yellow"
                     )  # Print and update a timer
                     sleep(1)
             elif handling_code in status_actions:
