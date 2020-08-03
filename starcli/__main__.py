@@ -91,11 +91,11 @@ from .search import (
 )
 @click.option("--debug", is_flag=True, default=False, help="Turn on debugging mode")
 @click.option(
-    "--auth", 
-    type=str, 
-    default="", 
-    help="GitHub personal access token in the format 'username:token'."
-    )
+    "--auth",
+    type=str,
+    default="",
+    help="GitHub personal access token in the format 'username:token'.",
+)
 def cli(
     lang,
     spoken_language,
@@ -118,9 +118,15 @@ def cli(
 
         debug_requests_on()
 
-    if auth and not re.search('.:.', auth): # check authentication format
-        click.secho(f"Invalid authentication format: {auth} must be 'username:token'", fg="bright_red")
-        click.secho('Use --help or see: https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token', fg="bright_red")
+    if auth and not re.search(".:.", auth):  # check authentication format
+        click.secho(
+            f"Invalid authentication format: {auth} must be 'username:token'",
+            fg="bright_red",
+        )
+        click.secho(
+            "Use --help or see: https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token",
+            fg="bright_red",
+        )
         auth = None
 
     while True:
@@ -142,7 +148,8 @@ def cli(
             if handling_code == "retry":
                 for i in range(15, 0, -1):
                     click.secho(
-                        f"{status_actions[handling_code]} {i} seconds...", fg="bright_yellow"
+                        f"{status_actions[handling_code]} {i} seconds...",
+                        fg="bright_yellow",
                     )  # Print and update a timer
                     sleep(1)
             elif handling_code in status_actions:

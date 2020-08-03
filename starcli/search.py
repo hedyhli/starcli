@@ -81,7 +81,8 @@ def get_valid_request(url, auth=""):
     """
     try:
         session = requests.Session()
-        if auth: session.auth = (auth.split(":")[0], auth.split(":")[1])
+        if auth:
+            session.auth = (auth.split(":")[0], auth.split(":")[1])
         request = session.get(url)
     except requests.exceptions.ConnectionError:
         secho("Internet connection error...", fg="bright_red")
@@ -180,7 +181,7 @@ def search(
         print("DEBUG: auth: on")
     elif debug:
         print("DEBUG: auth: off")
-        
+
     request = get_valid_request(url, auth)
     if request is None:
         return request
