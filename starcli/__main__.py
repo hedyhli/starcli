@@ -94,7 +94,7 @@ from .search import (
     "--auth", 
     type=str, 
     default="", 
-    help="GitHub personal access token in the format 'username:token'. This can help with rate limits. See: https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token"
+    help="GitHub personal access token in the format 'username:token'."
     )
 def cli(
     lang,
