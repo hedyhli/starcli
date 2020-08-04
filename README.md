@@ -235,6 +235,7 @@ To avoid this, use authenticate using `--auth` and provide your username and pas
 starcli --auth "username:password"
 ```
 
+[Read more](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token")
 
 ## Issues, feature request, and feedback
 
