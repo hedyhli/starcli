@@ -89,13 +89,13 @@ from .search import (
     default="",
     help="Search for trending repositories by username",
 )
-@click.option("--debug", is_flag=True, default=False, help="Turn on debugging mode")
 @click.option(
     "--auth",
     type=str,
     default="",
-    help="GitHub personal access token in the format 'username:token'.",
+    help="GitHub personal access token in the format 'username:password'.",
 )
+@click.option("--debug", is_flag=True, default=False, help="Turn on debugging mode")
 def cli(
     lang,
     spoken_language,
