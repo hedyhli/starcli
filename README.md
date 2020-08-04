@@ -61,9 +61,9 @@ Options:
                                   View stars received within time range,
                                   choose from: today, this-week, this-month
   -u, --user TEXT                 Search for trending repositories by username
-  --debug                         Turn on debugging mode
   --auth TEXT                     GitHub personal access token in the format
-                                  'username:token'.
+                                  'username:password'.
+  --debug                         Turn on debugging mode
   --help                          Show this message and exit.
 ```
 
