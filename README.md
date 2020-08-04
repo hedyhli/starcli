@@ -62,6 +62,8 @@ Options:
                                   choose from: today, this-week, this-month
   -u, --user TEXT                 Search for trending repositories by username
   --debug                         Turn on debugging mode
+  --auth TEXT                     GitHub personal access token in the format
+                                  'username:token'.
   --help                          Show this message and exit.
 ```
 
@@ -223,6 +225,15 @@ Just add `starcli -r 3 -L grid` in there, and every time you open your terminal,
 you will find 3 trending repos printed neatly in a grid format, great way to start your
 day (bit like the [Hacker Tab Extension](https://chrome.google.com/webstore/detail/hacker-tab/ibomigipadcieapbemkegkmadbbanbgm?hl=en) 😆 ).
 
+
+### GitHub Authentication
+
+If you have used starcli too much in a specified amount of time, rate limit will be hit.
+To avoid this, use authenticate using `--auth` and provide your username and password
+
+```
+starcli --auth "username:password"
+```
 
 
 ## Issues, feature request, and feedback
