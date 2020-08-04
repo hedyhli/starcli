@@ -19,6 +19,7 @@ date_range_map = {"today": "daily", "this-week": "weekly", "this-month": "monthl
 status_actions = {
     "retry": "Failed to retrieve data. Retrying in ",
     "invalid": "The server was unable to process the request.",
+    "unauthorized": "The server did not accept the credentials. See: https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token",
     "not_found": "The server indicated no data was found.",
     "unsupported": "The request is not supported.",
     "unknown": "An unknown error occurred.",
@@ -74,12 +75,15 @@ def get_date(date):
     return prefix + tmp_date.strftime("%Y-%m-%d")
 
 
-def get_valid_request(url):
+def get_valid_request(url, auth=""):
     """
     Provide a URL to submit a GET request for and handle a connection error or raise an assertion error if an HTTP status code indicating anything other than a success was received.
     """
     try:
-        request = requests.get(url)
+        session = requests.Session()
+        if auth:
+            session.auth = (auth.split(":")[0], auth.split(":")[1])
+        request = session.get(url)
     except requests.exceptions.ConnectionError:
         secho("Internet connection error...", fg="bright_red")
         return None
@@ -102,7 +106,7 @@ def search_error(status_code):
         "202": "valid",
         "204": "valid",
         "400": "invalid",
-        "401": "retry",
+        "401": "unauthorized",
         "403": "retry",
         "404": "not_found",
         "405": "invalid",
@@ -126,6 +130,7 @@ def search(
     user=None,
     debug=False,
     order="desc",
+    auth="",
 ):
     """ Returns repositories searched from GitHub API """
     date_format = "%Y-%m-%d"  # date format in iso format
@@ -172,7 +177,12 @@ def search(
     if debug:
         print("DEBUG: search: url:", url)  # print the url when debugging
 
-    request = get_valid_request(url)
+    if debug and auth:
+        print("DEBUG: auth: on")
+    elif debug:
+        print("DEBUG: auth: off")
+
+    request = get_valid_request(url, auth)
     if request is None:
         return request
 

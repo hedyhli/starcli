@@ -4,6 +4,7 @@ from time import sleep
 
 import click
 from requests.exceptions import HTTPError
+import re
 
 from .layouts import list_layout, table_layout, grid_layout, shorten_count
 from .search import (
@@ -89,6 +90,12 @@ from .search import (
     help="Search for trending repositories by username",
 )
 @click.option("--debug", is_flag=True, default=False, help="Turn on debugging mode")
+@click.option(
+    "--auth",
+    type=str,
+    default="",
+    help="GitHub personal access token in the format 'username:token'.",
+)
 def cli(
     lang,
     spoken_language,
@@ -103,6 +110,7 @@ def cli(
     date_range,
     user,
     debug=False,
+    auth="",
 ):
     """ Find trending repos on GitHub """
     if debug:
@@ -110,13 +118,24 @@ def cli(
 
         debug_requests_on()
 
+    if auth and not re.search(".:.", auth):  # check authentication format
+        click.secho(
+            f"Invalid authentication format: {auth} must be 'username:token'",
+            fg="bright_red",
+        )
+        click.secho(
+            "Use --help or see: https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token",
+            fg="bright_red",
+        )
+        auth = None
+
     while True:
         try:
             if (
                 not spoken_language and not date_range
             ):  # if filtering by spoken language and date range not required
                 tmp_repos = search(
-                    lang, created, pushed, stars, topic, user, debug, order
+                    lang, created, pushed, stars, topic, user, debug, order, auth
                 )
             else:
                 tmp_repos = search_github_trending(
@@ -129,7 +148,8 @@ def cli(
             if handling_code == "retry":
                 for i in range(15, 0, -1):
                     click.secho(
-                        f"{status_actions[handling_code]} {i} seconds...", fg="bright_yellow"
+                        f"{status_actions[handling_code]} {i} seconds...",
+                        fg="bright_yellow",
                     )  # Print and update a timer
                     sleep(1)
             elif handling_code in status_actions:
