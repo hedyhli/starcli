@@ -53,6 +53,14 @@ the other features like list and table output, debug, etc.
 python -m pytest
 ```
 
+or, for authenticated requests:
+
+```bash
+python -m pytest --auth [username]:[token]
+```
+
+Where **username** = your GitHub username and **token** = a [personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token). Authenticating your request will allow you to test authentication features and use a higher rate limit with the GitHub API. *This token does not need any permissions!*
+
 **Linting checks**
 
 ```bash
