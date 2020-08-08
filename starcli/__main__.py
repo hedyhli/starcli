@@ -1,9 +1,6 @@
 """ starcli.__main__ """
 
-from time import sleep
-
 import click
-from requests.exceptions import HTTPError
 import re
 
 from .layouts import list_layout, table_layout, grid_layout, shorten_count
@@ -129,35 +126,16 @@ def cli(
         )
         auth = None
 
-    while True:
-        try:
-            if (
-                not spoken_language and not date_range
-            ):  # if filtering by spoken language and date range not required
-                tmp_repos = search(
-                    lang, created, pushed, stars, topic, user, debug, order, auth
-                )
-            else:
-                tmp_repos = search_github_trending(
-                    lang, spoken_language, order, stars, date_range
-                )
-            break  # Need this here to break out of the loop if the request is successful
-        except HTTPError as e:  # If a request is unsuccessful
-            status_code = str(e).split(" ")[3]
-            handling_code = search_error(status_code)
-            if handling_code == "retry":
-                for i in range(15, 0, -1):
-                    click.secho(
-                        f"{status_actions[handling_code]} {i} seconds...",
-                        fg="bright_yellow",
-                    )  # Print and update a timer
-                    sleep(1)
-            elif handling_code in status_actions:
-                click.secho(status_actions[handling_code], fg="bright_yellow")
-                return
-            else:
-                click.secho("An invalid handling code was returned.", fg="bright_red")
-                return
+    if (
+        not spoken_language and not date_range
+    ):  # if filtering by spoken language and date range not required
+        tmp_repos = search(
+            lang, created, pushed, stars, topic, user, debug, order, auth
+        )
+    else:
+        tmp_repos = search_github_trending(
+            lang, spoken_language, order, stars, date_range
+        )
 
     if not tmp_repos:  # if search() returned None
         return
