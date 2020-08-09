@@ -2,6 +2,7 @@
 
 # Standard library imports
 from datetime import datetime, timedelta
+from time import sleep
 import logging
 from random import randint
 import re
@@ -77,19 +78,36 @@ def get_date(date):
 
 def get_valid_request(url, auth=""):
     """
-    Provide a URL to submit a GET request for and handle a connection error or raise an assertion error if an HTTP status code indicating anything other than a success was received.
+    Provide a URL to submit a GET request for and handle a connection error.
     """
-    try:
-        session = requests.Session()
-        if auth:
-            session.auth = (auth.split(":")[0], auth.split(":")[1])
-        request = session.get(url)
-    except requests.exceptions.ConnectionError:
-        secho("Internet connection error...", fg="bright_red")
-        return None
+    while True:
+        try:
+            session = requests.Session()
+            if auth:
+                session.auth = (auth.split(":")[0], auth.split(":")[1])
+            request = session.get(url)
+        except requests.exceptions.ConnectionError:
+            secho("Internet connection error...", fg="bright_red")
+            return None
 
-    if not request.status_code in (200, 202):
-        raise requests.exceptions.HTTPError(f"HTTP Status Code: {request.status_code}")
+        if not request.status_code in (200, 202):
+            handling_code = search_error(request.status_code)
+            if handling_code == "retry":
+                for i in range(15, 0, -1):
+                    secho(
+                        f"{status_actions[handling_code]} {i} seconds...",
+                        fg="bright_yellow",
+                    )  # Print and update a timer
+                    sleep(1)
+            elif handling_code in status_actions:
+                secho(status_actions[handling_code], fg="bright_yellow")
+                return None
+            else:
+                secho("An invalid handling code was returned.", fg="bright_red")
+                return None
+        else:
+            break
+
     return request
 
 
