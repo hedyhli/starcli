@@ -1,11 +1,12 @@
 """ tests.test_cli """
 
-from click.testing import CliRunner
-import pytest
 from datetime import datetime, timedelta
 from random import randint
 from sys import maxsize
 import re
+
+from click.testing import CliRunner
+import pytest
 
 from starcli.__main__ import cli
 
