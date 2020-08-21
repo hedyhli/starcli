@@ -129,7 +129,7 @@ def test_search_user():
         assert repo["watchers_count"] >= 0
         assert repo["forks_count"] >= 0
         assert (repo["description"] is None) or repo["description"]
-        assert repo["full_name"].split("/")[0] == user
+        assert repo["full_name"].split("/")[0] == "hedythedev"
         assert repo["html_url"] == "https://github.com/" + repo["full_name"]
 
 
