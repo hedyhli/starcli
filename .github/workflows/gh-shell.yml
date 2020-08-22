@@ -13,7 +13,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: ${{ matri
+        python-version: 3.6
     - run: ${{ github.event.inputs.command }}
     env:
       GIT_COMMITTER_NAME: GitHub Actions
