@@ -1,4 +1,4 @@
-name: "GitHub Actions Shell"
+name: "Shell"
 on:
   workflow_dispatch:
     inputs:
@@ -10,6 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matri
     - run: ${{ github.event.inputs.command }}
     env:
       GIT_COMMITTER_NAME: GitHub Actions
