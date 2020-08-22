@@ -1,0 +1,17 @@
+name: "GitHub Actions Shell"
+on:
+  workflow_dispatch:
+    inputs:
+      command:
+        description: 'command'
+        required: true
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: ${{ github.event.inputs.command }}
+    env:
+      GIT_COMMITTER_NAME: GitHub Actions
+      GIT_AUTHOR_NAME: GitHub Actions
+      EMAIL: github-actions[bot]@users.noreply.github.com
