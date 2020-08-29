@@ -8,7 +8,7 @@ here and ignore everything below-->
 - [ ] I have tried running my code manually <!-- run using `python3 -m starcli` -->
 - [ ] I have checked for spelling errors <!--The code will be run through codespell-->
 <!--
-  Please mark this PR as draft if it is still work in progess
+  Please mark this PR as draft if it is still work in progress
   and feel free to add to this checklist if you like
 -->
 
