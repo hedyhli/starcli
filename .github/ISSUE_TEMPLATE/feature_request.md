@@ -11,13 +11,17 @@ assignees: ''
 
 
 
-**Why is it necessary? (or how would it make it better)**
-
-
-
-
-**how do you think should it be implemented? (If possible)**
+**Why do you think it would be a good idea?**
+<!--remove this section if it is already covered in the description-->
 
 
 
 <!--please also state whether or not you would like to work on this if accepted-->
+
+---
+
+**Checklist**
+
+- [ ] I have checked for existing issues and this is not a duplicate
+
+<!-- feel free to add more this as to implementing the issue -->
