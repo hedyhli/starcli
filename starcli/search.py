@@ -4,6 +4,7 @@
 from datetime import datetime, timedelta
 from time import sleep
 import logging
+from rich.logging import RichHandler
 from random import randint
 import re
 
@@ -12,6 +13,7 @@ import requests
 from click import secho
 import colorama
 from bs4 import BeautifulSoup
+import http.client
 
 API_URL = "https://api.github.com/search/repositories"
 
@@ -27,24 +29,42 @@ status_actions = {
     "valid": "The request returned successfully, but an unknown exception occurred.",
 }
 
+FORMAT = "%(message)s"
+
+
+
+httpclient_logger = logging.getLogger("http.client")
+
+def httpclient_logging_debug(level=logging.DEBUG, debug_level=1):
+
+    def httpclient_log(*args):
+        httpclient_logger.log(level, " ".join(args))
+
+    http.client.print = httpclient_log
+    http.client.HTTPConnection.debuglevel = 1
+
 
 def debug_requests_on():
     """ Turn on the logging for requests """
+
+    logging.basicConfig(
+        level=logging.DEBUG, format=FORMAT, datefmt="[%Y-%m-%d]", handlers=[RichHandler()]
+    )
     logger = logging.getLogger(__name__)
+
     try:
         from http.client import HTTPConnection
+        httpclient_logging_debug(debug_level=1)
 
-        HTTPConnection.set_debuglevel(HTTPConnection, 1)
     except ImportError:
         import httplib
 
-        httplib.HTTPConnection.debuglevel = 2
+        httpclient_logging_debug(debug_level=2)
 
-    logging.basicConfig()
-    logging.getLogger().setLevel(logging.DEBUG)
     requests_log = logging.getLogger("requests.packages.urllib3")
     requests_log.setLevel(logging.DEBUG)
     requests_log.propagate = True
+
 
 
 def convert_datetime(date, date_format="%Y-%m-%d"):
@@ -98,6 +118,7 @@ def get_valid_request(url, auth=""):
                         f"{status_actions[handling_code]} {i} seconds...",
                         fg="bright_yellow",
                     )  # Print and update a timer
+                    
                     sleep(1)
             elif handling_code in status_actions:
                 secho(status_actions[handling_code], fg="bright_yellow")
@@ -154,8 +175,9 @@ def search(
     date_format = "%Y-%m-%d"  # date format in iso format
     if debug:
         debug_requests_on()
-        print("DEBUG: search: created param:", created)
-        print("DEBUG: search: order param: ", order)
+        logger = logging.getLogger(__name__)
+        logger.debug("Search: created param:" + created)
+        logger.debug("Search: order param: " + order)
 
     day_range = 0 - randint(100, 400)  # random negative from 100 to 400
 
@@ -193,12 +215,11 @@ def search(
 
     url = f"{API_URL}?q={query}&sort=stars&order={order}"  # use query to construct url
     if debug:
-        print("DEBUG: search: url:", url)  # print the url when debugging
-
+        logger.debug("Search: url:" + url)  # print the url when debugging
     if debug and auth:
-        print("DEBUG: auth: on")
+        logger.debug("Auth: on")
     elif debug:
-        print("DEBUG: auth: off")
+        logger.debug("Auth: off")
 
     request = get_valid_request(url, auth)
     if request is None:
