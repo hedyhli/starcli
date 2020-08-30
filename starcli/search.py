@@ -32,9 +32,6 @@ status_actions = {
 
 FORMAT = "%(message)s"
 
-logging.basicConfig(
-    level=logging.DEBUG, format=FORMAT, datefmt="[%Y-%m-%d]", handlers=[RichHandler()]
-)
 
 
 httpclient_logger = logging.getLogger("http.client")
@@ -51,6 +48,9 @@ def httpclient_logging_debug(level=logging.DEBUG, debug_level=1):
 def debug_requests_on():
     """ Turn on the logging for requests """
 
+    logging.basicConfig(
+        level=logging.DEBUG, format=FORMAT, datefmt="[%Y-%m-%d]", handlers=[RichHandler()]
+    )
     logger = logging.getLogger(__name__)
 
     try:
@@ -217,7 +217,6 @@ def search(
     url = f"{API_URL}?q={query}&sort=stars&order={order}"  # use query to construct url
     if debug:
         logger.debug("Search: url:" + url)  # print the url when debugging
-
     if debug and auth:
         logger.debug("Auth: on")
     elif debug:
