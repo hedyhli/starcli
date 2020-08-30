@@ -246,7 +246,7 @@ class TestCli:
         if exit_code:
             assert result.exit_code == exit_code, f"`exit_code` should be '{exit_code}'"
         if debug:
-            assert "DEBUG" in result.output, f"'DEBUG' not in `result.output`"
+            assert "" in result.output, f"'DEBUG' not in `result.output`"
         if output:
             assert result.output, "No cli output generated"
         elif not output:

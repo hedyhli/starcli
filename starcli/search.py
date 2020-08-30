@@ -14,6 +14,7 @@ import requests
 from click import secho
 import colorama
 from bs4 import BeautifulSoup
+import http.client
 
 API_URL = "https://api.github.com/search/repositories"
 
@@ -32,32 +33,35 @@ status_actions = {
 FORMAT = "%(message)s"
 
 logging.basicConfig(
-    level="DEBUG", format=FORMAT, datefmt="[%Y-%m-%d]", handlers=[RichHandler()]
+    level=logging.DEBUG, format=FORMAT, datefmt="[%Y-%m-%d]", handlers=[RichHandler()]
 )
+
+
+httpclient_logger = logging.getLogger("http.client")
+
+def httpclient_logging_debug(level=logging.DEBUG, debug_level=1):
+
+    def httpclient_log(*args):
+        httpclient_logger.log(level, " ".join(args))
+
+    http.client.print = httpclient_log
+    http.client.HTTPConnection.debuglevel = 1
+
 
 def debug_requests_on():
     """ Turn on the logging for requests """
 
-
-    logging.basicConfig(
-        level="DEBUG", format=FORMAT, datefmt="[%Y-%m-%d]", handlers=[RichHandler()]
-    )
     logger = logging.getLogger(__name__)
+
     try:
         from http.client import HTTPConnection
+        httpclient_logging_debug(debug_level=1)
 
-        HTTPConnection.set_debuglevel(HTTPConnection, 1)
     except ImportError:
         import httplib
 
-        httplib.HTTPConnection.debuglevel = 2
+        httpclient_logging_debug(debug_level=2)
 
-    
-    logging.basicConfig(
-        level="DEBUG", format=FORMAT, datefmt="[%Y-%m-%d]", handlers=[RichHandler()]
-    )
-
-    logging.getLogger().setLevel(logging.DEBUG)
     requests_log = logging.getLogger("requests.packages.urllib3")
     requests_log.setLevel(logging.DEBUG)
     requests_log.propagate = True
