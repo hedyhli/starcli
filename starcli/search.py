@@ -6,6 +6,7 @@ from time import sleep
 import logging
 from rich.logging import RichHandler
 from random import randint
+import logging.handlers
 import re
 
 # Third party imports
@@ -30,14 +31,17 @@ status_actions = {
 
 FORMAT = "%(message)s"
 
-
+logging.basicConfig(
+    level="DEBUG", format=FORMAT, datefmt="[%Y-%m-%d]", handlers=[RichHandler()]
+)
 
 def debug_requests_on():
     """ Turn on the logging for requests """
-    logging.basicConfig(
-        level="logging.DEBUG", format=FORMAT, datefmt="[%Y-%m-%d]", handlers=[RichHandler()]
-    )
 
+
+    logging.basicConfig(
+        level="DEBUG", format=FORMAT, datefmt="[%Y-%m-%d]", handlers=[RichHandler()]
+    )
     logger = logging.getLogger(__name__)
     try:
         from http.client import HTTPConnection
@@ -49,9 +53,15 @@ def debug_requests_on():
         httplib.HTTPConnection.debuglevel = 2
 
     
+    logging.basicConfig(
+        level="DEBUG", format=FORMAT, datefmt="[%Y-%m-%d]", handlers=[RichHandler()]
+    )
+
+    logging.getLogger().setLevel(logging.DEBUG)
     requests_log = logging.getLogger("requests.packages.urllib3")
     requests_log.setLevel(logging.DEBUG)
     requests_log.propagate = True
+
 
 
 def convert_datetime(date, date_format="%Y-%m-%d"):
@@ -105,6 +115,7 @@ def get_valid_request(url, auth=""):
                         f"{status_actions[handling_code]} {i} seconds...",
                         fg="bright_yellow",
                     )  # Print and update a timer
+                    
                     sleep(1)
             elif handling_code in status_actions:
                 secho(status_actions[handling_code], fg="bright_yellow")
@@ -161,8 +172,9 @@ def search(
     date_format = "%Y-%m-%d"  # date format in iso format
     if debug:
         debug_requests_on()
-        print("DEBUG: search: created param:", created)
-        print("DEBUG: search: order param: ", order)
+        logger = logging.getLogger(__name__)
+        logger.debug("Search: created param:" + created)
+        logger.debug("Search: order param: " + order)
 
     day_range = 0 - randint(100, 400)  # random negative from 100 to 400
 
@@ -200,12 +212,12 @@ def search(
 
     url = f"{API_URL}?q={query}&sort=stars&order={order}"  # use query to construct url
     if debug:
-        print("DEBUG: search: url:", url)  # print the url when debugging
+        logger.debug("Search: url:" + url)  # print the url when debugging
 
     if debug and auth:
-        print("DEBUG: auth: on")
+        logger.debug("Auth: on")
     elif debug:
-        print("DEBUG: auth: off")
+        logger.debug("Auth: off")
 
     request = get_valid_request(url, auth)
     if request is None:
