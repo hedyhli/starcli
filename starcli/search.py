@@ -6,7 +6,6 @@ from time import sleep
 import logging
 from rich.logging import RichHandler
 from random import randint
-import logging.handlers
 import re
 
 # Third party imports
