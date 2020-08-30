@@ -4,6 +4,7 @@
 from datetime import datetime, timedelta
 from time import sleep
 import logging
+from rich.logging import RichHandler
 from random import randint
 import re
 
@@ -27,9 +28,16 @@ status_actions = {
     "valid": "The request returned successfully, but an unknown exception occurred.",
 }
 
+FORMAT = "%(message)s"
+
+
 
 def debug_requests_on():
     """ Turn on the logging for requests """
+    logging.basicConfig(
+        level="logging.DEBUG", format=FORMAT, datefmt="[%Y-%m-%d]", handlers=[RichHandler()]
+    )
+
     logger = logging.getLogger(__name__)
     try:
         from http.client import HTTPConnection
@@ -40,8 +48,7 @@ def debug_requests_on():
 
         httplib.HTTPConnection.debuglevel = 2
 
-    logging.basicConfig()
-    logging.getLogger().setLevel(logging.DEBUG)
+    
     requests_log = logging.getLogger("requests.packages.urllib3")
     requests_log.setLevel(logging.DEBUG)
     requests_log.propagate = True
