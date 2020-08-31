@@ -36,7 +36,7 @@ setup(
         "colorama>=0.4.3",
         "lxml>=4.5.2",
         "requests>=2.22.0",
-        "rich>=4.0.0,<6.0.0",
+        "rich>=4.0.0,<7.0.0",
     ],
     entry_points={"console_scripts": ["starcli=starcli.__main__:cli",]},
 )
