@@ -54,7 +54,8 @@ def convert_datetime(date, date_format="%Y-%m-%d"):
         tmp_date = datetime.strptime(date, date_format)
     except ValueError:  # ValueError will be thrown if format is invalid
         secho(
-            "Invalid date: " + date + " must be yyyy-mm-dd", fg="bright_red",
+            "Invalid date: " + date + " must be yyyy-mm-dd",
+            fg="bright_red",
         )
         return None
     return tmp_date
@@ -213,7 +214,9 @@ def search_github_trending(
     """ Returns trending repositories from github trending page """
     gtrending_repo_list = []
     if date_range:
-        gtrending_repo_list = fetch_repos(language, spoken_language, date_range_map[date_range])
+        gtrending_repo_list = fetch_repos(
+            language, spoken_language, date_range_map[date_range]
+        )
     else:
         gtrending_repo_list = fetch_repos(language, spoken_language)
     repositories = []
@@ -235,6 +238,7 @@ def search_github_trending(
         return sorted(repositories, key=lambda repo: repo["stargazers_count"])
     return sorted(repositories, key=lambda repo: repo["stargazers_count"], reverse=True)
 
+
 def convert_gtrending_repo_to_repo(gtrending_repo):
     repo_dict = {}
     repo_dict["full_name"] = gtrending_repo.get("fullname")
@@ -244,5 +248,9 @@ def convert_gtrending_repo_to_repo(gtrending_repo):
     repo_dict["forks_count"] = gtrending_repo.get("forks", -1)
     repo_dict["language"] = gtrending_repo.get("language")
     # gtrending_repo has key `description` and value is empty string if it's empty
-    repo_dict["description"] = gtrending_repo.get("description") if gtrending_repo.get("description") != "" else None
+    repo_dict["description"] = (
+        gtrending_repo.get("description")
+        if gtrending_repo.get("description") != ""
+        else None
+    )
     return repo_dict

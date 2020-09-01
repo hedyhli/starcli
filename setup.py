@@ -36,5 +36,9 @@ setup(
         "requests>=2.22.0",
         "rich>=4.0.0,<6.0.0",
     ],
-    entry_points={"console_scripts": ["starcli=starcli.__main__:cli",]},
+    entry_points={
+        "console_scripts": [
+            "starcli=starcli.__main__:cli",
+        ]
+    },
 )

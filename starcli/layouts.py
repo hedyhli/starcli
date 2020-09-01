@@ -168,7 +168,14 @@ def grid_layout(repos):
         description.truncate(max_desc_len, overflow="ellipsis")
 
         repo_summary = Text.assemble(
-            name, "\n", stats, "\n", date_range_str, language, "\n", description,
+            name,
+            "\n",
+            stats,
+            "\n",
+            date_range_str,
+            language,
+            "\n",
+            description,
         )
         panels.append(Panel(repo_summary, expand=True))
 
