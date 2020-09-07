@@ -221,7 +221,7 @@ def search_github_trending(
         gtrending_repo_list = fetch_repos(language, spoken_language)
     repositories = []
     for gtrending_repo in gtrending_repo_list:
-        repo_dict = convert_gtrending_repo_to_repo(gtrending_repo)
+        repo_dict = convert_repo_dict(gtrending_repo)
         repo_dict["date_range"] = date_range_map[date_range] if date_range else None
         repo_dict["watchers_count"] = -1  # watchers count not available
         # filter by number of stars
@@ -239,7 +239,7 @@ def search_github_trending(
     return sorted(repositories, key=lambda repo: repo["stargazers_count"], reverse=True)
 
 
-def convert_gtrending_repo_to_repo(gtrending_repo):
+def convert_repo_dict(gtrending_repo):
     repo_dict = {}
     repo_dict["full_name"] = gtrending_repo.get("fullname")
     repo_dict["name"] = gtrending_repo.get("name")
