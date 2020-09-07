@@ -222,7 +222,11 @@ def search_github_trending(
     repositories = []
     for gtrending_repo in gtrending_repo_list:
         repo_dict = convert_repo_dict(gtrending_repo)
-        repo_dict["date_range"] = str(repo_dict["date_range"]) + " stars " + date_range
+        repo_dict["date_range"] = (
+            str(repo_dict["date_range"]) + " stars " + date_range
+            if date_range
+            else None
+        )
         repo_dict["watchers_count"] = -1  # watchers count not available
         # filter by number of stars
         num = [int(s) for s in re.findall(r"\d+", stars)][0]
