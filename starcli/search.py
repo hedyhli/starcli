@@ -223,7 +223,7 @@ def search_github_trending(
     for gtrending_repo in gtrending_repo_list:
         repo_dict = convert_repo_dict(gtrending_repo)
         repo_dict["date_range"] = (
-            str(repo_dict["date_range"]) + " stars " + date_range
+            str(repo_dict["date_range"]) + " stars " + date_range.replace("-", "")
             if date_range
             else None
         )
