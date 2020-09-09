@@ -212,7 +212,6 @@ def search_github_trending(
     language=None, spoken_language=None, order="desc", stars=">=10", date_range=None
 ):
     """ Returns trending repositories from github trending page """
-    gtrending_repo_list = []
     if date_range:
         gtrending_repo_list = fetch_repos(
             language, spoken_language, date_range_map[date_range]
