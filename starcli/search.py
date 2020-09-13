@@ -11,7 +11,7 @@ import re
 import requests
 from click import secho
 import colorama
-from bs4 import BeautifulSoup
+from gtrending import fetch_repos
 
 API_URL = "https://api.github.com/search/repositories"
 
@@ -54,7 +54,8 @@ def convert_datetime(date, date_format="%Y-%m-%d"):
         tmp_date = datetime.strptime(date, date_format)
     except ValueError:  # ValueError will be thrown if format is invalid
         secho(
-            "Invalid date: " + date + " must be yyyy-mm-dd", fg="bright_red",
+            "Invalid date: " + date + " must be yyyy-mm-dd",
+            fg="bright_red",
         )
         return None
     return tmp_date
@@ -211,65 +212,20 @@ def search_github_trending(
     language=None, spoken_language=None, order="desc", stars=">=10", date_range=None
 ):
     """ Returns trending repositories from github trending page """
-    url = "https://github.com/trending?"  # filter for spoken language is available only here
-    if language:
-        url += f"language={language}"  # filter by programming language
-    if spoken_language:
-        url += f"&spoken_language_code={spoken_language}"  # filter by spoken language
     if date_range:
-        url += f"&since={date_range_map[date_range]}"
-
-    request = get_valid_request(url)
-    if request is None:
-        return request
-
-    page = request.text
-
-    soup = BeautifulSoup(page, "lxml")
-    repo_list = soup.find_all("article", class_="Box-row")
+        gtrending_repo_list = fetch_repos(
+            language, spoken_language, date_range_map[date_range]
+        )
+    else:
+        gtrending_repo_list = fetch_repos(language, spoken_language)
     repositories = []
-    for repo in repo_list:
-        repo_dict = {}
-        repo_dict["full_name"] = repo.h1.a.text.replace(" ", "").replace("\n", "")
-        repo_dict["name"] = repo_dict["full_name"].split("/")[1]
-        repo_dict["html_url"] = f"https://github.com/{repo_dict['full_name']}"
-        div = repo.find("div", class_="f6 text-gray mt-2")
-        anchor_list = div.find_all("a")
-        span_list = div.find_all("span")
-        # if stars present
-        repo_dict["stargazers_count"] = (
-            int(anchor_list[0].text.strip().replace(",", ""))
-            if anchor_list[0].text
-            else -1
+    for gtrending_repo in gtrending_repo_list:
+        repo_dict = convert_repo_dict(gtrending_repo)
+        repo_dict["date_range"] = (
+            str(repo_dict["date_range"]) + " stars " + date_range.replace("-", " ")
+            if date_range
+            else None
         )
-        # if forks count present
-        repo_dict["forks_count"] = (
-            int(anchor_list[1].text.strip().replace(",", ""))
-            if anchor_list[1].text
-            else -1
-        )
-        # if language is present
-        language_span = div.span.find_all("span")
-        if len(language_span) > 0:
-            if (
-                not language or language_span[1].text.strip().lower() == language
-            ):  # if major lang of repo is same as language
-                repo_dict["language"] = language_span[1].text.strip()
-            else:
-                repo_dict["language"] = language
-        else:
-            repo_dict["language"] = None
-        # if description is present
-        repo_dict["description"] = repo.p.text.strip() if repo.p else None
-        # if stars date range is present
-        if date_range:
-            repo_dict["date_range"] = (
-                span_list[-1].text.replace("\n", "").strip()
-                if len(span_list) > 0
-                else None
-            )
-        else:
-            repo_dict["date_range"] = None
         repo_dict["watchers_count"] = -1  # watchers count not available
         # filter by number of stars
         num = [int(s) for s in re.findall(r"\d+", stars)][0]
@@ -284,3 +240,21 @@ def search_github_trending(
     if order == "asc":
         return sorted(repositories, key=lambda repo: repo["stargazers_count"])
     return sorted(repositories, key=lambda repo: repo["stargazers_count"], reverse=True)
+
+
+def convert_repo_dict(gtrending_repo):
+    repo_dict = {}
+    repo_dict["full_name"] = gtrending_repo.get("fullname")
+    repo_dict["name"] = gtrending_repo.get("name")
+    repo_dict["html_url"] = gtrending_repo.get("url")
+    repo_dict["stargazers_count"] = gtrending_repo.get("stars", -1)
+    repo_dict["forks_count"] = gtrending_repo.get("forks", -1)
+    repo_dict["language"] = gtrending_repo.get("language")
+    # gtrending_repo has key `description` and value is empty string if it's empty
+    repo_dict["description"] = (
+        gtrending_repo.get("description")
+        if gtrending_repo.get("description") != ""
+        else None
+    )
+    repo_dict["date_range"] = gtrending_repo.get("currentPeriodStars")
+    return repo_dict

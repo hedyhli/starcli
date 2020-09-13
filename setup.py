@@ -31,12 +31,15 @@ setup(
     packages=["starcli"],
     include_package_data=True,
     install_requires=[
-        "beautifulsoup4>=4.9.1",
         "Click>=7.0",
         "colorama>=0.4.3",
-        "lxml>=4.5.2",
+        "gtrending>=0.3.0,<1.0.0",
         "requests>=2.22.0",
         "rich>=4.0.0,<6.0.0",
     ],
-    entry_points={"console_scripts": ["starcli=starcli.__main__:cli",]},
+    entry_points={
+        "console_scripts": [
+            "starcli=starcli.__main__:cli",
+        ]
+    },
 )

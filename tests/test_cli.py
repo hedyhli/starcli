@@ -212,9 +212,12 @@ class TestCli:
             self.assertions(result)
 
     def cli_result(
-        self, *args, debug=True, auth="",
+        self,
+        *args,
+        debug=True,
+        auth="",
     ):
-        """ 
+        """
         CliRunner() helper function. Returns a `click.testing.Result` object.
         Passes `--debug` by default. Passes `--auth` + credentials, if given.
         """
