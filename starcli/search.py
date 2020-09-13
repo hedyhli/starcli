@@ -136,7 +136,7 @@ def search_error(status_code):
 
     try:
         return http_code_handling[str(int_status_code)]
-    except KeyError as ke:
+    except KeyError:
         return "unsupported"
 
 
