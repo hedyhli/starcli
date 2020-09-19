@@ -64,7 +64,7 @@ def convert_datetime(date, date_format="%Y-%m-%d"):
 def get_date(date):
     """ Finds the date info in a string """
     prefix = ""
-    if (">" or "=" or "<") in date[0]:
+    if any(i in date[0] for i in [">", "=", "<"]):
         if "=" in date[1]:
             prefix = date[:2]
             date = date.strip(prefix)
