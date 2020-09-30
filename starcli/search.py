@@ -4,7 +4,6 @@
 from datetime import datetime, timedelta
 from time import sleep
 import logging
-from rich.logging import RichHandler
 from random import randint
 import re
 
@@ -14,6 +13,7 @@ from click import secho
 import colorama
 from bs4 import BeautifulSoup
 import http.client
+from rich.logging import RichHandler
 
 API_URL = "https://api.github.com/search/repositories"
 
@@ -35,7 +35,7 @@ FORMAT = "%(message)s"
 
 httpclient_logger = logging.getLogger("http.client")
 
-def httpclient_logging_debug(level=logging.DEBUG, debug_level=1):
+def httpclient_logging_debug(level=logging.DEBUG):
 
     def httpclient_log(*args):
         httpclient_logger.log(level, " ".join(args))
@@ -52,14 +52,9 @@ def debug_requests_on():
     )
     logger = logging.getLogger(__name__)
 
-    try:
-        from http.client import HTTPConnection
-        httpclient_logging_debug(debug_level=1)
-
-    except ImportError:
-        import httplib
-
-        httpclient_logging_debug(debug_level=2)
+    from http.client import HTTPConnection
+    
+    httpclient_logging_debug(debug_level=1)
 
     requests_log = logging.getLogger("requests.packages.urllib3")
     requests_log.setLevel(logging.DEBUG)
