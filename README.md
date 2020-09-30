@@ -13,7 +13,7 @@ Browse trending projects on Github from your command line 💻
 <br>
 
 <!--Below is a demo gif-->
-![starcli demo.gif](https://raw.githubusercontent.com/hedythedev/starcli/main/images/starcli-demo2.gif)
+![starcli demo.gif](https://raw.githubusercontent.com/hedythedev/starcli/main/images/demo3.gif)
 
 
 
