@@ -12,7 +12,6 @@ import requests
 from click import secho
 import colorama
 from gtrending import fetch_repos
-from bs4 import BeautifulSoup
 import http.client
 from rich.logging import RichHandler
 
