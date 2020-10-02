@@ -282,6 +282,7 @@ Thanks goes to all of these wonderful people ([emoji key](https://allcontributor
     <td align="center"><a href="http://arcanedomain.duckdns.org"><img src="https://avatars3.githubusercontent.com/u/16456078?v=4" width="100px;" alt=""/><br /><sub><b>arcanearronax</b></sub></a><br /><a href="https://github.com/hedythedev/starcli/commits?author=arcanearronax" title="Tests">⚠️</a> <a href="https://github.com/hedythedev/starcli/commits?author=arcanearronax" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/jSadoski"><img src="https://avatars1.githubusercontent.com/u/1865629?v=4" width="100px;" alt=""/><br /><sub><b>jSadoski</b></sub></a><br /><a href="https://github.com/hedythedev/starcli/commits?author=jSadoski" title="Documentation">📖</a> <a href="https://github.com/hedythedev/starcli/commits?author=jSadoski" title="Code">💻</a></td>
     <td align="center"><a href="https://www.odmishien.fun"><img src="https://avatars3.githubusercontent.com/u/25533384?v=4" width="100px;" alt=""/><br /><sub><b>odmishien(Tetsuya MISHIMA)</b></sub></a><br /><a href="https://github.com/hedythedev/starcli/commits?author=odmishien" title="Code">💻</a></td>
+    <td align="center"><a href="http://linkedin.com/in/ineelshah"><img src="https://avatars1.githubusercontent.com/u/40118578?v=4" width="100px;" alt=""/><br /><sub><b>Neel Shah</b></sub></a><br /><a href="https://github.com/hedythedev/starcli/commits?author=ineelshah" title="Code">💻</a></td>
   </tr>
 </table>
 
