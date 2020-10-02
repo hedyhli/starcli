@@ -54,7 +54,7 @@ def debug_requests_on():
 
     from http.client import HTTPConnection
     
-    httpclient_logging_debug(debug_level=1)
+    httpclient_logging_debug()
 
     requests_log = logging.getLogger("requests.packages.urllib3")
     requests_log.setLevel(logging.DEBUG)
