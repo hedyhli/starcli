@@ -33,11 +33,10 @@ status_actions = {
 FORMAT = "%(message)s"
 
 
-
 httpclient_logger = logging.getLogger("http.client")
 
-def httpclient_logging_debug(level=logging.DEBUG):
 
+def httpclient_logging_debug(level=logging.DEBUG):
     def httpclient_log(*args):
         httpclient_logger.log(level, " ".join(args))
 
@@ -49,18 +48,20 @@ def debug_requests_on():
     """ Turn on the logging for requests """
 
     logging.basicConfig(
-        level=logging.DEBUG, format=FORMAT, datefmt="[%Y-%m-%d]", handlers=[RichHandler()]
+        level=logging.DEBUG,
+        format=FORMAT,
+        datefmt="[%Y-%m-%d]",
+        handlers=[RichHandler()],
     )
     logger = logging.getLogger(__name__)
 
     from http.client import HTTPConnection
-    
+
     httpclient_logging_debug()
 
     requests_log = logging.getLogger("requests.packages.urllib3")
     requests_log.setLevel(logging.DEBUG)
     requests_log.propagate = True
-
 
 
 def convert_datetime(date, date_format="%Y-%m-%d"):
@@ -115,7 +116,7 @@ def get_valid_request(url, auth=""):
                         f"{status_actions[handling_code]} {i} seconds...",
                         fg="bright_yellow",
                     )  # Print and update a timer
-                    
+
                     sleep(1)
             elif handling_code in status_actions:
                 secho(status_actions[handling_code], fg="bright_yellow")
