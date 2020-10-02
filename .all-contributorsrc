@@ -97,6 +97,15 @@
         "doc",
         "code"
       ]
+    },
+    {
+      "login": "odmishien",
+      "name": "odmishien(Tetsuya MISHIMA)",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/25533384?v=4",
+      "profile": "https://www.odmishien.fun",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
