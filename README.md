@@ -33,7 +33,7 @@ pip install starcli
 
 ## Usage
 
-```sh
+```console
 Usage: starcli [OPTIONS]
 
   Browse trending repos on GitHub by stars
