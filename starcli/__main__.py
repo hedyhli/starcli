@@ -2,7 +2,10 @@
 
 import click
 import re
+import json
+import os
 
+from datetime import datetime, timedelta
 from .layouts import list_layout, table_layout, grid_layout, shorten_count
 from .search import (
     search,
@@ -11,6 +14,8 @@ from .search import (
     search_error,
     status_actions,
 )
+
+CACHED_RESULT_FP = os.path.dirname(os.path.dirname(__file__)) + "/.cached_result.json"
 
 
 @click.command()
@@ -115,30 +120,72 @@ def cli(
 
         debug_requests_on()
 
-    if auth and not re.search(".:.", auth):  # check authentication format
-        click.secho(
-            f"Invalid authentication format: {auth} must be 'username:token'",
-            fg="bright_red",
-        )
-        click.secho(
-            "Use --help or see: https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token",
-            fg="bright_red",
-        )
-        auth = None
+    tmp_repos = None
+    options_key = "{lang}_{spoken_language}_{created}_{topic}_{pushed}_{stars}_{order}_{date_range}_{user}".format(
+        lang=lang,
+        spoken_language=spoken_language,
+        created=created,
+        topic=topic,
+        pushed=pushed,
+        stars=stars,
+        order=order,
+        date_range=date_range,
+        user=user,
+    )
 
-    if (
-        not spoken_language and not date_range
-    ):  # if filtering by spoken language and date range not required
-        tmp_repos = search(
-            lang, created, pushed, stars, topic, user, debug, order, auth
-        )
-    else:
-        tmp_repos = search_github_trending(
-            lang, spoken_language, order, stars, date_range
-        )
+    if os.path.exists(CACHED_RESULT_FP):
+        with open(CACHED_RESULT_FP, "r") as f:
+            json_file = json.load(f)
+            result = json_file.get(options_key)
+            if result:
+                t = result[-1].get("time")
+                time = datetime.strptime(t, "%Y-%m-%d %H:%M:%S.%f")
+                diff = datetime.now() - time
+                if diff < timedelta(minutes=1):
+                    if debug:
+                        logger = logging.getLogger(__name__)
+                        logger.debug("Fetching the result from cache")
 
-    if not tmp_repos:  # if search() returned None
-        return
+                    tmp_repos = result
+
+    if not tmp_repos:
+        if auth and not re.search(".:.", auth):  # check authentication format
+            click.secho(
+                f"Invalid authentication format: {auth} must be 'username:token'",
+                fg="bright_red",
+            )
+            click.secho(
+                "Use --help or see: https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token",
+                fg="bright_red",
+            )
+            auth = None
+
+        if (
+            not spoken_language and not date_range
+        ):  # if filtering by spoken language and date range not required
+            tmp_repos = search(
+                lang, created, pushed, stars, topic, user, debug, order, auth
+            )
+        else:
+            tmp_repos = search_github_trending(
+                lang, spoken_language, order, stars, date_range
+            )
+
+        if not tmp_repos:  # if search() returned None
+            return
+        else:
+            tmp_repos.append({"time": str(datetime.now())})
+            with open(CACHED_RESULT_FP, "a+") as f:
+                if os.path.getsize(CACHED_RESULT_FP) == 0:  # file is empty
+                    result_dict = {options_key: tmp_repos}
+                    f.write(json.dumps(result_dict, indent=4))
+                else:  # file is not empty
+                    f.seek(0)
+                    result_dict = json.load(f)
+                    result_dict[options_key] = tmp_repos
+                    f.truncate(0)
+                    f.write(json.dumps(result_dict, indent=4))
+
     repos = tmp_repos[0:limit_results]
 
     if not long_stats:  # shorten the stat counts when not --long-stats
