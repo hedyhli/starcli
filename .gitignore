@@ -250,3 +250,10 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+# IDE specific
+.DS_Store
+.idea/
+
+# Cache file
+.cached_result.json
