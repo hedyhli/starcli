@@ -15,7 +15,10 @@ from .search import (
     status_actions,
 )
 
+
+# could be made into config option in the future
 CACHED_RESULT_FP = os.path.dirname(os.path.dirname(__file__)) + "/.cached_result.json"
+CACHE_EXPIRATION = 1  # Minutes
 
 
 @click.command()
@@ -141,15 +144,15 @@ def cli(
                 t = result[-1].get("time")
                 time = datetime.strptime(t, "%Y-%m-%d %H:%M:%S.%f")
                 diff = datetime.now() - time
-                if diff < timedelta(minutes=1):
+                if diff < timedelta(minutes=CACHE_EXPIRATION):
                     if debug:
                         logger = logging.getLogger(__name__)
-                        logger.debug("Fetching the result from cache")
+                        logger.debug("Fetching results from cache")
 
                     tmp_repos = result
 
-    if not tmp_repos:
-        if auth and not re.search(".:.", auth):  # check authentication format
+    if not tmp_repos:  # If cache expired or results not yet cached
+        if auth and not re.search(".:.", auth):  # Check authentication format
             click.secho(
                 f"Invalid authentication format: {auth} must be 'username:token'",
                 fg="bright_red",
@@ -173,7 +176,7 @@ def cli(
 
         if not tmp_repos:  # if search() returned None
             return
-        else:
+        else:  # Cache results
             tmp_repos.append({"time": str(datetime.now())})
             with open(CACHED_RESULT_FP, "a+") as f:
                 if os.path.getsize(CACHED_RESULT_FP) == 0:  # file is empty
