@@ -6,17 +6,7 @@ labels: enhancement
 assignees: ''
 ---
 
-**Description**
-
-
-
-
-**Why do you think it would be a good idea?**
-<!--remove this section if it is already covered in the description-->
-
-
-
-<!--please also state whether or not you would like to work on this if accepted-->
+<!--please state whether or not you would like to work on this if accepted-->
 
 ---
 
