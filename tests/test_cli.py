@@ -3,7 +3,9 @@
 from datetime import datetime, timedelta
 from random import randint
 from sys import maxsize
+from time import time
 import re
+import os
 
 from click.testing import CliRunner
 import pytest
@@ -210,6 +212,29 @@ class TestCli:
         for param in param_decls:
             result = self.cli_result(param, "github")
             self.assertions(result)
+
+    def test_cached_file_existence(self):
+        """ Test the caching of result """
+
+        cached_file_path = os.path.dirname(os.path.dirname(__file__)) + "/.cached_result.json"
+        self.cli_result('--topic', 'python', '--topic', 'java', '--stars', '>100')
+
+        assert os.path.exists(cached_file_path), f"'Failed to create cache file'"
+
+    def test_time_diff_for_cached_result(self):
+        """ Test the time difference between fetching new and cached result """
+
+        start = time()
+        self.cli_result('--topic', 'python', '--topic', 'java', '--stars', '>1000')
+        end = time()
+        new_result_runtime = end - start
+
+        start = time()
+        self.cli_result('--topic', 'python', '--topic', 'java', '--stars', '>1000')
+        end = time()
+        cached_result_runtime = end - start
+
+        assert new_result_runtime > cached_result_runtime,  f"'Fetching cached result takes {cached_result_runtime} longer time than new result {new_result_runtime}'"
 
     def cli_result(
         self,
