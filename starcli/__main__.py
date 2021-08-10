@@ -39,7 +39,7 @@ CACHE_EXPIRATION = 1  # Minutes
 @click.option(
     "--topic",
     "-t",
-    default="",
+    default=[],
     multiple=True,
     help="Search by topic, can be specified multiple times",
 )
