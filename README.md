@@ -298,6 +298,9 @@ Thanks goes to all of these wonderful people ([emoji key](https://allcontributor
     <td align="center"><a href="https://github.com/0xflotus"><img src="https://avatars3.githubusercontent.com/u/26602940?v=4?s=100" width="100px;" alt=""/><br /><sub><b>0xflotus</b></sub></a><br /><a href="https://github.com/hedyhli/starcli/commits?author=0xflotus" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/AkashD-Developer"><img src="https://avatars.githubusercontent.com/u/44431401?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Akash Dhanwani</b></sub></a><br /><a href="https://github.com/hedyhli/starcli/commits?author=AkashD-Developer" title="Code">💻</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="http://cqls.oregonstate.edu"><img src="https://avatars.githubusercontent.com/u/16343359?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ed Davis</b></sub></a><br /><a href="https://github.com/hedyhli/starcli/commits?author=davised" title="Code">💻</a></td>
+  </tr>
 </table>
 
 <!-- markdownlint-restore -->

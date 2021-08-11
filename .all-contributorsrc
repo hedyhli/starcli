@@ -133,11 +133,20 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "davised",
+      "name": "Ed Davis",
+      "avatar_url": "https://avatars.githubusercontent.com/u/16343359?v=4",
+      "profile": "http://cqls.oregonstate.edu",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
   "projectName": "starcli",
-  "projectOwner": "hedythedev",
+  "projectOwner": "hedyhli",
   "repoType": "github",
   "repoHost": "https://github.com",
   "skipCi": true
