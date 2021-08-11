@@ -6,12 +6,8 @@ labels: enhancement
 assignees: ''
 ---
 
-<!--please state whether or not you would like to work on this if accepted-->
+<!--Remember to check for existing issues in case it is already suggested :) -->
 
----
+<!-- feel free to make a checlist as to implementing the issue -->
 
-**Checklist**
-
-- [ ] I have checked for existing issues and this is not a duplicate
-
-<!-- feel free to add more this as to implementing the issue -->
+<!--please also state whether or not you would like to work on this if accepted-->

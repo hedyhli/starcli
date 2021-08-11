@@ -1,4 +1,4 @@
-<!--If it's just a typo fix, or a very small change, just describe it in 1-2 sentences
+<!--If it's just a typo fix or a very small change, you can put your description
 here and ignore everything below-->
 
 **Checklist**
