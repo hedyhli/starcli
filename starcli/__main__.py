@@ -125,7 +125,7 @@ def cli(
     auth="",
     pager=False,
 ):
-    """ Find trending repos on GitHub """
+    """Find trending repos on GitHub"""
     if debug:
         import logging
 

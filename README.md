@@ -1,22 +1,34 @@
-![Cover image](https://raw.githubusercontent.com/hedythedev/starcli/main/images/starcli-small-cover.png)
+![Cover image](https://raw.githubusercontent.com/hedyhli/starcli/main/images/starcli-small-cover.png)
 
 Browse trending projects on Github from your command line 💻
 
 
-![checks](https://github.com/hedythedev/starcli/workflows/checks/badge.svg)
+![checks](https://github.com/hedyhli/starcli/workflows/checks/badge.svg)
 [![pypi version](https://img.shields.io/pypi/v/starcli)](https://pypi.org/project/starcli/)
 [![pypi downloads per month](https://img.shields.io/pypi/dm/starcli)](https://pypi.org/project/starcli/)
 [![Python Requirements](https://img.shields.io/pypi/pyversions/starcli)](https://pypi.org/project/starcli/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![GitHub license MIT](https://img.shields.io/github/license/hedythedev/starcli.svg)](https://github.com/hedythedev/starcli/blob/main/LICENSE)
+[![GitHub license MIT](https://img.shields.io/github/license/hedyhli/starcli.svg)](https://github.com/hedyhli/starcli/blob/main/LICENSE)
 
 <br>
 
 <!--Below is a demo gif-->
-![starcli demo.gif](https://raw.githubusercontent.com/hedythedev/starcli/main/images/starcli-demo2.gif)
+![starcli demo.gif](https://raw.githubusercontent.com/hedyhli/starcli/main/images/starcli-demo2.gif)
 
+## Features
 
-
+* Filters
+  * Stars
+  * Pushed date
+  * Created date
+  * User
+  * Topic
+  * Language
+  * Spoken language
+* Use generic GitHub search API or GitHub trending
+* Auth token (optional)
+* Paged output
+* Different layouts
 
 
 ## Prerequisites
@@ -26,17 +38,15 @@ Browse trending projects on Github from your command line 💻
 ## Installation
 
 ```sh
-pip install starcli
+pip3 install starcli
 ```
-*Remember to use `pip3` instead of `pip` if you also have Python 2 installed on your system*
-
 
 ## Usage
 
-```console
+```
 Usage: starcli [OPTIONS]
 
-  Browse trending repos on GitHub by stars
+  Search and query GitHub repositories
 
 Options:
   -l, --lang TEXT                 Language filter eg: python
@@ -63,6 +73,8 @@ Options:
   -u, --user TEXT                 Search for trending repositories by username
   --auth TEXT                     GitHub personal access token in the format
                                   'username:password'.
+  -P, --pager                     Use $PAGER to page output. (put -r in $LESS
+                                  to enable ANSI styles)
   --debug                         Turn on debugging mode
   --help                          Show this message and exit.
 ```
@@ -74,15 +86,15 @@ Switch layouts using `--layout {list|table|grid}`, or use the short option `-L`
 
 **list**
 
-<img src="https://raw.githubusercontent.com/hedythedev/starcli/main/images/list.png" width="400px;" alt="demo list"/>
+<img src="https://raw.githubusercontent.com/hedyhli/starcli/main/images/list.png" width="400px;" alt="demo list"/>
 
 **table**
 
-<img src="https://raw.githubusercontent.com/hedythedev/starcli/main/images/table.png" width="800px;" alt=""/>
+<img src="https://raw.githubusercontent.com/hedyhli/starcli/main/images/table.png" width="800px;" alt=""/>
 
 **grid**
 
-<img src="https://raw.githubusercontent.com/hedythedev/starcli/main/images/grid.png" width="800px;" alt="demo grid"/>
+<img src="https://raw.githubusercontent.com/hedyhli/starcli/main/images/grid.png" width="800px;" alt="demo grid"/>
 
 
 ### Filtering by language
@@ -95,7 +107,7 @@ starcli --lang python
 
 Here, we used `starcli -l python -L grid`, which is python with grid layout:
 
-<img src="https://raw.githubusercontent.com/hedythedev/starcli/main/images/lang.png" width="800px;" alt="demo grid"/>
+<img src="https://raw.githubusercontent.com/hedyhli/starcli/main/images/lang.png" width="800px;" alt="demo grid"/>
 
 ### Filtering by spoken language
 
@@ -191,7 +203,7 @@ Finding trending projects by GitHub username is supported too. Use `--user` or `
 provide a valid GitHub username after that, like:
 
 ```
-starcli -u hedythedev
+starcli -u hedyhli
 starcli -u gvanrossum
 ```
 
@@ -205,7 +217,7 @@ option you used.
 starcli -d this-week
 ```
 
-<img src="https://raw.githubusercontent.com/hedythedev/starcli/main/images/daterange.png" width="800px;" alt="demo date range"/>
+<img src="https://raw.githubusercontent.com/hedyhli/starcli/main/images/daterange.png" width="800px;" alt="demo date range"/>
 
 Note that (like `--spoken-language`) options like `--topics`, `--pushed`, `--created` won't take effect
 because `-d` uses a different search mechanism to find results.
@@ -247,9 +259,9 @@ on our [Product Hunt page](https://www.producthunt.com/posts/starcli), remember 
 ## Development    [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 For contributing guidelines and how to set up your development environment, please
-read [`CONTRIBUTING.md`](https://github.com/hedythedev/starcli/blob/main/CONTRIBUTING.md).
+read [`CONTRIBUTING.md`](https://github.com/hedyhli/starcli/blob/main/CONTRIBUTING.md).
 Remember that all contributions to this project should follow its
-[CODE OF CONDUCT](https://github.com/hedythedev/starcli/blob/main/CODE_OF_CONDUCT.md).
+[CODE OF CONDUCT](https://github.com/hedyhli/starcli/blob/main/CODE_OF_CONDUCT.md).
 
 
 ## Uses
@@ -269,22 +281,22 @@ Thanks goes to all of these wonderful people ([emoji key](https://allcontributor
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/Shagilton"><img src="https://avatars0.githubusercontent.com/u/21122143?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Shagilton</b></sub></a><br /><a href="https://github.com/hedythedev/starcli/commits?author=Shagilton" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/hexbee"><img src="https://avatars2.githubusercontent.com/u/26668583?v=4?s=100" width="100px;" alt=""/><br /><sub><b>hexbee</b></sub></a><br /><a href="https://github.com/hedythedev/starcli/issues?q=author%3Ahexbee" title="Bug reports">🐛</a></td>
-    <td align="center"><a href="https://github.com/swellander"><img src="https://avatars0.githubusercontent.com/u/22231097?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sam Wellander</b></sub></a><br /><a href="https://github.com/hedythedev/starcli/commits?author=swellander" title="Code">💻</a></td>
-    <td align="center"><a href="https://www.shivamsinha.xyz/"><img src="https://avatars0.githubusercontent.com/u/32016929?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Shivam Sinha</b></sub></a><br /><a href="https://github.com/hedythedev/starcli/commits?author=shivam212" title="Code">💻</a></td>
-    <td align="center"><a href="https://www.willmcgugan.com"><img src="https://avatars3.githubusercontent.com/u/554369?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Will McGugan</b></sub></a><br /><a href="https://github.com/hedythedev/starcli/commits?author=willmcgugan" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/ashikjm"><img src="https://avatars1.githubusercontent.com/u/12744524?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ashik J M</b></sub></a><br /><a href="https://github.com/hedythedev/starcli/commits?author=ashikjm" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/ylchao"><img src="https://avatars0.githubusercontent.com/u/15059429?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Yu-Lin Chao</b></sub></a><br /><a href="https://github.com/hedythedev/starcli/commits?author=ylchao" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/Shagilton"><img src="https://avatars0.githubusercontent.com/u/21122143?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Shagilton</b></sub></a><br /><a href="https://github.com/hedyhli/starcli/commits?author=Shagilton" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/hexbee"><img src="https://avatars2.githubusercontent.com/u/26668583?v=4?s=100" width="100px;" alt=""/><br /><sub><b>hexbee</b></sub></a><br /><a href="https://github.com/hedyhli/starcli/issues?q=author%3Ahexbee" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/swellander"><img src="https://avatars0.githubusercontent.com/u/22231097?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sam Wellander</b></sub></a><br /><a href="https://github.com/hedyhli/starcli/commits?author=swellander" title="Code">💻</a></td>
+    <td align="center"><a href="https://www.shivamsinha.xyz/"><img src="https://avatars0.githubusercontent.com/u/32016929?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Shivam Sinha</b></sub></a><br /><a href="https://github.com/hedyhli/starcli/commits?author=shivam212" title="Code">💻</a></td>
+    <td align="center"><a href="https://www.willmcgugan.com"><img src="https://avatars3.githubusercontent.com/u/554369?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Will McGugan</b></sub></a><br /><a href="https://github.com/hedyhli/starcli/commits?author=willmcgugan" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/ashikjm"><img src="https://avatars1.githubusercontent.com/u/12744524?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ashik J M</b></sub></a><br /><a href="https://github.com/hedyhli/starcli/commits?author=ashikjm" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/ylchao"><img src="https://avatars0.githubusercontent.com/u/15059429?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Yu-Lin Chao</b></sub></a><br /><a href="https://github.com/hedyhli/starcli/commits?author=ylchao" title="Code">💻</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://github.com/Saif807380"><img src="https://avatars2.githubusercontent.com/u/50794619?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Saif Kazi</b></sub></a><br /><a href="https://github.com/hedythedev/starcli/commits?author=Saif807380" title="Code">💻</a> <a href="https://github.com/hedythedev/starcli/commits?author=Saif807380" title="Documentation">📖</a></td>
-    <td align="center"><a href="http://arcanedomain.duckdns.org"><img src="https://avatars3.githubusercontent.com/u/16456078?v=4?s=100" width="100px;" alt=""/><br /><sub><b>arcanearronax</b></sub></a><br /><a href="https://github.com/hedythedev/starcli/commits?author=arcanearronax" title="Tests">⚠️</a> <a href="https://github.com/hedythedev/starcli/commits?author=arcanearronax" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/jSadoski"><img src="https://avatars1.githubusercontent.com/u/1865629?v=4?s=100" width="100px;" alt=""/><br /><sub><b>jSadoski</b></sub></a><br /><a href="https://github.com/hedythedev/starcli/commits?author=jSadoski" title="Documentation">📖</a> <a href="https://github.com/hedythedev/starcli/commits?author=jSadoski" title="Code">💻</a></td>
-    <td align="center"><a href="https://www.odmishien.fun"><img src="https://avatars3.githubusercontent.com/u/25533384?v=4?s=100" width="100px;" alt=""/><br /><sub><b>odmishien(Tetsuya MISHIMA)</b></sub></a><br /><a href="https://github.com/hedythedev/starcli/commits?author=odmishien" title="Code">💻</a></td>
-    <td align="center"><a href="http://linkedin.com/in/ineelshah"><img src="https://avatars1.githubusercontent.com/u/40118578?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Neel Shah</b></sub></a><br /><a href="https://github.com/hedythedev/starcli/commits?author=ineelshah" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/0xflotus"><img src="https://avatars3.githubusercontent.com/u/26602940?v=4?s=100" width="100px;" alt=""/><br /><sub><b>0xflotus</b></sub></a><br /><a href="https://github.com/hedythedev/starcli/commits?author=0xflotus" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/AkashD-Developer"><img src="https://avatars.githubusercontent.com/u/44431401?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Akash Dhanwani</b></sub></a><br /><a href="https://github.com/hedythedev/starcli/commits?author=AkashD-Developer" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/Saif807380"><img src="https://avatars2.githubusercontent.com/u/50794619?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Saif Kazi</b></sub></a><br /><a href="https://github.com/hedyhli/starcli/commits?author=Saif807380" title="Code">💻</a> <a href="https://github.com/hedyhli/starcli/commits?author=Saif807380" title="Documentation">📖</a></td>
+    <td align="center"><a href="http://arcanedomain.duckdns.org"><img src="https://avatars3.githubusercontent.com/u/16456078?v=4?s=100" width="100px;" alt=""/><br /><sub><b>arcanearronax</b></sub></a><br /><a href="https://github.com/hedyhli/starcli/commits?author=arcanearronax" title="Tests">⚠️</a> <a href="https://github.com/hedyhli/starcli/commits?author=arcanearronax" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/jSadoski"><img src="https://avatars1.githubusercontent.com/u/1865629?v=4?s=100" width="100px;" alt=""/><br /><sub><b>jSadoski</b></sub></a><br /><a href="https://github.com/hedyhli/starcli/commits?author=jSadoski" title="Documentation">📖</a> <a href="https://github.com/hedyhli/starcli/commits?author=jSadoski" title="Code">💻</a></td>
+    <td align="center"><a href="https://www.odmishien.fun"><img src="https://avatars3.githubusercontent.com/u/25533384?v=4?s=100" width="100px;" alt=""/><br /><sub><b>odmishien(Tetsuya MISHIMA)</b></sub></a><br /><a href="https://github.com/hedyhli/starcli/commits?author=odmishien" title="Code">💻</a></td>
+    <td align="center"><a href="http://linkedin.com/in/ineelshah"><img src="https://avatars1.githubusercontent.com/u/40118578?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Neel Shah</b></sub></a><br /><a href="https://github.com/hedyhli/starcli/commits?author=ineelshah" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/0xflotus"><img src="https://avatars3.githubusercontent.com/u/26602940?v=4?s=100" width="100px;" alt=""/><br /><sub><b>0xflotus</b></sub></a><br /><a href="https://github.com/hedyhli/starcli/commits?author=0xflotus" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/AkashD-Developer"><img src="https://avatars.githubusercontent.com/u/44431401?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Akash Dhanwani</b></sub></a><br /><a href="https://github.com/hedyhli/starcli/commits?author=AkashD-Developer" title="Code">💻</a></td>
   </tr>
 </table>
 
@@ -303,7 +315,6 @@ This project was forked from
 and its initial intention was to rewrite that project to use
 Rich instead of colorama + tabulate, but now it has so much more features
 than before, thanks everyone!
-
 
 
 ---
