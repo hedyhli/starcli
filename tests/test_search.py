@@ -12,7 +12,6 @@ def test_search():
     for repo in repos:
         assert repo["stargazers_count"] >= 0
         assert repo["watchers_count"] >= 0
-        assert repo["forks_count"] >= 0
         assert repo["language"].lower() == "python"
         assert (repo["description"] is None) or repo["description"]
         assert repo["full_name"].count("/") >= 1
@@ -25,7 +24,6 @@ def test_search_topic():
     for repo in repos:
         assert repo["stargazers_count"] >= 0
         assert repo["watchers_count"] >= 0
-        assert repo["forks_count"] >= 0
         assert repo["language"].lower() == "python"
         assert (repo["description"] is None) or repo["description"]
         assert repo["full_name"].count("/") >= 1
@@ -40,7 +38,6 @@ def test_search_topics():
     for repo in repos:
         assert repo["stargazers_count"] >= 0
         assert repo["watchers_count"] >= 0
-        assert repo["forks_count"] >= 0
         assert (repo["description"] is None) or repo["description"]
         assert repo["full_name"].count("/") >= 1
         assert repo["html_url"] == "https://github.com/" + repo["full_name"]
@@ -59,7 +56,6 @@ def test_search_created_date():
     for repo in repos:
         assert repo["stargazers_count"] >= 0
         assert repo["watchers_count"] >= 0
-        assert repo["forks_count"] >= 0
         assert (repo["description"] is None) or repo["description"]
         assert repo["full_name"].count("/") >= 1
         assert repo["html_url"] == "https://github.com/" + repo["full_name"]
@@ -88,7 +84,6 @@ def test_search_pushed_date():
     for repo in repos:
         assert repo["stargazers_count"] >= 0
         assert repo["watchers_count"] >= 0
-        assert repo["forks_count"] >= 0
         assert (repo["description"] is None) or repo["description"]
         assert repo["full_name"].count("/") >= 1
         assert repo["html_url"] == "https://github.com/" + repo["full_name"]
@@ -113,7 +108,6 @@ def test_search_stars():
     for repo in repos:
         assert repo["stargazers_count"] == 1
         assert repo["watchers_count"] >= 0
-        assert repo["forks_count"] >= 0
         assert (repo["description"] is None) or repo["description"]
         assert repo["full_name"].count("/") >= 1
         assert repo["html_url"] == "https://github.com/" + repo["full_name"]
@@ -123,13 +117,12 @@ def test_search_user():
     """
     Test the search functionality for starcli.search.
     """
-    repos = search(language="python", stars="1", user="hedythedev")
+    repos = search(language="python", stars="1", user="hedyhli")
     for repo in repos:
         assert repo["stargazers_count"] == 1
         assert repo["watchers_count"] >= 0
-        assert repo["forks_count"] >= 0
         assert (repo["description"] is None) or repo["description"]
-        assert repo["full_name"].split("/")[0] == "hedythedev"
+        assert repo["full_name"].split("/")[0] == "hedyhli"
         assert repo["html_url"] == "https://github.com/" + repo["full_name"]
 
 
@@ -144,7 +137,6 @@ def test_spoken_language():
     repos = search_github_trending("javascript", "zh")  # zh = chinese
     for repo in repos:
         assert repo["stargazers_count"] >= 0 or repo["stargazers_count"] == -1
-        assert repo["forks_count"] >= 0 or repo["forks_count"] == -1
         assert repo["language"].lower() == "javascript"
         assert (repo["description"] == None) or repo["description"]
         assert repo["full_name"].count("/") >= 1

@@ -14,6 +14,7 @@ from rich.text import Text
 from rich.panel import Panel
 from rich.columns import Columns
 
+console = Console()
 
 def shorten_count(number):
     """Shortens number"""
@@ -36,7 +37,6 @@ def shorten_count(number):
 def get_stats(repo):
     """ return formatted string of repo stats """
     stats = f"{repo['stargazers_count']} ⭐ " if repo["stargazers_count"] != "-1" else ""
-    stats += f"{repo['forks_count']} ⎇ " if repo["forks_count"] != "-1" else ""
     stats += f"{repo['watchers_count']} 👀 " if repo["watchers_count"] != "-1" else ""
     return stats
 
@@ -57,12 +57,16 @@ def list_layout(repos):
         stats = get_stats(repo)
         title = Text(repo["full_name"], overflow="fold")
         title.stylize(f"yellow link {repo['html_url']}")
-        title_table.add_row(title, Text(stats, style="bold blue"))
+        date_range_col = (
+            Text(("(+"+repo["date_range"]+")").replace("stars ", ""), style="bold cyan")
+            if "date_range" in repo.keys() and repo["date_range"]
+            else Text("")
+        )
+        title_table.add_row(title, Text(stats, style="bold blue") + date_range_col)
         title_table.columns[1].no_wrap = True
         title_table.columns[1].justify = "right"
         yield title_table
         yield ""
-        # Language and date range are added to single row
         lang_table = Table.grid(padding=(0, 1))
         lang_table.expand = True
         language_col = (
@@ -70,14 +74,7 @@ def list_layout(repos):
             if repo["language"]
             else Text("unknown language")
         )
-        date_range_col = (
-            Text(repo["date_range"].replace("stars", "⭐"), style="bold cyan")
-            if "date_range" in repo.keys() and repo["date_range"]
-            else Text("")
-        )
-        lang_table.add_row(language_col, date_range_col)
-        lang_table.columns[1].no_wrap = True
-        lang_table.columns[1].justify = "right"
+        lang_table.add_row(language_col)
         yield lang_table
         yield ""
         # Descripion
@@ -92,7 +89,6 @@ def list_layout(repos):
         """Constrain width and align to center to create a column."""
         return Align.center(renderable, width=LAYOUT_WIDTH, pad=False)
 
-    console = Console()  # initialise rich
     for repo in repos:
         console.print(column(render_repo(repo)))
     console.print(column(Rule(style="bright_yellow")))
@@ -130,7 +126,6 @@ def table_layout(repos):
             stats,
         )
 
-    console = Console()
     console.print(table)
 
 
@@ -179,5 +174,23 @@ def grid_layout(repos):
         )
         panels.append(Panel(repo_summary, expand=True))
 
-    console = Console()
     console.print((Columns(panels, width=30, expand=True)))
+
+
+def print_results(*args, page=False, layout=""):
+    """Use a specified layout to print or page the fetched results"""
+    if page:
+        with console.pager():
+            print_layout(layout=layout, *args)
+    else:
+        print_layout(layout=layout, *args, )
+
+
+def print_layout(*args, layout="list"):
+    if layout == "table":
+        table_layout(*args)
+    elif layout == "grid":
+        grid_layout(*args)
+    else:
+        list_layout(*args)
+    return

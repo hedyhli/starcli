@@ -6,7 +6,7 @@ import json
 import os
 from datetime import datetime, timedelta
 
-from .layouts import list_layout, table_layout, grid_layout, shorten_count
+from .layouts import print_results, shorten_count
 from .search import (
     search,
     debug_requests_on,
@@ -28,20 +28,20 @@ CACHE_EXPIRATION = 1  # Minutes
     "-S",
     type=str,
     default="",
-    help="Spoken Language filter eg: en for English, zh for Chinese, etc",
+    help="Spoken Language filter eg: en for English, zh for Chinese",
 )
 @click.option(
     "--created",
     "-c",
     default="",
-    help="Specify repo creation date in YYYY-MM-DD, prefixing with >, <= etc is allowed",
+    help="Specify repo creation date in YYYY-MM-DD, use >date, <=date etc to be more specific.",
 )
 @click.option(
     "--topic",
     "-t",
     default=[],
     multiple=True,
-    help="Search by topic, can be specified multiple times",
+    help="Filter by topic, can be specified multiple times",
 )
 @click.option(
     "--pushed",
@@ -85,20 +85,27 @@ CACHE_EXPIRATION = 1  # Minutes
     "--date-range",
     "-d",
     type=click.Choice(["today", "this-week", "this-month"], case_sensitive=False),
-    help="View stars received within time range, choose from: today, this-week, this-month",
+    help="View stars received within time, choose from: today, this-week, this-month. Uses GitHub trending for fetching results, hence some other filter options may not work.",
 )
 @click.option(
     "--user",
     "-u",
     type=str,
     default="",
-    help="Search for trending repositories by username",
+    help="Filter for trending repositories by username",
 )
 @click.option(
     "--auth",
     type=str,
     default="",
-    help="GitHub personal access token in the format 'username:password'.",
+    help="Optionally use GitHub personal access token in the format 'username:password'.",
+)
+@click.option(
+    "--pager",
+    "-P",
+    is_flag=True,
+    default=False,
+    help="Use $PAGER to page output. (put -r in $LESS to enable ANSI styles)",
 )
 @click.option("--debug", is_flag=True, default=False, help="Turn on debugging mode")
 def cli(
@@ -116,6 +123,7 @@ def cli(
     user,
     debug=False,
     auth="",
+    pager=False,
 ):
     """ Find trending repos on GitHub """
     if debug:
@@ -194,7 +202,6 @@ def cli(
     if not long_stats:  # shorten the stat counts when not --long-stats
         for repo in repos:
             repo["stargazers_count"] = shorten_count(repo["stargazers_count"])
-            repo["forks_count"] = shorten_count(repo["forks_count"])
             repo["watchers_count"] = shorten_count(repo["watchers_count"])
             if "date_range" in repo.keys() and repo["date_range"]:
                 num_stars = repo["date_range"].split()[0]
@@ -202,15 +209,7 @@ def cli(
                     num_stars, str(shorten_count(int(num_stars.replace(",", ""))))
                 )
 
-    if layout == "table":
-        table_layout(repos)
-        return
-
-    if layout == "grid":
-        grid_layout(repos)
-        return
-
-    list_layout(repos)  # if layout isn't a grid or table, then use list.
+    print_results(repos, page=pager, layout=layout)
 
 
 if __name__ == "__main__":
