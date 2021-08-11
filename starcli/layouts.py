@@ -16,6 +16,7 @@ from rich.columns import Columns
 
 console = Console()
 
+
 def shorten_count(number):
     """Shortens number"""
     if number < 1000:
@@ -35,14 +36,14 @@ def shorten_count(number):
 
 
 def get_stats(repo):
-    """ return formatted string of repo stats """
+    """return formatted string of repo stats"""
     stats = f"{repo['stargazers_count']} ⭐ " if repo["stargazers_count"] != "-1" else ""
     stats += f"{repo['watchers_count']} 👀 " if repo["watchers_count"] != "-1" else ""
     return stats
 
 
 def list_layout(repos):
-    """ Displays repositories in list layout using rich """
+    """Displays repositories in list layout using rich"""
 
     LAYOUT_WIDTH = 80
 
@@ -58,7 +59,10 @@ def list_layout(repos):
         title = Text(repo["full_name"], overflow="fold")
         title.stylize(f"yellow link {repo['html_url']}")
         date_range_col = (
-            Text(("(+"+repo["date_range"]+")").replace("stars ", ""), style="bold cyan")
+            Text(
+                ("(+" + repo["date_range"] + ")").replace("stars ", ""),
+                style="bold cyan",
+            )
             if "date_range" in repo.keys() and repo["date_range"]
             else Text("")
         )
@@ -95,7 +99,7 @@ def list_layout(repos):
 
 
 def table_layout(repos):
-    """ Displays repositories in a table format using rich """
+    """Displays repositories in a table format using rich"""
 
     table = Table(leading=1)
 
@@ -130,7 +134,7 @@ def table_layout(repos):
 
 
 def grid_layout(repos):
-    """ Displays repositories in a grid format using rich """
+    """Displays repositories in a grid format using rich"""
 
     max_desc_len = 90
 
@@ -183,7 +187,10 @@ def print_results(*args, page=False, layout=""):
         with console.pager():
             print_layout(layout=layout, *args)
     else:
-        print_layout(layout=layout, *args, )
+        print_layout(
+            layout=layout,
+            *args,
+        )
 
 
 def print_layout(*args, layout="list"):

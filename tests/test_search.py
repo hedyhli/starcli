@@ -7,7 +7,7 @@ from starcli.search import search, search_github_trending
 
 
 def test_search():
-    """ Test the search functionality from starcli.search """
+    """Test the search functionality from starcli.search"""
     repos = search("python")
     for repo in repos:
         assert repo["stargazers_count"] >= 0
@@ -19,7 +19,7 @@ def test_search():
 
 
 def test_search_topic():
-    """ Test the search functionality from starcli.search """
+    """Test the search functionality from starcli.search"""
     repos = search(language="python", topics=["deezer"])
     for repo in repos:
         assert repo["stargazers_count"] >= 0
@@ -127,13 +127,13 @@ def test_search_user():
 
 
 def test_no_results():
-    """ Test if no search results found """
+    """Test if no search results found"""
     repos = search("python", "2020-01-01", "2019-01-01")
     assert repos == []
 
 
 def test_spoken_language():
-    """ Test search by spoken_languages """
+    """Test search by spoken_languages"""
     repos = search_github_trending("javascript", "zh")  # zh = chinese
     for repo in repos:
         assert repo["stargazers_count"] >= 0 or repo["stargazers_count"] == -1

@@ -17,7 +17,7 @@ setup(
     long_description=LONG_DESC,
     long_description_content_type="text/markdown",
     python_requires=">=3.6",
-    url="https://github.com/hedythedev/starcli",
+    url="https://github.com/hedyhli/starcli",
     author="Hedy Li",
     author_email="hedyhyry@gmail.com",
     license="MIT",

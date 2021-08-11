@@ -44,7 +44,7 @@ def httpclient_logging_debug(level=logging.DEBUG):
 
 
 def debug_requests_on():
-    """ Turn on the logging for requests """
+    """Turn on the logging for requests"""
 
     logging.basicConfig(
         level=logging.DEBUG,
@@ -64,7 +64,7 @@ def debug_requests_on():
 
 
 def convert_datetime(date, date_format="%Y-%m-%d"):
-    """ Safely convert a date string to datetime """
+    """Safely convert a date string to datetime"""
     try:
         # try to turn the string into a date-time object
         tmp_date = datetime.strptime(date, date_format)
@@ -78,7 +78,7 @@ def convert_datetime(date, date_format="%Y-%m-%d"):
 
 
 def get_date(date):
-    """ Finds the date info in a string """
+    """Finds the date info in a string"""
     prefix = ""
     if any(i in date[0] for i in [">", "=", "<"]):
         if "=" in date[1]:
@@ -168,7 +168,7 @@ def search(
     order="desc",
     auth="",
 ):
-    """ Returns repositories searched from GitHub API """
+    """Returns repositories searched from GitHub API"""
     date_format = "%Y-%m-%d"  # date format in iso format
     if debug:
         debug_requests_on()
@@ -228,7 +228,7 @@ def search(
 def search_github_trending(
     language=None, spoken_language=None, order="desc", stars=">=10", date_range=None
 ):
-    """ Returns trending repositories from github trending page """
+    """Returns trending repositories from github trending page"""
     if date_range:
         gtrending_repo_list = fetch_repos(
             language, spoken_language, date_range_map[date_range]

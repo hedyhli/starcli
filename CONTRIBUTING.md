@@ -3,7 +3,6 @@
 
 **Working on your first Pull Request?** You can learn how from this *free* series [How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github)
 
----
 
 Thanks for taking the time to look at `CONTRIBUTING.md`.
 
@@ -13,7 +12,6 @@ All contributions to this project should follow the `CODE_OF_CONDUCT.md`.
 
 If you found any issues or bugs, be sure to open up an issue so I can check it out!
 
-Starcli does not have a chat community as of now, so any feedback you have, you can leave a comment on [StarCLI's product hunt page](https://www.producthunt.com/posts/starcli/maker-invite?code=gMzkzM), remember to be nice. 🙂
 
 ### Opening a pull request
 
@@ -23,7 +21,7 @@ Once you've worked on your feature/bugfix etc, you can open a pull request using
 
 This project is written in Python, requires **Python 3.6 or higher**, and uses `pip` with `setup.py`.
 
-To set it up, just [fork](https://github.com/hedythedev/starcli/fork) + clone it, create a [virtual environment](https://virtualenv.pypa.io/en/latest/) and install all the dependencies:
+To set it up, just [fork](https://github.com/hedyhli/starcli/fork) + clone it, create a [virtual environment](https://virtualenv.pypa.io/en/latest/) and install all the dependencies:
 
 ```bash
 $ pip install -r requirements_dev.txt
@@ -39,14 +37,14 @@ Alternatively, if you're going to use `pipenv`, you will need to use the `--pre`
 $ pipenv install -r requirements_dev.txt --pre
 ```
 
-Check if the setup worked by running starcli from your local folder. 
+Check if the setup worked by running starcli from your local folder.
 
 ```bash
 $ python -m starcli --help
 ```
 
 If the above command displayed the help and usage, you are good to go 👍 you can also test all
-the other features like list and table output, debug, etc. 
+the other features like list and table output, debug, etc.
 
 **Running tests**
 ```bash

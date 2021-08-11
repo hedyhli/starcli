@@ -16,18 +16,18 @@ from starcli.__main__ import cli
 @pytest.mark.usefixtures("auth")
 class TestCli:
     def test_cli_debug(self):
-        """ Test cli when --debug is passed """
+        """Test cli when --debug is passed"""
         result = self.cli_result(debug=True)
         self.assertions(result, debug=True)
 
     def test_cli(self):
-        """ Test cli when no commands given & debug+auth off"""
+        """Test cli when no commands given & debug+auth off"""
         result = self.cli_result(debug=False, auth="")
         self.assertions(result, debug=False)
 
     @pytest.mark.auth  # This test needs --auth, otherwise skip
     def test_auth(self, auth):
-        """ Test basic authentication for valid auth credentials """
+        """Test basic authentication for valid auth credentials"""
         result = self.cli_result(auth=self.auth)
         self.assertions(
             result,
@@ -36,19 +36,19 @@ class TestCli:
         )
 
     def test_no_auth(self):
-        """ Test without --auth"""
+        """Test without --auth"""
         result = self.cli_result(auth="")
         self.assertions(result, in_output=("DEBUG: auth: off"))
 
     def test_incorrect_auth(self):
-        """ Test incorrect credentials provided to --auth """
+        """Test incorrect credentials provided to --auth"""
         result = self.cli_result(auth="github:0000")
         self.assertions(
             result, in_output=("The server did not accept the credentials.")
         )
 
     def test_invalid_auth_format(self):
-        """ Test invalid credentials provided to --auth """
+        """Test invalid credentials provided to --auth"""
         result = self.cli_result(auth="github:")
         self.assertions(result, in_output=("Invalid authentication format:"))
 
@@ -56,7 +56,7 @@ class TestCli:
         self.assertions(result, in_output=("Invalid authentication format:"))
 
     def test_cli_lang(self):
-        """ Test cli when --lang or -l is passed """
+        """Test cli when --lang or -l is passed"""
         param_decls = ["--lang", "-l"]
 
         for param in param_decls:
@@ -64,7 +64,7 @@ class TestCli:
             self.assertions(result, in_output=("language:python"))
 
     def test_cli_spoken_language(self):
-        """ Test cli when --spoken-language or -S is passed """
+        """Test cli when --spoken-language or -S is passed"""
         param_decls = ["--spoken-language", "-S"]
         # Currently, this option uses `search_github_trending`, which produces no 'DEBUG:'
         for param in param_decls:
@@ -72,7 +72,7 @@ class TestCli:
             self.assertions(result, debug=False)
 
     def test_cli_created(self):
-        """ Test cli when --created or -c with valid option is passed """
+        """Test cli when --created or -c with valid option is passed"""
         param_decls = ["--created", "-c"]
 
         for param in param_decls:
@@ -85,7 +85,7 @@ class TestCli:
             self.assertions(result, not_in_output=("Invalid Date"))
 
     def test_cli_created_invalid(self):
-        """ Test cli when --created or -c with invalid option is passed """
+        """Test cli when --created or -c with invalid option is passed"""
         param_decls = ["--created", "-c"]
 
         for param in param_decls:
@@ -101,7 +101,7 @@ class TestCli:
             )
 
     def test_cli_topic(self):
-        """ Test cli when --topic or -t is passed """
+        """Test cli when --topic or -t is passed"""
         param_decls = ["--topic", "-t"]
 
         for param in param_decls:
@@ -111,7 +111,7 @@ class TestCli:
             self.assertions(result)
 
     def test_cli_pushed(self):
-        """ Test cli when --pushed or -p is passed """
+        """Test cli when --pushed or -p is passed"""
         param_decls = ["--pushed", "-p"]
 
         for param in param_decls:
@@ -124,7 +124,7 @@ class TestCli:
             self.assertions(result, not_in_output=("Invalid date:"))
 
     def test_cli_pushed_invalid(self):
-        """ Test cli when invalid option to --pushed or -p is passed """
+        """Test cli when invalid option to --pushed or -p is passed"""
         param_decls = ["--pushed", "-p"]
 
         for param in param_decls:
@@ -140,7 +140,7 @@ class TestCli:
             )
 
     def test_cli_layout(self):
-        """ Test cli when --layout or -L is passed """
+        """Test cli when --layout or -L is passed"""
         param_decls = ["--layout", "-L"]
         choices = ["list", "table", "grid"]
 
@@ -150,7 +150,7 @@ class TestCli:
                 self.assertions(result)
 
     def test_cli_stars(self):
-        """ Test cli when --stars or -s is passed """
+        """Test cli when --stars or -s is passed"""
         param_decls = ["--stars", "-s"]
 
         for param in param_decls:
@@ -164,7 +164,7 @@ class TestCli:
             self.assertions(result)
 
     def test_cli_limit_results(self):
-        """ Test cli when --limit-results or -r is passed """
+        """Test cli when --limit-results or -r is passed"""
         param_decls = ["--limit-results", "-r"]
 
         for param in param_decls:
@@ -181,7 +181,7 @@ class TestCli:
             self.assertions(result)
 
     def test_cli_order(self):
-        """ Test cli when --order or -o is passed """
+        """Test cli when --order or -o is passed"""
         param_decls = ["--order", "-o"]
         choices = ["desc", "asc"]
 
@@ -191,12 +191,12 @@ class TestCli:
                 self.assertions(result)
 
     def test_cli_long_stats(self):
-        """ Test cli when --long-stats is passed """
+        """Test cli when --long-stats is passed"""
         result = self.cli_result("--long-stats")
         self.assertions(result)
 
     def test_cli_date_range(self):
-        """ Test cli when --date-range or -d is passed """
+        """Test cli when --date-range or -d is passed"""
         param_decls = ["--date-range", "-d"]
         choices = ["today", "this-week", "this-month"]
         # Currently, this option uses `search_github_trending`, which produces no 'DEBUG:'
@@ -206,7 +206,7 @@ class TestCli:
                 self.assertions(result, debug=False)
 
     def test_cli_user(self):
-        """ Test cli when --user or -U is passed """
+        """Test cli when --user or -U is passed"""
         param_decls = ["--user", "-u"]
 
         for param in param_decls:
@@ -214,27 +214,31 @@ class TestCli:
             self.assertions(result)
 
     def test_cached_file_existence(self):
-        """ Test the caching of result """
+        """Test the caching of result"""
 
-        cached_file_path = os.path.dirname(os.path.dirname(__file__)) + "/.cached_result.json"
-        self.cli_result('--topic', 'python', '--topic', 'java', '--stars', '>100')
+        cached_file_path = (
+            os.path.dirname(os.path.dirname(__file__)) + "/.cached_result.json"
+        )
+        self.cli_result("--topic", "python", "--topic", "java", "--stars", ">100")
 
         assert os.path.exists(cached_file_path), f"'Failed to create cache file'"
 
     def test_time_diff_for_cached_result(self):
-        """ Test the time difference between fetching new and cached result """
+        """Test the time difference between fetching new and cached result"""
 
         start = time()
-        self.cli_result('--topic', 'python', '--topic', 'java', '--stars', '>1000')
+        self.cli_result("--topic", "python", "--topic", "java", "--stars", ">1000")
         end = time()
         new_result_runtime = end - start
 
         start = time()
-        self.cli_result('--topic', 'python', '--topic', 'java', '--stars', '>1000')
+        self.cli_result("--topic", "python", "--topic", "java", "--stars", ">1000")
         end = time()
         cached_result_runtime = end - start
 
-        assert new_result_runtime > cached_result_runtime,  f"'Fetching cached result takes {cached_result_runtime} longer time than new result {new_result_runtime}'"
+        assert (
+            new_result_runtime > cached_result_runtime
+        ), f"'Fetching cached result takes {cached_result_runtime} longer time than new result {new_result_runtime}'"
 
     def cli_result(
         self,
