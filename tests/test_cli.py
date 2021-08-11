@@ -10,7 +10,7 @@ import os
 from click.testing import CliRunner
 import pytest
 
-from starcli.__main__ import cli
+from starcli.__main__ import cli, CACHED_RESULT_PATH
 
 
 @pytest.mark.usefixtures("auth")
@@ -31,37 +31,45 @@ class TestCli:
         result = self.cli_result(auth=self.auth)
         self.assertions(
             result,
-            in_output=("DEBUG: auth: on"),
-            not_in_output="The server did not accept the credentials.",
+            # Testing rich logger output doesn't work
+            # in_stderr=("DEBUG: auth: on",),
+            # not_in_stderr=("The server did not accept the credentials.",),
         )
 
     def test_no_auth(self):
         """Test without --auth"""
         result = self.cli_result(auth="")
-        self.assertions(result, in_output=("DEBUG: auth: off"))
+        # Testing rich logger output doesn't work
+        # self.assertions(result, in_stderr=("DEBUG: auth: off",))
 
     def test_incorrect_auth(self):
         """Test incorrect credentials provided to --auth"""
         result = self.cli_result(auth="github:0000")
         self.assertions(
-            result, in_output=("The server did not accept the credentials.")
+            result,
+            # Testing rich logger output doesn't work
+            # in_stderr=("The server did not accept the credentials.",),
         )
 
     def test_invalid_auth_format(self):
         """Test invalid credentials provided to --auth"""
         result = self.cli_result(auth="github:")
-        self.assertions(result, in_output=("Invalid authentication format:"))
+        self.assertions(result, in_output=("Invalid authentication format:",))
 
         result = self.cli_result(auth=":0000")
-        self.assertions(result, in_output=("Invalid authentication format:"))
+        self.assertions(result, in_output=("Invalid authentication format:",))
 
     def test_cli_lang(self):
         """Test cli when --lang or -l is passed"""
         param_decls = ["--lang", "-l"]
 
         for param in param_decls:
-            result = self.cli_result(param, "python")
-            self.assertions(result, in_output=("language:python"))
+            result = self.cli_result(param, "python", clear_cache=False)
+            self.assertions(
+                result,
+                # Testing rich logger output doesn't work
+                # in_stderr=("language:python",),
+            )
 
     def test_cli_spoken_language(self):
         """Test cli when --spoken-language or -S is passed"""
@@ -82,7 +90,7 @@ class TestCli:
                 datetime.utcnow() + timedelta(days=day_range)
             ).strftime(date_format)
             result = self.cli_result(param, created_date_value)
-            self.assertions(result, not_in_output=("Invalid Date"))
+            self.assertions(result, not_in_output=("Invalid Date",))
 
     def test_cli_created_invalid(self):
         """Test cli when --created or -c with invalid option is passed"""
@@ -97,7 +105,7 @@ class TestCli:
             result = self.cli_result(param, created_date_value)
             self.assertions(
                 result,
-                in_output=(f"Invalid date: {created_date_value} must be yyyy-mm-dd"),
+                in_output=(f"Invalid date: {created_date_value} must be yyyy-mm-dd",),
             )
 
     def test_cli_topic(self):
@@ -106,7 +114,7 @@ class TestCli:
 
         for param in param_decls:
             result = self.cli_result(
-                param, "javascript", param, "nodejs"
+                param, "javascript", param, "nodejs", clear_cache=False
             )  # javascript + nodejs will likely come up together
             self.assertions(result)
 
@@ -121,7 +129,7 @@ class TestCli:
                 datetime.utcnow() + timedelta(days=day_range)
             ).strftime(date_format)
             result = self.cli_result(param, pushed_date_value)
-            self.assertions(result, not_in_output=("Invalid date:"))
+            self.assertions(result, not_in_output=("Invalid date:",))
 
     def test_cli_pushed_invalid(self):
         """Test cli when invalid option to --pushed or -p is passed"""
@@ -133,10 +141,10 @@ class TestCli:
             pushed_date_value = (
                 datetime.utcnow() + timedelta(days=day_range)
             ).strftime(date_format)
-            result = self.cli_result(param, pushed_date_value)
+            result = self.cli_result(param, pushed_date_value, clear_cache=False)
             self.assertions(
                 result,
-                in_output=(f"Invalid date: {pushed_date_value} must be yyyy-mm-dd"),
+                in_output=(f"Invalid date: {pushed_date_value} must be yyyy-mm-dd",),
             )
 
     def test_cli_layout(self):
@@ -146,7 +154,7 @@ class TestCli:
 
         for param in param_decls:
             for choice in choices:
-                result = self.cli_result(param, choice)
+                result = self.cli_result(param, choice, clear_cache=False)
                 self.assertions(result)
 
     def test_cli_stars(self):
@@ -168,16 +176,16 @@ class TestCli:
         param_decls = ["--limit-results", "-r"]
 
         for param in param_decls:
-            result = self.cli_result(param, 0)
+            result = self.cli_result(param, 0, clear_cache=False)
             self.assertions(result)
 
-            result = self.cli_result(param, 1)
+            result = self.cli_result(param, 1, clear_cache=False)
             self.assertions(result)
 
-            result = self.cli_result(param, maxsize)
+            result = self.cli_result(param, maxsize, clear_cache=False)
             self.assertions(result)
 
-            result = self.cli_result(param, -1)
+            result = self.cli_result(param, -1, clear_cache=False)
             self.assertions(result)
 
     def test_cli_order(self):
@@ -187,12 +195,12 @@ class TestCli:
 
         for param in param_decls:
             for choice in choices:
-                result = self.cli_result(param, choice)
+                result = self.cli_result(param, choice, clear_cache=False)
                 self.assertions(result)
 
     def test_cli_long_stats(self):
         """Test cli when --long-stats is passed"""
-        result = self.cli_result("--long-stats")
+        result = self.cli_result("--long-stats", clear_cache=False)
         self.assertions(result)
 
     def test_cli_date_range(self):
@@ -210,46 +218,54 @@ class TestCli:
         param_decls = ["--user", "-u"]
 
         for param in param_decls:
-            result = self.cli_result(param, "github")
+            result = self.cli_result(param, "github", clear_cache=False)
             self.assertions(result)
 
     def test_cached_file_existence(self):
         """Test the caching of result"""
 
-        cached_file_path = (
-            os.path.dirname(os.path.dirname(__file__)) + "/.cached_result.json"
+        self.cli_result(
+            "--topic", "python", "--topic", "java", "--stars", ">100", clear_cache=True
         )
-        self.cli_result("--topic", "python", "--topic", "java", "--stars", ">100")
 
-        assert os.path.exists(cached_file_path), f"'Failed to create cache file'"
+        assert os.path.exists(CACHED_RESULT_PATH), f"'Failed to create cache file'"
 
     def test_time_diff_for_cached_result(self):
         """Test the time difference between fetching new and cached result"""
 
         start = time()
-        self.cli_result("--topic", "python", "--topic", "java", "--stars", ">1000")
+        self.cli_result("--topic", "python", "--stars", ">1000", clear_cache=True)
         end = time()
         new_result_runtime = end - start
 
         start = time()
-        self.cli_result("--topic", "python", "--topic", "java", "--stars", ">1000")
+        self.cli_result("--topic", "python", "--stars", ">1000", clear_cache=False)
         end = time()
         cached_result_runtime = end - start
 
         assert (
             new_result_runtime > cached_result_runtime
-        ), f"'Fetching cached result takes {cached_result_runtime} longer time than new result {new_result_runtime}'"
+        ), f"Cached result took longer ({cached_result_runtime}) than newly fetching results ({new_result_runtime})."
 
     def cli_result(
         self,
         *args,
         debug=True,
         auth="",
+        clear_cache=True,
     ):
         """
         CliRunner() helper function. Returns a `click.testing.Result` object.
         Passes `--debug` by default. Passes `--auth` + credentials, if given.
+
+        Also clear the cache if needed.
         """
+        if clear_cache:
+            try:
+                os.remove(CACHED_RESULT_PATH)
+            except OSError:
+                pass
+
         runner = CliRunner()
         cli_params = [param for param in args]
 
@@ -271,6 +287,8 @@ class TestCli:
         debug=True,
         in_output=(),
         not_in_output=(),
+        in_stderr=(),
+        not_in_stderr=(),
     ):
         """
         Helper function for basic assert statements.
@@ -283,15 +301,18 @@ class TestCli:
             assert result.output, "No cli output generated"
         elif not output:
             assert not result.output, "Cli output generated, but expected nothing"
+
         if in_output:
             for s in in_output:
-                assert (
-                    re.search(s, result.output),
-                    f"'{s}' not found in `result.output.`",
-                )
+                assert s in result.output, f"'{s}' not found in `result.output.`"
         if not_in_output:
             for s in not_in_output:
                 assert (
-                    not re.search(s, result.output),
-                    f"{not_in_output} found in `result.output`, but shouldn't be.",
-                )
+                    not s in result.output
+                ), f"{s} found in `result.output`, but shouldn't be."
+        if in_stderr:
+            for s in in_stderr:
+                assert s in result.stderr, f"{s} not in `result.stderr`"
+        if not_in_stderr:
+            for s in not_in_stderr:
+                assert not s in result.stderr, f"{s} shouldn't be in stderr"

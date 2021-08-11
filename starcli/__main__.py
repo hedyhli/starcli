@@ -6,6 +6,8 @@ import json
 import os
 from datetime import datetime, timedelta
 
+from xdg import xdg_cache_home
+
 from .layouts import print_results, shorten_count
 from .search import (
     search,
@@ -17,7 +19,7 @@ from .search import (
 
 
 # could be made into config option in the future
-CACHED_RESULT_PATH = os.path.dirname(os.path.dirname(__file__)) + "/.cached_result.json"
+CACHED_RESULT_PATH = xdg_cache_home() / "starcli.json"
 CACHE_EXPIRATION = 1  # Minutes
 
 
