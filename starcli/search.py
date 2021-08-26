@@ -6,6 +6,12 @@ from time import sleep
 import logging
 from random import randint
 import re
+import os
+import math
+import github
+from github import Github
+import pandas as pd
+import matplotlib.pyplot as plt
 
 # Third party imports
 import requests
@@ -17,7 +23,10 @@ from rich.logging import RichHandler
 
 API_URL = "https://api.github.com/search/repositories"
 
-date_range_map = {"today": "daily", "this-week": "weekly", "this-month": "monthly"}
+date_range_map = {
+    "today": "daily",
+    "this-week": "weekly",
+    "this-month": "monthly"}
 
 status_actions = {
     "retry": "Failed to retrieve data. Retrying in ",
@@ -107,7 +116,7 @@ def get_valid_request(url, auth=""):
             secho("Internet connection error...", fg="bright_red")
             return None
 
-        if not request.status_code in (200, 202):
+        if request.status_code not in (200, 202):
             handling_code = search_error(request.status_code)
             if handling_code == "retry":
                 for i in range(15, 0, -1):
@@ -121,7 +130,9 @@ def get_valid_request(url, auth=""):
                 secho(status_actions[handling_code], fg="bright_yellow")
                 return None
             else:
-                secho("An invalid handling code was returned.", fg="bright_red")
+                secho(
+                    "An invalid handling code was returned.",
+                    fg="bright_red")
                 return None
         else:
             break
@@ -181,9 +192,8 @@ def search(
     if not created:  # if created not provided
         # creation date: the time now minus a random number of days
         # 100 to 400 days - which was stored in day_range
-        created_str = ">=" + (datetime.utcnow() + timedelta(days=day_range)).strftime(
-            date_format
-        )
+        created_str = ">=" + (datetime.utcnow() +
+                              timedelta(days=day_range)).strftime(date_format)
     else:  # if created is provided
         created_str = get_date(created)
         if not created_str:
@@ -192,9 +202,8 @@ def search(
     if not pushed:  # if pushed not provided
         # pushed date: start, is the time now minus a random number of days
         # 100 to 400 days - which was stored in day_range
-        pushed_str = ">=" + (datetime.utcnow() + timedelta(days=day_range)).strftime(
-            date_format
-        )
+        pushed_str = ">=" + (datetime.utcnow() +
+                             timedelta(days=day_range)).strftime(date_format)
     else:  # if pushed is provided
         pushed_str = get_date(pushed)
         if not pushed_str:
@@ -207,10 +216,12 @@ def search(
 
     query += f"stars:{stars}+created:{created_str}"  # construct query
     query += f"+pushed:{pushed_str}"  # add pushed info to query
-    query += f"+language:{language}" if language else ""  # add language to query
+    # add language to query
+    query += f"+language:{language}" if language else ""
     query += f"".join(["+topic:" + i for i in topics])  # add topics to query
 
-    url = f"{API_URL}?q={query}&sort=stars&order={order}"  # use query to construct url
+    # use query to construct url
+    url = f"{API_URL}?q={query}&sort=stars&order={order}"
     if debug:
         logger.debug("Search: url:" + url)  # print the url when debugging
     if debug and auth:
@@ -226,8 +237,11 @@ def search(
 
 
 def search_github_trending(
-    language=None, spoken_language=None, order="desc", stars=">=10", date_range=None
-):
+        language=None,
+        spoken_language=None,
+        order="desc",
+        stars=">=10",
+        date_range=None):
     """Returns trending repositories from github trending page"""
     if date_range:
         gtrending_repo_list = fetch_repos(
@@ -256,7 +270,93 @@ def search_github_trending(
 
     if order == "asc":
         return sorted(repositories, key=lambda repo: repo["stargazers_count"])
-    return sorted(repositories, key=lambda repo: repo["stargazers_count"], reverse=True)
+    return sorted(
+        repositories,
+        key=lambda repo: repo["stargazers_count"],
+        reverse=True)
+
+
+def draw_stargraph(reponame, auth, path, duration=""):
+    g = Github()
+    try:
+        repo = g.get_repo(reponame)
+        dictnry = dict()
+        request_header = {'Accept': 'application/vnd.github.v3.star+json'}
+
+        for pages in range(1, math.ceil(repo.stargazers_count / 30) + 1):
+            # requesting the repo information via github REST API
+            request = 'https://api.github.com/repos/{}/stargazers?page={}'.format(
+                reponame, pages)
+
+            r = requests.get(
+                request,
+                auth=(
+                    auth.split(":")[0],
+                    auth.split(":")[1]),
+                headers=request_header)
+
+            for items in r.json():
+                items['starred_at'] = items['starred_at'].replace(
+                    'T', " ")  # cleaning the collected dates
+                items['starred_at'] = items['starred_at'].replace('Z', " ")
+
+                # Converting to Year-Month format
+                month = '{:%Y-%m}'.format(
+                    datetime.strptime(
+                        items['starred_at'].split(" ")[0],
+                        '%Y-%m-%d'))
+                # Adding the star counts monthly for each year
+                if month not in dictnry.keys():
+                    dictnry[month] = 1
+                else:
+                    dictnry[month] += 1
+
+        for i in range(len(dictnry.keys())
+                       ):  # arranging the star counts cummulatively over the time period
+            if i >= 1:
+                dictnry[list(dictnry.keys())[i]] = dictnry[list(dictnry.keys())[
+                    i - 1]] + dictnry[list(dictnry.keys())[i]]
+
+        data = pd.DataFrame(dictnry.items(), columns=['Year_Month', 'stars'])
+        if duration == "yearly":
+            data['Year_Month'] = pd.to_datetime(data['Year_Month'])
+        data = data.set_index('Year_Month')
+
+        # Plotting the star counts over the time period collected from the API
+        fig, ax = plt.subplots(
+            figsize=(
+                len(dictnry) // 2, len(dictnry) // 3), constrained_layout=True)
+        ax.plot(
+            data.index,
+            data.stars,
+            color='tab:orange',
+            label='Stars Count')
+        ax.set_xlabel('Year-Month', size=30)
+        ax.set_ylabel('Stars', size=30)
+        ax.set_title('Stargazers', size=30)
+        plt.xticks(rotation=90)
+        ax.grid(True)
+        plt.yticks(fontsize=30)
+        plt.xticks(fontsize=25)
+        if max(dictnry.values()) < 1000:
+            fontsize = 10
+        else:
+            fontsize = 20
+        for a, b in zip(data.index, data.stars):
+            plt.text(
+                a,
+                b,
+                str(b),
+                verticalalignment='bottom',
+                horizontalalignment='right',
+                color='black',
+                fontsize=fontsize)
+        ax.legend(loc='upper left')
+        plt.savefig(os.path.join(path, "output.png"))
+        plt.close()
+    except github.UnknownObjectException as e:
+        if e.status == 404:
+            print("Repository Not found")
 
 
 def convert_repo_dict(gtrending_repo):
@@ -266,7 +366,8 @@ def convert_repo_dict(gtrending_repo):
     repo_dict["html_url"] = gtrending_repo.get("url")
     repo_dict["stargazers_count"] = gtrending_repo.get("stars", -1)
     repo_dict["language"] = gtrending_repo.get("language")
-    # gtrending_repo has key `description` and value is empty string if it's empty
+    # gtrending_repo has key `description` and value is empty string if it's
+    # empty
     repo_dict["description"] = (
         gtrending_repo.get("description")
         if gtrending_repo.get("description") != ""

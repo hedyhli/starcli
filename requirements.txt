@@ -4,3 +4,6 @@ gtrending>=0.3.0,<1.0.0
 requests>=2.22.0
 rich>=4.0.0,<11.0.0
 xdg>=5.1.1,<6.0.0
+matplotlib=3.2.2
+pandas=1.1.5
+PyGithub=1.55.0

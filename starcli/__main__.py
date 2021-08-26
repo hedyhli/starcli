@@ -15,6 +15,7 @@ from .search import (
     search_github_trending,
     search_error,
     status_actions,
+    draw_stargraph,
 )
 
 
@@ -24,7 +25,8 @@ CACHE_EXPIRATION = 1  # Minutes
 
 
 @click.command()
-@click.option("--lang", "-l", type=str, default="", help="Language filter eg: python")
+@click.option("--lang", "-l", type=str, default="",
+              help="Language filter eg: python")
 @click.option(
     "--spoken-language",
     "-S",
@@ -32,12 +34,11 @@ CACHE_EXPIRATION = 1  # Minutes
     default="",
     help="Spoken Language filter eg: en for English, zh for Chinese",
 )
-@click.option(
-    "--created",
-    "-c",
-    default="",
-    help="Specify repo creation date in YYYY-MM-DD, use >date, <=date etc to be more specific.",
-)
+@click.option("--created",
+              "-c",
+              default="",
+              help="Specify repo creation date in YYYY-MM-DD, use >date, <=date etc to be more specific.",
+              )
 @click.option(
     "--topic",
     "-t",
@@ -83,12 +84,14 @@ CACHE_EXPIRATION = 1  # Minutes
     is_flag=True,
     help="Print the actual stats number (1300 instead of 1.3k)",
 )
-@click.option(
-    "--date-range",
-    "-d",
-    type=click.Choice(["today", "this-week", "this-month"], case_sensitive=False),
-    help="View stars received within time, choose from: today, this-week, this-month. Uses GitHub trending for fetching results, hence some other filter options may not work.",
-)
+@click.option("--date-range",
+              "-d",
+              type=click.Choice(["today",
+                                 "this-week",
+                                 "this-month"],
+                                case_sensitive=False),
+              help="View stars received within time, choose from: today, this-week, this-month. Uses GitHub trending for fetching results, hence some other filter options may not work.",
+              )
 @click.option(
     "--user",
     "-u",
@@ -102,6 +105,33 @@ CACHE_EXPIRATION = 1  # Minutes
     default="",
     help="Optionally use GitHub personal access token in the format 'username:password'.",
 )
+@click.option("--stargraph",
+              "-G",
+              is_flag=True,
+              default=False,
+              help="Display Star graph over time, Sample Format : starcli --stargraph --auth 'your-username:token' --repo 'hedyhli/starcli' --savepath '/content/' --duration 'yearly'/'monthly'",
+              )
+@click.option(
+    "--duration",
+    "-D",
+    type=str,
+    default="",
+    help="Save Star graph in the path in the format 'monthly' or 'yearly",
+)
+@click.option(
+    "--savepath",
+    "-H",
+    type=str,
+    default="",
+    help="Show monthly or yearly data",
+)
+@click.option(
+    "--repo",
+    "-R",
+    type=str,
+    default="",
+    help="Full repo name",
+)
 @click.option(
     "--pager",
     "-P",
@@ -109,7 +139,8 @@ CACHE_EXPIRATION = 1  # Minutes
     default=False,
     help="Use $PAGER to page output. (put -r in $LESS to enable ANSI styles)",
 )
-@click.option("--debug", is_flag=True, default=False, help="Turn on debugging mode")
+@click.option("--debug", is_flag=True, default=False,
+              help="Turn on debugging mode")
 def cli(
     lang,
     spoken_language,
@@ -125,6 +156,10 @@ def cli(
     user,
     debug=False,
     auth="",
+    stargraph=False,
+    savepath="",
+    repo="",
+    duration="",
     pager=False,
 ):
     """Find trending repos on GitHub"""
@@ -188,18 +223,38 @@ def cli(
             return
         else:  # Cache results
             tmp_repos.append({"time": str(datetime.now())})
-            with open(CACHED_RESULT_PATH, "a+") as f:
-                if os.path.getsize(CACHED_RESULT_PATH) == 0:  # file is empty
-                    result_dict = {options_key: tmp_repos}
-                    f.write(json.dumps(result_dict, indent=4))
-                else:  # file is not empty
-                    f.seek(0)
-                    result_dict = json.load(f)
-                    result_dict[options_key] = tmp_repos
-                    f.truncate(0)
-                    f.write(json.dumps(result_dict, indent=4))
+            try:
+                with open(CACHED_RESULT_PATH, "a+") as f:
+                    if os.path.getsize(
+                            CACHED_RESULT_PATH) == 0:  # file is empty
+                        result_dict = {options_key: tmp_repos}
+                        f.write(json.dumps(result_dict, indent=4))
+                    else:  # file is not empty
+                        f.seek(0)
+                        result_dict = json.load(f)
+                        result_dict[options_key] = tmp_repos
+                        f.truncate(0)
+                        f.write(json.dumps(result_dict, indent=4))
+            except BaseException:
+                pass
 
     repos = tmp_repos[0:limit_results]
+    if stargraph:
+        if auth and not re.search(".:.", auth):  # Check authentication format
+            click.secho(
+                f"Invalid authentication format: {auth} must be 'username:token'",
+                fg="bright_red",
+            )
+            auth = None
+
+        if repo and not re.search("./.", repo):  # Check authentication format
+            click.secho(
+                f"Invalid authentication format: {repo} must be 'username/reponame'",
+                fg="bright_red",
+            )
+            repo = None
+
+        draw_stargraph(repo, auth, savepath, duration)
 
     if not long_stats:  # shorten the stat counts when not --long-stats
         for repo in repos:
