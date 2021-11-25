@@ -16,6 +16,10 @@ from .search import (
     search_error,
     status_actions,
 )
+from .draw_graph import(
+    draw_graph,
+    draw_top_rep_graphs,
+)
 
 
 # could be made into config option in the future
@@ -103,6 +107,36 @@ CACHE_EXPIRATION = 1  # Minutes
     help="Optionally use GitHub personal access token in the format 'username:password'.",
 )
 @click.option(
+    "--graph_single",
+    "-G",
+    type=str,
+    default="",
+    help="Display a graph of stars/forks over time (single repo). Enter the repo you want to display graph about ",
+)
+@click.option(
+    "--graph_top",
+    is_flag=True,
+    help="Display a graph of stars/forks over time (top repos). ",
+)
+@click.option(
+    "--graph_path",
+    type=str,
+    default=None,
+    help="Save this graph. Format: the path you want to save ",
+)
+@click.option(
+    "--graph_kind",
+    type=str,
+    default="star",
+    help="Format: 'star' or 'fork'",
+)
+@click.option(
+    "--graph_time_unit",
+    type=str,
+    default="monthly",
+    help="Display over month / year. Format: 'yearly' or 'monthly'",
+)
+@click.option(
     "--pager",
     "-P",
     is_flag=True,
@@ -123,6 +157,11 @@ def cli(
     long_stats,
     date_range,
     user,
+    graph_single,
+    graph_path,
+    graph_top,
+    graph_time_unit,
+    graph_kind,
     debug=False,
     auth="",
     pager=False,
@@ -172,7 +211,9 @@ def cli(
                 fg="bright_red",
             )
             auth = None
-
+        if graph_single != "":
+            draw_graph(graph_single,auth,graph_path,graph_time_unit,graph_kind)
+            exit(0)
         if (
             not spoken_language and not date_range
         ):  # if filtering by spoken language and date range not required
@@ -210,7 +251,11 @@ def cli(
                 repo["date_range"] = repo["date_range"].replace(
                     num_stars, str(shorten_count(int(num_stars.replace(",", ""))))
                 )
-
+    if graph_top:
+        repos_name = []
+        for repo_i in repos:
+            repos_name.append(repo_i['full_name'])
+        draw_top_rep_graphs(repos_name,auth,graph_path,graph_time_unit,graph_kind)
     print_results(repos, page=pager, layout=layout)
 
 
