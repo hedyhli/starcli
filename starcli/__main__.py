@@ -24,7 +24,14 @@ CACHE_EXPIRATION = 1  # Minutes
 
 
 @click.command()
-@click.option("--lang", "-l", type=str, default="", help="Language filter eg: python")
+@click.option(
+    "--lang", 
+    "-l", 
+    type=str, 
+    default="", 
+    help="Language filter eg: python"
+)
+
 @click.option(
     "--spoken-language",
     "-S",
@@ -173,15 +180,18 @@ def cli(
             )
             auth = None
 
+        langs = lang.split('+')
+        spoken_langs = spoken_language.split('+')
+
         if (
             not spoken_language and not date_range
         ):  # if filtering by spoken language and date range not required
             tmp_repos = search(
-                lang, created, pushed, stars, topic, user, debug, order, auth
+                langs, created, pushed, stars, topic, user, debug, order, auth
             )
         else:
             tmp_repos = search_github_trending(
-                lang, spoken_language, order, stars, date_range
+                langs, spoken_langs, order, stars, date_range
             )
 
         if not tmp_repos:  # if search() returned None
