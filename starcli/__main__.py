@@ -6,10 +6,8 @@ import json
 import os
 from datetime import datetime, timedelta
 
-from xdg import xdg_cache_home
-
-from .layouts import print_results, shorten_count
-from .search import (
+from layouts import print_results, shorten_count
+from search import (
     search,
     debug_requests_on,
     search_github_trending,
@@ -19,12 +17,18 @@ from .search import (
 
 
 # could be made into config option in the future
-CACHED_RESULT_PATH = xdg_cache_home() / "starcli.json"
+CACHED_RESULT_PATH = os.path.dirname(os.path.dirname(__file__)) + "/.cached_result.json"
 CACHE_EXPIRATION = 1  # Minutes
 
 
 @click.command()
-@click.option("--lang", "-l", type=str, default="", help="Language filter eg: python")
+@click.option(
+    "--lang",
+    "-l",
+    default=[],
+    help="Language filter eg: python, can be specified multiple times",
+    multiple=True,
+)
 @click.option(
     "--spoken-language",
     "-S",
@@ -172,6 +176,9 @@ def cli(
                 fg="bright_red",
             )
             auth = None
+
+        if not lang:
+            lang = ""
 
         if (
             not spoken_language and not date_range

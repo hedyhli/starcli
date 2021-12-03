@@ -158,7 +158,7 @@ def search_error(status_code):
 
 
 def search(
-    language=None,
+    languages=[],
     created=None,
     pushed=None,
     stars=">=100",
@@ -207,8 +207,8 @@ def search(
 
     query += f"stars:{stars}+created:{created_str}"  # construct query
     query += f"+pushed:{pushed_str}"  # add pushed info to query
-    query += f"+language:{language}" if language else ""  # add language to query
-    query += f"".join(["+topic:" + i for i in topics])  # add topics to query
+    query += f"".join(["+topic:" + i for i in topics])  # add language to query
+    query += f"".join(["+language:" + i for i in languages])  # add topics to query
 
     url = f"{API_URL}?q={query}&sort=stars&order={order}"  # use query to construct url
     if debug:

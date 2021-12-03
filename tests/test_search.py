@@ -8,7 +8,7 @@ from starcli.search import search, search_github_trending
 
 def test_search():
     """Test the search functionality from starcli.search"""
-    repos = search("python")
+    repos = search(["python"])
     for repo in repos:
         assert repo["stargazers_count"] >= 0
         assert repo["watchers_count"] >= 0
@@ -20,7 +20,7 @@ def test_search():
 
 def test_search_topic():
     """Test the search functionality from starcli.search"""
-    repos = search(language="python", topics=["deezer"])
+    repos = search(languages=["python"], topics=["deezer"])
     for repo in repos:
         assert repo["stargazers_count"] >= 0
         assert repo["watchers_count"] >= 0
@@ -34,7 +34,7 @@ def test_search_topics():
     """
     Test the search functionality with topics
     """
-    repos = search(language="python", topics=["open", "source"])
+    repos = search(languages=["python"], topics=["open", "source"])
     for repo in repos:
         assert repo["stargazers_count"] >= 0
         assert repo["watchers_count"] >= 0
@@ -52,7 +52,7 @@ def test_search_created_date():
     created_date_value = (datetime.utcnow() + timedelta(days=day_range)).strftime(
         date_format
     )
-    repos = search(language="python", created=created_date_value)
+    repos = search(languages=["python"], created=created_date_value)
     for repo in repos:
         assert repo["stargazers_count"] >= 0
         assert repo["watchers_count"] >= 0
@@ -80,7 +80,7 @@ def test_search_pushed_date():
     pushed_date_value = (datetime.utcnow() + timedelta(days=day_range)).strftime(
         date_format
     )
-    repos = search(language="python", pushed=pushed_date_value)
+    repos = search(languages=["python"], pushed=pushed_date_value)
     for repo in repos:
         assert repo["stargazers_count"] >= 0
         assert repo["watchers_count"] >= 0
@@ -104,7 +104,7 @@ def test_search_stars():
     """
     Test the search functionality for starcli.search.
     """
-    repos = search(language="python", stars="1")
+    repos = search(languages=["python"], stars="1")
     for repo in repos:
         assert repo["stargazers_count"] == 1
         assert repo["watchers_count"] >= 0
@@ -117,7 +117,7 @@ def test_search_user():
     """
     Test the search functionality for starcli.search.
     """
-    repos = search(language="python", stars="1", user="hedyhli")
+    repos = search(languages=["python"], stars="1", user="hedyhli")
     for repo in repos:
         assert repo["stargazers_count"] == 1
         assert repo["watchers_count"] >= 0
@@ -128,7 +128,7 @@ def test_search_user():
 
 def test_no_results():
     """Test if no search results found"""
-    repos = search("python", "2020-01-01", "2019-01-01")
+    repos = search(["python"], "2020-01-01", "2019-01-01")
     assert repos == []
 
 
