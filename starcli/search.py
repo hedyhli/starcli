@@ -226,7 +226,7 @@ def search(
 
 
 def search_github_trending(
-    language=None, spoken_language=None, order="desc", stars=">=10", date_range=None
+    language=[], spoken_language=[], order="desc", stars=">=10", date_range=None
 ):
     """Returns trending repositories from github trending page"""
     gtrending_repo_list = None
