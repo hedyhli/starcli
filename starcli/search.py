@@ -207,7 +207,7 @@ def search(
 
     query += f"stars:{stars}+created:{created_str}"  # construct query
     query += f"+pushed:{pushed_str}"  # add pushed info to query
-    query += f"".join(["+language:" + i for i in language])  # add languages to query
+    query += f"".join(["+language:" + i for i in language])  # add topics to query
     query += f"".join(["+topic:" + i for i in topics])  # add topics to query
 
     url = f"{API_URL}?q={query}&sort=stars&order={order}"  # use query to construct url
@@ -226,13 +226,29 @@ def search(
 
 
 def search_github_trending(
-    language=[], spoken_language=[], order="desc", stars=">=10", date_range=None
+    language=None, spoken_language=None, order="desc", stars=">=10", date_range=None
 ):
     """Returns trending repositories from github trending page"""
+        
     gtrending_repo_list = None
+    for spoken_langs in spoken_language:
+        if not language: 
+            if gtrending_repo_list:
+                if date_range:
+                    gtrending_repo_list += fetch_repos(
+                        "", spoken_langs, date_range_map[date_range]
+                    )
+                else: 
+                    gtrending_repo_list += fetch_repos("", spoken_langs)
+            else:
+                if date_range:
+                    gtrending_repo_list = fetch_repos(
+                        "", spoken_langs, date_range_map[date_range]
+                    )
+                else: 
+                    gtrending_repo_list = fetch_repos("", spoken_langs)
 
-    for langs in language:
-        for spoken_langs in spoken_language:
+        for langs in language:
             if gtrending_repo_list:
                 if date_range:
                     gtrending_repo_list += fetch_repos(
