@@ -35,7 +35,7 @@ setup(
         "colorama>=0.4.3",
         "gtrending>=0.3.0,<1.0.0",
         "requests>=2.22.0",
-        "rich>=4.0.0,<11.0.0",
+        "rich>=4.0.0,<13.0.0",
         "xdg>=5.1.1,<6.0.0",
     ],
     entry_points={
