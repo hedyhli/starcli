@@ -122,9 +122,11 @@ def table_layout(repos):
             repo["language"] = "None"  # make it a string
         if not repo["description"]:  # same here
             repo["description"] = "None"
+        name = Text(repo["name"], overflow="fold")
+        name.stylize(f"yellow link {repo['html_url']}")
 
         table.add_row(
-            repo["name"],
+            name,
             repo["language"],  # so that it can work here
             repo["description"],
             stats,
@@ -156,6 +158,7 @@ def grid_layout(repos):
             repo["description"] = "None"
 
         name = Text(repo["name"], style="bold yellow")
+        name.stylize(f"link {repo['html_url']}")
         language = Text(repo["language"], style="magenta")
         description = Text(repo["description"], style="green")
         stats = Text(stats, style="blue")
