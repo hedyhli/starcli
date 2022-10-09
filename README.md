@@ -96,6 +96,8 @@ Switch layouts using `--layout {list|table|grid}`, or use the short option `-L`
 
 <img src="https://raw.githubusercontent.com/hedyhli/starcli/main/images/grid.png" width="800px;" alt="demo grid"/>
 
+All three of the layout options support clickable links for repository names. If your terminal supports links, you can directly click on the name and it takes you to the GitHub repository in your browser.
+
 
 ### Filtering by language
 
@@ -127,7 +129,7 @@ because `-d` uses a different search mechanism to find results.
 
 (Recommended to be used with `--created`)
 
-The default range is >=100, you can change that!
+The default range is >=100 stars.
 Use `--stars` or `-s` to specify what you want,
 for example, if you want to find repos that has more than 100 stars, you can use:
 
@@ -152,9 +154,7 @@ This command will also display the number of stars received for each repo this w
 
 ### Specify the date of creation
 
-Want to find newer, older, or just created repos?
-Just use `--created` or `-c`, and then
-provide a date in ISO8601 format: yyyy-mm-dd
+`--created`/`-c` accepts a date in ISO8601 format: yyyy-mm-dd
 
 For example, for repos created on 1st January 2014, use:
 ```
@@ -178,7 +178,7 @@ starcli -l python -d 2020-07-06 -t deep-learning -t pytorch
 
 ### Specifying last pushed date
 
-Use this `--pushed` or `-p` when you want to find popular repos that are
+Use `--pushed`/`-p` when you want to find popular repos that are
 last updated on a given date, say 2020-01-01 for 1st of Jan
 2020:
 
@@ -203,7 +203,7 @@ Finding trending projects by GitHub username is supported too. Use `--user` or `
 provide a valid GitHub username after that, like:
 
 ```
-starcli -u hedyhli
+starcli -u torvalds
 starcli -u gvanrossum
 ```
 
@@ -235,7 +235,7 @@ you want to put it in your `.bashrc`, `.zshrc`, or `fish_greeting` function.
 
 Just add `starcli -r 3 -L grid` in there, and every time you open your terminal,
 you will find 3 trending repos printed neatly in a grid format, great way to start your
-day (bit like the [Hacker Tab Extension](https://chrome.google.com/webstore/detail/hacker-tab/ibomigipadcieapbemkegkmadbbanbgm?hl=en) 😆 ).
+day (a bit like the [Hacker Tab Extension](https://chrome.google.com/webstore/detail/hacker-tab/ibomigipadcieapbemkegkmadbbanbgm?hl=en) 😆 ).
 
 
 ### GitHub Authentication
@@ -318,8 +318,3 @@ This project was forked from
 and its initial intention was to rewrite that project to use
 Rich instead of colorama + tabulate, but now it has so much more features
 than before, thanks everyone!
-
-
----
-
-Liked this project? Don't forget to give it a ⭐
