@@ -104,9 +104,9 @@ def test_search_stars():
     """
     Test the search functionality for starcli.search.
     """
-    repos = search(language="python", stars="1")
+    repos = search(language="python", stars="<10")
     for repo in repos:
-        assert repo["stargazers_count"] == 1
+        assert repo["stargazers_count"] <= 10
         assert repo["watchers_count"] >= 0
         assert (repo["description"] is None) or repo["description"]
         assert repo["full_name"].count("/") >= 1
@@ -117,12 +117,12 @@ def test_search_user():
     """
     Test the search functionality for starcli.search.
     """
-    repos = search(language="python", stars="1", user="hedyhli")
+    repos = search(language="ruby", user="octocat")
     for repo in repos:
-        assert repo["stargazers_count"] == 1
+        assert repo["stargazers_count"] >= 0
         assert repo["watchers_count"] >= 0
         assert (repo["description"] is None) or repo["description"]
-        assert repo["full_name"].split("/")[0] == "hedyhli"
+        assert repo["full_name"].split("/")[0] == "octocat"
         assert repo["html_url"] == "https://github.com/" + repo["full_name"]
 
 
