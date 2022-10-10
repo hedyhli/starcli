@@ -6,47 +6,45 @@ from random import randint
 from starcli.search import search, search_github_trending
 
 
-def test_search():
-    """Test the search functionality from starcli.search"""
-    repos = search("python")
-    for repo in repos:
-        assert repo["stargazers_count"] >= 0
-        assert repo["watchers_count"] >= 0
-        assert repo["language"].lower() == "python"
-        assert (repo["description"] is None) or repo["description"]
-        assert repo["full_name"].count("/") >= 1
-        assert repo["html_url"] == "https://github.com/" + repo["full_name"]
-
-
-def test_search_topic():
-    """Test the search functionality from starcli.search"""
-    repos = search(language="python", topics=["deezer"])
-    for repo in repos:
-        assert repo["stargazers_count"] >= 0
-        assert repo["watchers_count"] >= 0
-        assert repo["language"].lower() == "python"
-        assert (repo["description"] is None) or repo["description"]
-        assert repo["full_name"].count("/") >= 1
-        assert repo["html_url"] == "https://github.com/" + repo["full_name"]
+def test_search_language():
+    """Test searching by language"""
+    for language in ["python", "Python", "JavaScript", "c"]:
+        repos = search(language)
+        for repo in repos:
+            assert repo["stargazers_count"] >= 0
+            assert repo["watchers_count"] >= 0
+            assert repo["language"].lower() == language.lower()
+            assert (repo["description"] is None) or repo["description"]
+            assert repo["full_name"].count("/") == 1
+            assert repo["full_name"] == f"{repo['owner']['login']}/{repo['name']}"
+            assert repo["html_url"] == "https://github.com/" + repo["full_name"]
 
 
 def test_search_topics():
-    """
-    Test the search functionality with topics
-    """
-    repos = search(language="python", topics=["open", "source"])
-    for repo in repos:
-        assert repo["stargazers_count"] >= 0
-        assert repo["watchers_count"] >= 0
-        assert (repo["description"] is None) or repo["description"]
-        assert repo["full_name"].count("/") >= 1
-        assert repo["html_url"] == "https://github.com/" + repo["full_name"]
+    """Test searching by topics"""
+    for topics in [
+        "deezer",
+        "django",
+        "cookiecutter",
+        ["web", "flask"],
+        "python3",
+        "algorithm",
+        "shell",
+    ]:
+        repos = search(language="python", topics=topics)
+        for repo in repos:
+            assert repo["stargazers_count"] >= 0
+            assert repo["watchers_count"] >= 0
+            assert repo["language"].lower() == "python"
+            assert (repo["description"] is None) or repo["description"]
+            assert repo["full_name"].count("/") >= 1
+            assert repo["full_name"] == f"{repo['owner']['login']}/{repo['name']}"
+            assert repo["html_url"] == "https://github.com/" + repo["full_name"]
+            assert topics in repo["topics"]
 
 
 def test_search_created_date():
-    """
-    Test the search functionality with creation date
-    """
+    """Test searching with creation date"""
     date_format = "%Y-%m-%d"
     day_range = 0 - randint(100, 400)
     created_date_value = (datetime.utcnow() + timedelta(days=day_range)).strftime(
@@ -58,6 +56,7 @@ def test_search_created_date():
         assert repo["watchers_count"] >= 0
         assert (repo["description"] is None) or repo["description"]
         assert repo["full_name"].count("/") >= 1
+        assert repo["full_name"] == f"{repo['owner']['login']}/{repo['name']}"
         assert repo["html_url"] == "https://github.com/" + repo["full_name"]
 
         assert datetime.strptime(
@@ -72,9 +71,7 @@ def test_search_created_date():
 
 
 def test_search_pushed_date():
-    """
-    Test the search functionality with updated date
-    """
+    """Test searching with updated date"""
     date_format = "%Y-%m-%d"
     day_range = 0 - randint(100, 400)
     pushed_date_value = (datetime.utcnow() + timedelta(days=day_range)).strftime(
@@ -86,6 +83,7 @@ def test_search_pushed_date():
         assert repo["watchers_count"] >= 0
         assert (repo["description"] is None) or repo["description"]
         assert repo["full_name"].count("/") >= 1
+        assert repo["full_name"] == f"{repo['owner']['login']}/{repo['name']}"
         assert repo["html_url"] == "https://github.com/" + repo["full_name"]
 
         # Need to account for min and max updated dates
@@ -101,28 +99,27 @@ def test_search_pushed_date():
 
 
 def test_search_stars():
-    """
-    Test the search functionality for starcli.search.
-    """
+    """Test searching with number of stars"""
     repos = search(language="python", stars="<10")
     for repo in repos:
-        assert repo["stargazers_count"] <= 10
+        # FIXME: Possibly problem with GitHub API?
+        assert repo["stargazers_count"] < 10  # Somestimes stars+1
         assert repo["watchers_count"] >= 0
         assert (repo["description"] is None) or repo["description"]
         assert repo["full_name"].count("/") >= 1
+        assert repo["full_name"] == f"{repo['owner']['login']}/{repo['name']}"
         assert repo["html_url"] == "https://github.com/" + repo["full_name"]
 
 
 def test_search_user():
-    """
-    Test the search functionality for starcli.search.
-    """
+    """Test searching by user"""
     repos = search(language="ruby", user="octocat")
     for repo in repos:
         assert repo["stargazers_count"] >= 0
         assert repo["watchers_count"] >= 0
         assert (repo["description"] is None) or repo["description"]
         assert repo["full_name"].split("/")[0] == "octocat"
+        assert repo["full_name"] == f"{repo['owner']['login']}/{repo['name']}"
         assert repo["html_url"] == "https://github.com/" + repo["full_name"]
 
 
@@ -133,11 +130,24 @@ def test_no_results():
 
 
 def test_spoken_language():
-    """Test search by spoken_languages"""
+    """Test search by spoken languages"""
     repos = search_github_trending("javascript", "zh")  # zh = chinese
     for repo in repos:
-        assert repo["stargazers_count"] >= 0 or repo["stargazers_count"] == -1
+        assert repo["stargazers_count"] >= 0
         assert repo["language"].lower() == "javascript"
         assert (repo["description"] == None) or repo["description"]
         assert repo["full_name"].count("/") >= 1
         assert repo["html_url"] == "https://github.com/" + repo["full_name"]
+
+
+def test_date_range():
+    """Test search by date range"""
+    for date_range in ["daily", "monthly", "weekly"]:
+        repos = search_github_trending("python", "en", date_range)
+        for repo in repos:
+            assert repo["stargazers_count"] >= 0
+            assert repo["language"].lower() == "python"
+            assert (repo["description"] == None) or repo["description"]
+            assert repo["full_name"].count("/") >= 1
+            assert repo["html_url"] == "https://github.com/" + repo["full_name"]
+            # TODO: verify date range
