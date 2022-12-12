@@ -5,8 +5,9 @@ import re
 import json
 import os
 from datetime import datetime, timedelta
+from pathlib import Path
 
-from xdg import xdg_cache_home
+from xdg import BaseDirectory
 
 from .layouts import print_results, shorten_count
 from .search import (
@@ -19,12 +20,19 @@ from .search import (
 
 
 # could be made into config option in the future
-CACHED_RESULT_PATH = xdg_cache_home() / "starcli.json"
+CACHED_RESULT_PATH = Path(BaseDirectory.xdg_cache_home) / "starcli.json"
 CACHE_EXPIRATION = 1  # Minutes
 
 
 @click.command()
-@click.option("--lang", "-l", type=str, default="", help="Language filter eg: python")
+@click.option(
+    "--lang",
+    "-l",
+    multiple=True,
+    type=str,
+    default=[""],
+    help="Language filter eg: python",
+)
 @click.option(
     "--spoken-language",
     "-S",
@@ -111,7 +119,7 @@ CACHE_EXPIRATION = 1  # Minutes
 )
 @click.option("--debug", is_flag=True, default=False, help="Turn on debugging mode")
 def cli(
-    lang,
+    lang: list[str],
     spoken_language,
     created,
     topic,
