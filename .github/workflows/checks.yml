@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main ]
   pull_request:
-    branches: [ main]
+    branches: [ main ]
 
 
 jobs:
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.6, 3.7, 3.8]
+        python-version: [3.7, 3.8, 3.9, '3.10', '3.11']
 
     steps:
     - uses: actions/checkout@v2
@@ -30,7 +30,7 @@ jobs:
       uses: cclauss/GitHub-Action-for-pylint@0.7.0
     - run: black . --check || true
     - uses: codespell-project/actions-codespell@master
-      with: 
+      with:
         skip: "*.json,*.png,*.gif,*.PNG,.git"
     - run: pip install -r requirements.txt || true
     - run: python -m pytest
