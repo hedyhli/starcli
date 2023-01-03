@@ -119,7 +119,7 @@ CACHE_EXPIRATION = 1  # Minutes
 )
 @click.option("--debug", is_flag=True, default=False, help="Turn on debugging mode")
 def cli(
-    lang: list[str],
+    lang,
     spoken_language,
     created,
     topic,
