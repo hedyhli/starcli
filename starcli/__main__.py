@@ -5,9 +5,8 @@ import re
 import json
 import os
 from datetime import datetime, timedelta
-from pathlib import Path
 
-from xdg import BaseDirectory
+from xdg import XDG_CACHE_HOME
 
 from .layouts import print_results, shorten_count
 from .search import (
@@ -20,7 +19,7 @@ from .search import (
 
 
 # could be made into config option in the future
-CACHED_RESULT_PATH = Path(BaseDirectory.xdg_cache_home) / "starcli.json"
+CACHED_RESULT_PATH = XDG_CACHE_HOME / "starcli.json"
 CACHE_EXPIRATION = 1  # Minutes
 
 
