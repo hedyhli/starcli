@@ -158,7 +158,7 @@ def search_error(status_code):
 
 
 def search(
-    language=None,
+    languages=[""],
     created=None,
     pushed=None,
     stars=">=100",
@@ -207,7 +207,7 @@ def search(
 
     query += f"stars:{stars}+created:{created_str}"  # construct query
     query += f"+pushed:{pushed_str}"  # add pushed info to query
-    query += f"+language:{language}" if language else ""  # add language to query
+    query += f"".join([f"+language:{language}" for language in languages])  # add language to query
     query += f"".join(["+topic:" + i for i in topics])  # add topics to query
 
     url = f"{API_URL}?q={query}&sort=stars&order={order}"  # use query to construct url
@@ -226,15 +226,17 @@ def search(
 
 
 def search_github_trending(
-    language=None, spoken_language=None, order="desc", stars=">=10", date_range=None
+    languages=[""], spoken_language=None, order="desc", stars=">=10", date_range=None
 ):
     """Returns trending repositories from github trending page"""
-    if date_range:
-        gtrending_repo_list = fetch_repos(
-            language, spoken_language, date_range_map[date_range]
-        )
-    else:
-        gtrending_repo_list = fetch_repos(language, spoken_language)
+    gtrending_repo_list = []
+    for language in languages:
+        if date_range:
+            gtrending_repo_list += fetch_repos(
+                language, spoken_language, date_range_map[date_range]
+            )
+        else:
+            gtrending_repo_list += fetch_repos(language, spoken_language)
     repositories = []
     for gtrending_repo in gtrending_repo_list:
         repo_dict = convert_repo_dict(gtrending_repo)
