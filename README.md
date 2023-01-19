@@ -103,7 +103,9 @@ Switch layouts using `--layout {list|table|grid}`, or use the short option `-L`
 
 <img src="https://raw.githubusercontent.com/hedyhli/starcli/main/images/grid.png" width="800px;" alt="demo grid"/>
 
-All three of the layout options support clickable links for repository names. If your terminal supports links, you can directly click on the name and it will take you to the GitHub repository in your browser.
+All three of the layout options support clickable links for repository names. If
+your terminal supports links, you can directly click on the name and it will
+take you to the GitHub repository in your browser.
 
 
 ### Filtering by language
@@ -114,13 +116,15 @@ For example, you only want to find popular Python repos: using `--lang` or `-l`:
 starcli --lang python
 ```
 
-Here's another example `starcli -l python -L grid`, which is python with grid layout:
+Here's another example `starcli -l python -L grid`, which is python with grid
+layout:
 
 <img src="https://raw.githubusercontent.com/hedyhli/starcli/main/images/lang.png" width="800px;" alt="demo grid"/>
 
 ### Filtering by spoken language
 
-If you wanted to find repos in your native language, you can use `--spoken-language` or `-S`:
+If you wanted to find repos in your native language, you can use
+`--spoken-language` or `-S`:
 
 ```
 starcli --spoken-language zh
@@ -128,10 +132,12 @@ starcli --spoken-language zh
 
 The above command lists down repos written in Chinese.
 
-A full list of language codes is available [here](./starcli/spoken-languages.json)
+A full list of language codes is available
+[here](./starcli/spoken-languages.json)
 
-Note that (as with `--date-range`) options like `--topics`, `--pushed`, `--created` won't take effect
-because `-d` uses a different search mechanism to find results.
+Note that (as with `--date-range`) options like `--topics`, `--pushed`,
+`--created` won't take effect because `-d` uses a different search mechanism to
+find results.
 
 ### Specify the number (or range) of stars
 
@@ -139,25 +145,31 @@ because `-d` uses a different search mechanism to find results.
 
 The default range is >=100 stars.
 
-Use `--stars` or `-s` to specify what you want, for example, if you want to find repos that has more than 100 stars, you can use:
+Use `--stars` or `-s` to specify what you want, for example, if you want to find
+repos that has more than 100 stars, you can use:
 
 ```
 starcli -s '>100'
 ```
 
-Note that if you do something like `>1000` not many repos can have more than 1000 and is created within around 200 days (which is the default for `--created`), to specify date of creation, use `--created`, see below.
+Note that if you do something like `>1000` not many repos can have more than
+1000 and is created within around 200 days (which is the default for
+`--created`), to specify date of creation, use `--created`, see below.
 
 ### Filter by stars daily, weekly or monthly
 
-You can view the number of stars a repo received today, this week or this month by using the `--date-range` or `-d` option:
+You can view the number of stars a repo received today, this week or this month
+by using the `--date-range` or `-d` option:
 
 ```
 starcli -d this-week -L table
 ```
 
-This command will also display the number of stars received for each repo this week in the form of a table.
+This command will also display the number of stars received for each repo this
+week in the form of a table.
 
-`-d` uses GitHub Trending search for repositories, hence options `--topic`, `--pushed`, `--created` won't take effect.
+`-d` uses GitHub Trending search for repositories, hence options `--topic`,
+`--pushed`, `--created` won't take effect.
 
 ### Specify the date of creation
 
@@ -186,7 +198,8 @@ starcli -l python -d 2020-07-06 -t deep-learning -t pytorch
 
 ### Specifying last pushed date
 
-Use `--pushed`/`-p` when you want to find popular repos that are last updated on a given date, say 2020-01-01 for 1st of Jan 2020:
+Use `--pushed`/`-p` when you want to find popular repos that are last updated on
+a given date, say 2020-01-01 for 1st of Jan 2020:
 
 ```
 starcli -p 2020-01-01
@@ -200,13 +213,15 @@ starcli -p '>=2020-01-01'
 
 This is find repos that have last pushed after or on January the 1st, 2020.
 
-Read more about the >=< syntax on [GitHub Docs](https://docs.github.com/en/github/searching-for-information-on-github/understanding-the-search-syntax#query-for-values-greater-or-less-than-another-value).
+Read more about the >=< syntax on [GitHub
+Docs](https://docs.github.com/en/github/searching-for-information-on-github/understanding-the-search-syntax#query-for-values-greater-or-less-than-another-value).
 
 ### Searching by user
 
 Recommended to be used with `--stars` and/or `--date-created`.
 
-Finding trending projects by GitHub username is supported too. Use `--user` or `-u` to do so.
+Finding trending projects by GitHub username is supported too. Use `--user` or
+`-u` to do so.
 
 Just provide a valid GitHub username after it, like:
 
@@ -217,7 +232,10 @@ starcli -u gvanrossum
 
 ### Using date ranges
 
-You can use `--date-range` or `-d` and specify today, this-week, or this-month, so that GitHub Trending search function will be used to find popular repos and tell you how much stars are gained this day/week/month depending on the option you used.
+You can use `--date-range` or `-d` and specify today, this-week, or this-month,
+so that GitHub Trending search function will be used to find popular repos and
+tell you how much stars are gained this day/week/month depending on the option
+you used.
 
 ```
 starcli -d this-week
@@ -225,32 +243,41 @@ starcli -d this-week
 
 <img src="https://raw.githubusercontent.com/hedyhli/starcli/main/images/daterange.png" width="800px;" alt="demo date range"/>
 
-Note that (like `--spoken-language`) options like `--topics`, `--pushed`, `--created` won't take effect
-because `-d` uses a different search mechanism to find results.
+Note that (like `--spoken-language`) options like `--topics`, `--pushed`,
+`--created` won't take effect because `-d` uses a different search mechanism to
+find results.
 
 ### Limit the number of results shown
 
-Don't like the default 7? You can change it to something else, using `--limit-results` or `-r` followed by an integer:
+Don't like the default 7? You can change it to something else, using
+`--limit-results` or `-r` followed by an integer:
 
 ```
 starcli -r 2
 ```
 
-The above will only give you two repos. This is useful if you want to put it in your `.bashrc`, `.zshrc`, or `fish_greeting` function.
+The above will only give you two repos. This is useful if you want to put it in
+your `.bashrc`, `.zshrc`, or `fish_greeting` function.
 
-Just add `starcli -r 3 -L grid` in there, and every time you open your terminal, you will find 3 trending repos printed neatly in a grid format, great way to start your day (a bit like the [Hacker Tab Extension](https://chrome.google.com/webstore/detail/hacker-tab/ibomigipadcieapbemkegkmadbbanbgm?hl=en)).
+Just add `starcli -r 3 -L grid` in there, and every time you open your terminal,
+you will find 3 trending repos printed neatly in a grid format, great way to
+start your day (a bit like the [Hacker Tab
+Extension](https://chrome.google.com/webstore/detail/hacker-tab/ibomigipadcieapbemkegkmadbbanbgm?hl=en)).
 
 
 ### Paging
 
-Result output can be displayed through your OS pager using the `--pager`/`-p` flag.
+Result output can be displayed through your OS pager using the `--pager`/`-p`
+flag.
 
-If you're using less, add `R` to your `LESS` environment variable so colors and styling can be displayed correctly.
+If you're using less, add `R` to your `LESS` environment variable so colors and
+styling can be displayed correctly.
 
 
 ### GitHub Authentication
 
-Rate limit may be hit if starcli sends many repeated requests to GitHub within a short perod of time.
+Rate limit may be hit if starcli sends many repeated requests to GitHub within a
+short perod of time.
 
 To avoid this, provide an authetication token using `--auth`:
 
@@ -258,33 +285,40 @@ To avoid this, provide an authetication token using `--auth`:
 starcli --auth 'username:password'
 ```
 
-[Read more about authentication tokens on GitHub Docs](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token")
+[Read more about authentication tokens on GitHub
+Docs](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token")
 
 ## Issues, feature request, and feedback
 
-* Issues, bug reports, or feature request: Don't hesitate to open an issue in this repo
-* Feedback: any general feedback or questions about using StarCLI you can leave a comment on the [Product Hunt page](https://www.producthunt.com/posts/starcli)
+* Issues, bug reports, or feature request: Don't hesitate to open an issue in
+  this repo
+* Feedback: any general feedback or questions about using StarCLI you can leave
+  a comment on the [Product Hunt
+  page](https://www.producthunt.com/posts/starcli)
 
 
 ## Development    [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-For contributing guidelines and how to set up your development environment, please
-read [`CONTRIBUTING.md`](https://github.com/hedyhli/starcli/blob/main/CONTRIBUTING.md).
-Remember that all contributions to this project should follow its
-[CODE OF CONDUCT](https://github.com/hedyhli/starcli/blob/main/CODE_OF_CONDUCT.md).
+For contributing guidelines and how to set up your development environment,
+please read
+[`CONTRIBUTING.md`](https://github.com/hedyhli/starcli/blob/main/CONTRIBUTING.md).
+Remember that all contributions to this project should follow its [CODE OF
+CONDUCT](https://github.com/hedyhli/starcli/blob/main/CODE_OF_CONDUCT.md).
 
 
 ## Uses
 
 * CommandLine Argument parser: [Click](https://github.com/pallets/click)
-* Colored and table console print: [`rich`](https://github.com/willmcgugan/rich) (with click and colorama)
+* Colored and table console print: [`rich`](https://github.com/willmcgugan/rich)
+  (with click and colorama)
 * HTTP library to send requests: [`requests`](https://github.com/psf/requests)
 
 
 
 ## Contributors ✨
 
-Thanks goes to all of these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+Thanks goes to all of these wonderful people ([emoji
+key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -322,13 +356,14 @@ Thanks goes to all of these wonderful people ([emoji key](https://allcontributor
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+This project follows the
+[all-contributors](https://github.com/all-contributors/all-contributors)
+specification. Contributions of any kind welcome!
 
 
 ## Credits
 
-This project was forked from
-[`githunt` (python)](https://github.com/SriNandan33/githunt)
-and its initial intention was to rewrite that project to use
-Rich instead of colorama + tabulate, but now it has so much more features
-than before, thanks to everyone's contributions 🙌
+This project was forked from [`githunt`
+(python)](https://github.com/SriNandan33/githunt) and its initial intention was
+to rewrite that project to use Rich instead of colorama + tabulate, but now it
+has so much more features than before, thanks to everyone's contributions 🙌
