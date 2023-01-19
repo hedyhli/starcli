@@ -211,7 +211,7 @@ def cli(
     if not long_stats:  # shorten the stat counts when not --long-stats
         for repo in repos:
             repo["stargazers_count"] = shorten_count(repo["stargazers_count"])
-            repo["watchers_count"] = shorten_count(repo["watchers_count"])
+            repo["forks"] = shorten_count(repo["forks"])
             if "date_range" in repo.keys() and repo["date_range"]:
                 num_stars = repo["date_range"].split()[0]
                 repo["date_range"] = repo["date_range"].replace(

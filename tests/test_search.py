@@ -14,7 +14,7 @@ def test_search_language():
         repos = search([language])
         for repo in repos:
             assert repo["stargazers_count"] >= 0
-            assert repo["watchers_count"] >= 0
+            assert repo["forks"] >= 0
             assert repo["language"].lower() == language.lower()
             assert (repo["description"] is None) or repo["description"]
             assert repo["full_name"].count("/") == 1
@@ -36,7 +36,7 @@ def test_search_topics():
         repos = search(languages=["python"], topics=topics)
         for repo in repos:
             assert repo["stargazers_count"] >= 0
-            assert repo["watchers_count"] >= 0
+            assert repo["forks"] >= 0
             assert repo["language"].lower() == "python"
             assert (repo["description"] is None) or repo["description"]
             assert repo["full_name"].count("/") >= 1
@@ -55,7 +55,7 @@ def test_search_created_date():
     repos = search(languages=["python"], created=created_date_value)
     for repo in repos:
         assert repo["stargazers_count"] >= 0
-        assert repo["watchers_count"] >= 0
+        assert repo["forks"] >= 0
         assert (repo["description"] is None) or repo["description"]
         assert repo["full_name"].count("/") >= 1
         assert repo["full_name"] == f"{repo['owner']['login']}/{repo['name']}"
@@ -82,7 +82,7 @@ def test_search_pushed_date():
     repos = search(languages=["python"], pushed=pushed_date_value)
     for repo in repos:
         assert repo["stargazers_count"] >= 0
-        assert repo["watchers_count"] >= 0
+        assert repo["forks"] >= 0
         assert (repo["description"] is None) or repo["description"]
         assert repo["full_name"].count("/") >= 1
         assert repo["full_name"] == f"{repo['owner']['login']}/{repo['name']}"
@@ -107,7 +107,7 @@ def test_search_stars():
     for repo in repos:
         # FIXME: Possibly problem with GitHub API?
         assert repo["stargazers_count"] < 10  # Somestimes stars+1
-        assert repo["watchers_count"] >= 0
+        assert repo["forks"] >= 0
         assert (repo["description"] is None) or repo["description"]
         assert repo["full_name"].count("/") >= 1
         assert repo["full_name"] == f"{repo['owner']['login']}/{repo['name']}"
@@ -119,7 +119,7 @@ def test_search_user():
     repos = search(languages=["ruby"], user="octocat")
     for repo in repos:
         assert repo["stargazers_count"] >= 0
-        assert repo["watchers_count"] >= 0
+        assert repo["forks"] >= 0
         assert (repo["description"] is None) or repo["description"]
         assert repo["full_name"].split("/")[0] == "octocat"
         assert repo["full_name"] == f"{repo['owner']['login']}/{repo['name']}"
@@ -137,6 +137,7 @@ def test_spoken_language():
     repos = search_github_trending(["javascript"], "zh")  # zh = chinese
     for repo in repos:
         assert repo["stargazers_count"] >= 0
+        assert repo["forks"] >= 0
         assert repo["language"].lower() == "javascript"
         assert (repo["description"] == None) or repo["description"]
         assert repo["full_name"].count("/") >= 1
@@ -149,6 +150,7 @@ def test_date_range():
         repos = search_github_trending(["python"], "en", date_range)
         for repo in repos:
             assert repo["stargazers_count"] >= 0
+            assert repo["forks"] >= 0
             assert repo["language"].lower() == "python"
             assert (repo["description"] == None) or repo["description"]
             assert repo["full_name"].count("/") >= 1
@@ -162,7 +164,7 @@ def test_search_multiple_language():
     repos = search(languages)
     for repo in repos:
         assert repo["stargazers_count"] >= 0
-        assert repo["watchers_count"] >= 0
+        assert repo["forks"] >= 0
         assert repo["language"].lower() in languages
         assert (repo["description"] is None) or repo["description"]
         assert repo["full_name"].count("/") == 1

@@ -16,6 +16,8 @@ from rich.columns import Columns
 
 console = Console()
 
+SYMBOL_MAP = { "stars": "★", "forks": "⎇" }
+
 
 def shorten_count(number):
     """Shortens number"""
@@ -37,9 +39,16 @@ def shorten_count(number):
 
 def get_stats(repo):
     """return formatted string of repo stats"""
-    stats = f"{repo['stargazers_count']} ⭐ " if repo["stargazers_count"] != "-1" else ""
-    stats += f"{repo['watchers_count']} 👀 " if repo["watchers_count"] != "-1" else ""
+    stats = f"{repo['stargazers_count']}{SYMBOL_MAP['stars']} " if repo["stargazers_count"] != "-1" else ""
+    stats += f"{repo['forks']}{SYMBOL_MAP['forks']} " if repo["forks"] != "-1" else ""
     return stats
+
+def get_date_range(date_range):
+    if not date_range:
+        return Text("")
+    return Text("(", style="reset").append((
+        date_range.replace(" stars", SYMBOL_MAP["stars"])
+    ), style="italic magenta").append(")")
 
 
 def list_layout(repos):
@@ -55,18 +64,13 @@ def list_layout(repos):
         # Table with description and stats
         title_table = Table.grid(padding=(0, 1))
         title_table.expand = True
-        stats = get_stats(repo)
         title = Text(repo["full_name"], overflow="fold")
         title.stylize(f"yellow link {repo['html_url']}")
-        date_range_col = (
-            Text(
-                ("(+" + repo["date_range"] + ")").replace("stars ", ""),
-                style="bold cyan",
-            )
-            if "date_range" in repo.keys() and repo["date_range"]
-            else Text("")
-        )
-        title_table.add_row(title, Text(stats, style="bold blue") + date_range_col)
+
+        stats = get_stats(repo)
+        date_range_col = get_date_range(repo.get("date_range"))
+
+        title_table.add_row(title, Text(stats, style="italic blue"))
         title_table.columns[1].no_wrap = True
         title_table.columns[1].justify = "right"
         yield title_table
@@ -76,17 +80,18 @@ def list_layout(repos):
         language_col = (
             Text(repo["language"], style="bold cyan")
             if repo["language"]
-            else Text("unknown language")
+            else Text("no language")
         )
-        lang_table.add_row(language_col)
+        lang_table.add_row(language_col, date_range_col)
+        lang_table.columns[1].justify = "right"
         yield lang_table
         yield ""
         # Descripion
         description = repo["description"]
         if description:
-            yield Text(description.strip(), style="green")
+            yield Text(description.strip())
         else:
-            yield "[i green]no description"
+            yield "[i]no description"
         yield ""
 
     def column(renderable):
@@ -104,33 +109,22 @@ def table_layout(repos):
     table = Table(leading=1)
 
     # make the columns
-    table.add_column("Name", style="bold cyan")
-    table.add_column("Language", style="green")
-    table.add_column("Description", style="blue")
-    table.add_column("Stats", style="magenta")
+    table.add_column("Name", style="bold yellow")
+    table.add_column("Language")
+    table.add_column("Description")
+    table.add_column("Stats", justify="right")
 
     for repo in repos:
+        stats = Text(get_stats(repo), style="blue")
+        stats.append("\n").append(get_date_range(repo.get("date_range")))
 
-        stats = get_stats(repo)
-        stats += (
-            "\n" + repo["date_range"].replace("stars", "⭐")
-            if "date_range" in repo.keys() and repo["date_range"]
-            else ""
-        )
+        language = Text(repo["language"], style="cyan") if repo["language"] else Text("no language", style="italic")
+        description = Text(repo["description"]) if repo["description"] else Text("no description", style="italic")
 
-        if not repo["language"]:  # if language is not provided
-            repo["language"] = "None"  # make it a string
-        if not repo["description"]:  # same here
-            repo["description"] = "None"
         name = Text(repo["name"], overflow="fold")
         name.stylize(f"yellow link {repo['html_url']}")
 
-        table.add_row(
-            name,
-            repo["language"],  # so that it can work here
-            repo["description"],
-            stats,
-        )
+        table.add_row(name, language, description, stats)
 
     console.print(table)
 
@@ -146,21 +140,13 @@ def grid_layout(repos):
         stats = get_stats(repo)
         # '\n' added here as it would group both text and new line together
         # hence if date_range isn't present the new line will also not be displayed
-        date_range_str = (
-            repo["date_range"].replace("stars", "⭐") + "\n"
-            if "date_range" in repo.keys() and repo["date_range"]
-            else ""
-        )
+        date_range = get_date_range(repo.get("date_range")).append("\n")
 
-        if not repo["language"]:  # if language is not provided
-            repo["language"] = "None"  # make it a string
-        if not repo["description"]:
-            repo["description"] = "None"
+        language = Text(repo["language"], style="cyan") if repo["language"] else Text("no language", style="italic")
+        description = Text(repo["description"]) if repo["description"] else Text("no description", style="italic")
 
         name = Text(repo["name"], style="bold yellow")
         name.stylize(f"link {repo['html_url']}")
-        language = Text(repo["language"], style="magenta")
-        description = Text(repo["description"], style="green")
         stats = Text(stats, style="blue")
 
         # truncate rest of the description if
@@ -173,8 +159,8 @@ def grid_layout(repos):
             name,
             "\n",
             stats,
-            "\n",
-            date_range_str,
+            " ",
+            date_range,
             language,
             "\n",
             description,

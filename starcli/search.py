@@ -245,7 +245,6 @@ def search_github_trending(
             if date_range
             else None
         )
-        repo_dict["watchers_count"] = -1  # watchers count not available
         # filter by number of stars
         num = [int(s) for s in re.findall(r"\d+", stars)][0]
         if (
@@ -267,6 +266,7 @@ def convert_repo_dict(gtrending_repo):
     repo_dict["name"] = gtrending_repo.get("name")
     repo_dict["html_url"] = gtrending_repo.get("url")
     repo_dict["stargazers_count"] = gtrending_repo.get("stars", -1)
+    repo_dict["forks"] = gtrending_repo.get("forks", -1)
     repo_dict["language"] = gtrending_repo.get("language")
     # gtrending_repo has key `description` and value is empty string if it's empty
     repo_dict["description"] = (
