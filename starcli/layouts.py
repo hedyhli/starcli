@@ -1,11 +1,7 @@
-""" starcli.layouts """
+"""starcli.layouts"""
 
-# Standard library imports
-import textwrap
 import math
-from shutil import get_terminal_size
 
-# Third party imports
 from rich.align import Align
 from rich.console import Console, group
 from rich.rule import Rule
@@ -13,6 +9,7 @@ from rich.table import Table
 from rich.text import Text
 from rich.panel import Panel
 from rich.columns import Columns
+
 
 console = Console()
 
@@ -32,23 +29,23 @@ def shorten_count(number):
     if new_number < 1000:
         # returns the same old integer if no changes were made
         return str(number)
-    else:
-        # returns a new string if the number was shortened
-        return str(new_number / 1000.0) + "k"
+    # returns a new string if the number was shortened
+    return str(new_number / 1000.0) + "k"
 
 
-def get_stats(repo):
-    """return formatted string of repo stats"""
+def format_stats(stars, forks):
+    """Formatted string of repo stats"""
     stats = (
-        f"{repo['stargazers_count']}{SYMBOL_MAP['stars']} "
-        if repo["stargazers_count"] != "-1"
+        f"{stars}{SYMBOL_MAP['stars']} "
+        if stars != "-1"
         else ""
     )
-    stats += f"{repo['forks']}{SYMBOL_MAP['forks']} " if repo["forks"] != "-1" else ""
+    stats += f"{forks}{SYMBOL_MAP['forks']} " if forks != "-1" else ""
     return stats
 
 
-def get_date_range(date_range):
+def format_date_range(date_range):
+    """Formatted and styled Text object of date_range period stars"""
     if not date_range:
         return Text("")
     return (
@@ -61,7 +58,7 @@ def get_date_range(date_range):
 
 
 def list_layout(repos):
-    """Displays repositories in list layout using rich"""
+    """Display repositories in a list layout using rich"""
 
     LAYOUT_WIDTH = 80
 
@@ -76,8 +73,8 @@ def list_layout(repos):
         title = Text(repo["full_name"], overflow="fold")
         title.stylize(f"yellow link {repo['html_url']}")
 
-        stats = get_stats(repo)
-        date_range_col = get_date_range(repo.get("date_range"))
+        stats = format_stats(repo["stargazers_count"], repo["forks"])
+        date_range_col = format_date_range(repo.get("date_range"))
 
         title_table.add_row(title, Text(stats, style="italic blue"))
         title_table.columns[1].no_wrap = True
@@ -114,7 +111,6 @@ def list_layout(repos):
 
 def table_layout(repos):
     """Displays repositories in a table format using rich"""
-
     table = Table(leading=1)
 
     # make the columns
@@ -124,8 +120,8 @@ def table_layout(repos):
     table.add_column("Stats", justify="right")
 
     for repo in repos:
-        stats = Text(get_stats(repo), style="blue")
-        stats.append("\n").append(get_date_range(repo.get("date_range")))
+        stats = Text(format_stats(repo["stargazers_count"], repo["forks"]), style="blue")
+        stats.append("\n").append(format_date_range(repo.get("date_range")))
 
         language = (
             Text(repo["language"], style="cyan")
@@ -154,10 +150,10 @@ def grid_layout(repos):
     panels = []
     for repo in repos:
 
-        stats = get_stats(repo)
+        stats = format_stats(repo["stargazers_count"], repo["forks"])
         # '\n' added here as it would group both text and new line together
         # hence if date_range isn't present the new line will also not be displayed
-        date_range = get_date_range(repo.get("date_range")).append("\n")
+        date_range = format_date_range(repo.get("date_range")).append("\n")
 
         language = (
             Text(repo["language"], style="cyan")
@@ -200,18 +196,18 @@ def print_results(*args, page=False, layout=""):
     if page:
         with console.pager():
             print_layout(layout=layout, *args)
-    else:
-        print_layout(
-            layout=layout,
-            *args,
-        )
+        return
+    print_layout(
+        layout=layout,
+        *args,
+    )
 
 
 def print_layout(*args, layout="list"):
+    """Use specified layout"""
     if layout == "table":
         table_layout(*args)
     elif layout == "grid":
         grid_layout(*args)
     else:
         list_layout(*args)
-    return

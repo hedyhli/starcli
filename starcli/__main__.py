@@ -208,7 +208,7 @@ def cli(
 
     repos = tmp_repos[0:limit_results]
 
-    if not long_stats:  # shorten the stat counts when not --long-stats
+    if not long_stats:  # shorten the stat counts when not using --long-stats
         for repo in repos:
             repo["stargazers_count"] = shorten_count(repo["stargazers_count"])
             repo["forks"] = shorten_count(repo["forks"])
