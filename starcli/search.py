@@ -207,7 +207,9 @@ def search(
 
     query += f"stars:{stars}+created:{created_str}"  # construct query
     query += f"+pushed:{pushed_str}"  # add pushed info to query
-    query += f"".join([f"+language:{language}" for language in languages])  # add language to query
+    query += f"".join(
+        [f"+language:{language}" for language in languages]
+    )  # add language to query
     query += f"".join(["+topic:" + i for i in topics])  # add topics to query
 
     url = f"{API_URL}?q={query}&sort=stars&order={order}"  # use query to construct url

@@ -16,7 +16,7 @@ from rich.columns import Columns
 
 console = Console()
 
-SYMBOL_MAP = { "stars": "★", "forks": "⎇" }
+SYMBOL_MAP = {"stars": "★", "forks": "⎇"}
 
 
 def shorten_count(number):
@@ -39,16 +39,25 @@ def shorten_count(number):
 
 def get_stats(repo):
     """return formatted string of repo stats"""
-    stats = f"{repo['stargazers_count']}{SYMBOL_MAP['stars']} " if repo["stargazers_count"] != "-1" else ""
+    stats = (
+        f"{repo['stargazers_count']}{SYMBOL_MAP['stars']} "
+        if repo["stargazers_count"] != "-1"
+        else ""
+    )
     stats += f"{repo['forks']}{SYMBOL_MAP['forks']} " if repo["forks"] != "-1" else ""
     return stats
+
 
 def get_date_range(date_range):
     if not date_range:
         return Text("")
-    return Text("(", style="reset").append((
-        date_range.replace(" stars", SYMBOL_MAP["stars"])
-    ), style="italic magenta").append(")")
+    return (
+        Text("(", style="reset")
+        .append(
+            (date_range.replace(" stars", SYMBOL_MAP["stars"])), style="italic magenta"
+        )
+        .append(")")
+    )
 
 
 def list_layout(repos):
@@ -118,8 +127,16 @@ def table_layout(repos):
         stats = Text(get_stats(repo), style="blue")
         stats.append("\n").append(get_date_range(repo.get("date_range")))
 
-        language = Text(repo["language"], style="cyan") if repo["language"] else Text("no language", style="italic")
-        description = Text(repo["description"]) if repo["description"] else Text("no description", style="italic")
+        language = (
+            Text(repo["language"], style="cyan")
+            if repo["language"]
+            else Text("no language", style="italic")
+        )
+        description = (
+            Text(repo["description"])
+            if repo["description"]
+            else Text("no description", style="italic")
+        )
 
         name = Text(repo["name"], overflow="fold")
         name.stylize(f"yellow link {repo['html_url']}")
@@ -142,8 +159,16 @@ def grid_layout(repos):
         # hence if date_range isn't present the new line will also not be displayed
         date_range = get_date_range(repo.get("date_range")).append("\n")
 
-        language = Text(repo["language"], style="cyan") if repo["language"] else Text("no language", style="italic")
-        description = Text(repo["description"]) if repo["description"] else Text("no description", style="italic")
+        language = (
+            Text(repo["language"], style="cyan")
+            if repo["language"]
+            else Text("no language", style="italic")
+        )
+        description = (
+            Text(repo["description"])
+            if repo["description"]
+            else Text("no description", style="italic")
+        )
 
         name = Text(repo["name"], style="bold yellow")
         name.stylize(f"link {repo['html_url']}")
