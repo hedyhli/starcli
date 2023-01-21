@@ -279,7 +279,7 @@ styling can be displayed correctly.
 Rate limit may be hit if starcli sends many repeated requests to GitHub within a
 short perod of time.
 
-To avoid this, provide an authetication token using `--auth`:
+To avoid this, provide an authentication token using `--auth`:
 
 ```
 starcli --auth 'username:password'
