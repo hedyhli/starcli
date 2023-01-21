@@ -10,7 +10,6 @@ import re
 # Third party imports
 import requests
 from click import secho
-import colorama
 from gtrending import fetch_repos
 import http.client
 from rich.logging import RichHandler
@@ -207,14 +206,14 @@ def search(
 
     query += f"stars:{stars}+created:{created_str}"  # construct query
     query += f"+pushed:{pushed_str}"  # add pushed info to query
-    query += f"".join(
+    query += "".join(
         [f"+language:{language}" for language in languages]
     )  # add language to query
-    query += f"".join(["+topic:" + i for i in topics])  # add topics to query
+    query += "".join(["+topic:" + i for i in topics])  # add topics to query
 
     url = f"{API_URL}?q={query}&sort=stars&order={order}"  # use query to construct url
     if debug:
-        logger.debug("Search: url:" + url)  # print the url when debugging
+        logger.debug(f"Search: url: {url}")  # print the url when debugging
     if debug and auth:
         logger.debug("Auth: on")
     elif debug:

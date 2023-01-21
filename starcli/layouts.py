@@ -56,7 +56,7 @@ def format_date_range(date_range):
 def list_layout(repos):
     """Display repositories in a list layout using rich"""
 
-    LAYOUT_WIDTH = 80
+    width = 80
 
     @group()
     def render_repo(repo):
@@ -98,7 +98,7 @@ def list_layout(repos):
 
     def column(renderable):
         """Constrain width and align to center to create a column."""
-        return Align.center(renderable, width=LAYOUT_WIDTH, pad=False)
+        return Align.center(renderable, width=width, pad=False)
 
     for repo in repos:
         console.print(column(render_repo(repo)))

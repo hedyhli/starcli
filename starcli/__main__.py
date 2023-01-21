@@ -1,11 +1,11 @@
 """ starcli.__main__ """
 
-import click
 import re
 import json
 import os
 from datetime import datetime, timedelta
 
+import click
 from xdg import XDG_CACHE_HOME
 
 from .layouts import print_results, shorten_count
@@ -13,8 +13,8 @@ from .search import (
     search,
     debug_requests_on,
     search_github_trending,
-    search_error,
-    status_actions,
+    # search_error,
+    # status_actions,
 )
 
 
@@ -94,7 +94,8 @@ CACHE_EXPIRATION = 1  # Minutes
     "--date-range",
     "-d",
     type=click.Choice(["today", "this-week", "this-month"], case_sensitive=False),
-    help="View stars received within time, choose from: today, this-week, this-month. Uses GitHub trending for fetching results, hence some other filter options may not work.",
+    help="View stars received within time, choose from: today, this-week, this-month. "
+    "Uses GitHub trending for fetching results, hence some other filter options may not work.",
 )
 @click.option(
     "--user",
@@ -175,7 +176,9 @@ def cli(
                 fg="bright_red",
             )
             click.secho(
-                "Use --help or see: https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token",
+                "Use --help or see: "
+                "https://docs.github.com/en/github/authenticating-to-github/"
+                "creating-a-personal-access-token",
                 fg="bright_red",
             )
             auth = None

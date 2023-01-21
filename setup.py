@@ -33,10 +33,9 @@ setup(
     packages=["starcli"],
     include_package_data=True,
     install_requires=[
-        "Click>=7.0",
-        "colorama>=0.4.3",
+        "Click>=7.0,<8.0",
         "gtrending>=0.3.0,<1.0.0",
-        "requests>=2.22.0",
+        "requests>=2.22.0,<3.0.0",
         "rich>=4.0.0,<14.0.0",
         "xdg>=5.1.1,<6.0.0",
     ],
