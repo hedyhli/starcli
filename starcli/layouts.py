@@ -35,11 +35,7 @@ def shorten_count(number):
 
 def format_stats(stars, forks):
     """Formatted string of repo stats"""
-    stats = (
-        f"{stars}{SYMBOL_MAP['stars']} "
-        if stars != "-1"
-        else ""
-    )
+    stats = f"{stars}{SYMBOL_MAP['stars']} " if stars != "-1" else ""
     stats += f"{forks}{SYMBOL_MAP['forks']} " if forks != "-1" else ""
     return stats
 
@@ -120,7 +116,9 @@ def table_layout(repos):
     table.add_column("Stats", justify="right")
 
     for repo in repos:
-        stats = Text(format_stats(repo["stargazers_count"], repo["forks"]), style="blue")
+        stats = Text(
+            format_stats(repo["stargazers_count"], repo["forks"]), style="blue"
+        )
         stats.append("\n").append(format_date_range(repo.get("date_range")))
 
         language = (
