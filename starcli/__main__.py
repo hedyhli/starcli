@@ -198,6 +198,8 @@ def cli(
             return
         else:  # Cache results
             tmp_repos.append({"time": str(datetime.now())})
+            # make sure ~/.cache dir exists
+            os.makedirs(XDG_CACHE_HOME, exist_ok=True)
             with open(CACHED_RESULT_PATH, "a+") as f:
                 if os.path.getsize(CACHED_RESULT_PATH) == 0:  # file is empty
                     result_dict = {options_key: tmp_repos}
