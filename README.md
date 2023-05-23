@@ -56,30 +56,34 @@ Usage: starcli [OPTIONS]
   Search and query GitHub repositories
 
 Options:
-  -l, --lang TEXT                 Language filter eg: python
+  -l, --lang TEXT                 Language filter eg: python. (can be used
+                                  multiple times)
   -S, --spoken-language TEXT      Spoken Language filter eg: en for English,
-                                  zh for Chinese, etc
+                                  zh for Chinese
   -c, --created TEXT              Specify repo creation date in YYYY-MM-DD,
-                                  prefixing with >, <= etc is allowed
-  -t, --topic TEXT                Search by topic, can be specified multiple
-                                  times
+                                  use >date, <=date etc to be more specific.
+  -t, --topic TEXT                Date of last push in YYYY-MM-DD (>, <, >=,
+                                  <= specifiers supported)
   -p, --pushed TEXT               Specify date of last push in YYYY-MM-DD, >=<
                                   allowed
   -L, --layout [list|table|grid]  The output format (list, table, or grid),
                                   default is list
-  -s, --stars TEXT                Amount of stars required, default is
-                                  '>=100'. Can use 123, <10, etc.
-  -r, --limit-results INTEGER     Limit the number of results. Default: 7
-  -o, --order [desc|asc]          Order of repos by stars shown, 'desc' or
-                                  'asc', default: desc
+  -s, --stars TEXT                Number of stars, default is '>=100'. eg:
+                                  '>0', '123', '<50000
+  -n, --num-results INTEGER       The number of items in the results. Default:
+                                  7
+  -o, --order [desc|asc]          Order of repos by stars, 'desc' or 'asc',
+                                  default: desc
   --long-stats                    Print the actual stats number (1300 instead
                                   of 1.3k)
-  -d, --date-range [today|this-week|this-month]
-                                  View stars received within time range,
-                                  choose from: today, this-week, this-month
-  -u, --user TEXT                 Search for trending repositories by username
-  --auth TEXT                     GitHub personal access token in the format
-                                  'username:password'.
+  -d, --date-range [day|week|month]
+                                  View stars received within time, choose
+                                  from: day, week, month. Uses GitHub trending
+                                  for fetching results, hence some other
+                                  filter options may not work.
+  -u, --user TEXT                 Filter for trending repositories by username
+  --auth TEXT                     Optionally use GitHub personal access token
+                                  in the format 'username:password'.
   -P, --pager                     Use $PAGER to page output. (put -r in $LESS
                                   to enable ANSI styles)
   --debug                         Turn on debugging mode
