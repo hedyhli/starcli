@@ -33,4 +33,4 @@ jobs:
       with:
         skip: "*.json,*.png,*.gif,*.PNG,.git"
     - run: pip install -r requirements.txt || true
-    - run: python -m pytest
+    - run: python -m pytest --auth=${{secrets.STARCLI_AUTH}}

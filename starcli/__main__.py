@@ -1,4 +1,7 @@
-""" starcli.__main__ """
+"""starcli.__main__
+
+The main CLI module of starcli.
+"""
 
 import re
 import json
@@ -19,7 +22,9 @@ from .search import (
 
 
 # could be made into config option in the future
-CACHED_RESULT_PATH = XDG_CACHE_HOME / "starcli.json"
+CACHE_DIR = XDG_CACHE_HOME / "starcli"
+CACHED_RESULT_PATH = CACHE_DIR / "results.json"
+CACHED_RESULT_PATH_LEGACY = XDG_CACHE_HOME / "starcli.json"
 CACHE_EXPIRATION = 1  # Minutes
 
 
@@ -30,7 +35,7 @@ CACHE_EXPIRATION = 1  # Minutes
     multiple=True,
     type=str,
     default=[""],
-    help="Language filter eg: python",
+    help="Language filter eg: python. (can be used multiple times)",
 )
 @click.option(
     "--spoken-language",
@@ -50,7 +55,7 @@ CACHE_EXPIRATION = 1  # Minutes
     "-t",
     default=[],
     multiple=True,
-    help="Filter by topic, can be specified multiple times",
+    help="Date of last push in YYYY-MM-DD (>, <, >=, <= specifiers supported)",
 )
 @click.option(
     "--pushed",
@@ -69,21 +74,21 @@ CACHE_EXPIRATION = 1  # Minutes
     "-s",
     type=str,
     default=">=100",
-    help="Amount of stars required, default is '>=100'. Can use 123, <10, etc.",
+    help="Number of stars, default is '>=100'. eg: '>0', '123', '<50000",
 )
 @click.option(
-    "--limit-results",
-    "-r",
+    "--num-results",
+    "-n",
     type=int,
     default=7,
-    help="Limit the number of results. Default: 7",
+    help="The number of items in the results. Default: 7",
 )
 @click.option(
     "--order",
     "-o",
     type=click.Choice(["desc", "asc"], case_sensitive=False),
     default="desc",
-    help="Order of repos by stars shown, 'desc' or 'asc', default: desc",
+    help="Order of repos by stars, 'desc' or 'asc', default: desc",
 )
 @click.option(
     "--long-stats",
@@ -93,9 +98,8 @@ CACHE_EXPIRATION = 1  # Minutes
 @click.option(
     "--date-range",
     "-d",
-    type=click.Choice(["today", "this-week", "this-month"], case_sensitive=False),
-    help="View stars received within time, choose from: today, this-week, this-month. "
-    "Uses GitHub trending for fetching results, hence some other filter options may not work.",
+    type=click.Choice(["day", "week", "month"], case_sensitive=False),
+    help="View stars received within time, choose from: day, week, month. Uses GitHub trending for fetching results, hence some other filter options may not work.",
 )
 @click.option(
     "--user",
@@ -117,6 +121,12 @@ CACHE_EXPIRATION = 1  # Minutes
     default=False,
     help="Use $PAGER to page output. (put -r in $LESS to enable ANSI styles)",
 )
+@click.option(  # Used for debugging CLI input, prevent hitting GitHub API when we don't need it
+    "--nop",
+    is_flag=True,
+    default=False,
+    hidden=True,
+)
 @click.option("--debug", is_flag=True, default=False, help="Turn on debugging mode")
 def cli(
     lang,
@@ -126,7 +136,7 @@ def cli(
     pushed,
     layout,
     stars,
-    limit_results,
+    num_results,
     order,
     long_stats,
     date_range,
@@ -134,6 +144,7 @@ def cli(
     debug=False,
     auth="",
     pager=False,
+    nop=False,
 ):
     """Find trending repos on GitHub"""
     if debug:
@@ -170,9 +181,9 @@ def cli(
                     tmp_repos = result
 
     if not tmp_repos:  # If cache expired or results not yet cached
-        if auth and not re.search(".:.", auth):  # Check authentication format
+        if auth and not re.search(".+:.+", auth):  # Check authentication format
             click.secho(
-                f"Invalid authentication format: {auth} must be 'username:token'",
+                f"Invalid authentication format: {auth}. Must be 'username:token'",
                 fg="bright_red",
             )
             click.secho(
@@ -183,6 +194,9 @@ def cli(
             )
             auth = None
 
+        if nop:
+            return
+
         if (
             not spoken_language and not date_range
         ):  # if filtering by spoken language and date range not required
@@ -191,7 +205,7 @@ def cli(
             )
         else:
             tmp_repos = search_github_trending(
-                lang, spoken_language, order, stars, date_range
+                lang, spoken_language, order, stars, date_range, debug
             )
 
         if not tmp_repos:  # if search() returned None
@@ -199,7 +213,13 @@ def cli(
         else:  # Cache results
             tmp_repos.append({"time": str(datetime.now())})
             # make sure ~/.cache dir exists
-            os.makedirs(XDG_CACHE_HOME, exist_ok=True)
+            os.makedirs(CACHE_DIR, exist_ok=True)
+            # Clean legacy cache file path
+            try:
+                os.remove(CACHED_RESULT_PATH_LEGACY)
+            except FileNotFoundError:
+                pass
+
             with open(CACHED_RESULT_PATH, "a+") as f:
                 if os.path.getsize(CACHED_RESULT_PATH) == 0:  # file is empty
                     result_dict = {options_key: tmp_repos}
@@ -211,7 +231,7 @@ def cli(
                     f.truncate(0)
                     f.write(json.dumps(result_dict, indent=4))
 
-    repos = tmp_repos[0:limit_results]
+    repos = tmp_repos[0:num_results]
 
     if not long_stats:  # shorten the stat counts when not using --long-stats
         for repo in repos:

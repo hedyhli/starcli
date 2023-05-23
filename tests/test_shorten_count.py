@@ -1,4 +1,4 @@
-""" tests.test_shorten_count """
+"""tests.test_shorten_count"""
 from starcli.layouts import shorten_count
 
 

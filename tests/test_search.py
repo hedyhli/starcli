@@ -1,4 +1,4 @@
-""" tests.test_search """
+"""tests.test_search"""
 
 from datetime import datetime, timedelta
 from random import randint
@@ -132,6 +132,8 @@ def test_no_results():
     assert repos == []
 
 
+# commented until upstream github trending dependency is fixed
+@pytest.mark.xfail()
 def test_spoken_language():
     """Test search by spoken languages"""
     repos = search_github_trending(["javascript"], "zh")  # zh = chinese
@@ -143,7 +145,7 @@ def test_spoken_language():
         assert repo["full_name"].count("/") >= 1
         assert repo["html_url"] == "https://github.com/" + repo["full_name"]
 
-
+@pytest.mark.xfail()
 def test_date_range():
     """Test search by date range"""
     for date_range in ["daily", "monthly", "weekly"]:
