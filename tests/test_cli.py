@@ -6,6 +6,7 @@ from sys import maxsize
 from time import time
 # import re
 import os
+import shutil
 
 from click.testing import CliRunner
 import pytest
@@ -232,7 +233,7 @@ class TestCli:
         """Test the caching of result"""
 
         self.cli_result(
-            "--topic", "python", "--topic", "java", "--stars", ">100", clear_cache=True
+            "--topic", "python", "--stars", ">100", clear_cache=True, nop=False
         )
 
         assert os.path.exists(CACHE_DIR), f"Cache directory not created: {CACHE_DIR}"
@@ -273,8 +274,8 @@ class TestCli:
         """
         if clear_cache:
             try:
-                os.remove(CACHE_DIR)
-            except OSError:
+                shutil.rmtree(CACHE_DIR)
+            except FileNotFoundError:
                 pass
 
         runner = CliRunner()
