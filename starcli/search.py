@@ -31,7 +31,9 @@ DATE_RANGE_MAP = {
 STATUS_ACTIONS = {
     "retry": "Failed to retrieve data. Retrying in ",
     "invalid": "The server was unable to process the request.",
-    "unauthorized": "The server did not accept the credentials. See: https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token",
+    "unauthorized": "The server did not accept the credentials.\n" \
+        "See: https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token\n" #
+        "Maybe you did not give enough scopes?",
     "not_found": "The server indicated no data was found.",
     "unsupported": "The request is not supported.",
     "unknown": "An unknown error occurred.",

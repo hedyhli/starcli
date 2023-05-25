@@ -286,11 +286,12 @@ short perod of time.
 To avoid this, provide an authentication token using `--auth`:
 
 ```
-starcli --auth 'username:password'
+starcli --auth 'username:token'
 ```
 
 [Read more about authentication tokens on GitHub
 Docs](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token")
+
 
 ## Issues, feature request, and feedback
 
