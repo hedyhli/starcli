@@ -12,7 +12,7 @@ All contributions to this project should follow the `CODE_OF_CONDUCT.md`.
 
 ### Reporting issues and providing feedback
 
-If you found any issues or bugs, be sure to open up an issue so the someone can
+If you found any issues or bugs, be sure to open up an issue so someone can
 check it out!
 
 
