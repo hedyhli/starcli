@@ -33,7 +33,7 @@ setup(
     packages=["starcli"],
     include_package_data=True,
     install_requires=[
-        "Click>=7.0,<8.0",
+        "Click>=7.0,<9.0",
         "gtrending>=0.3.0,<1.0.0",
         "requests>=2.22.0,<3.0.0",
         "rich>=4.0.0,<14.0.0",
