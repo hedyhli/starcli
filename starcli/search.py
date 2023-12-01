@@ -28,6 +28,13 @@ DATE_RANGE_MAP = {
     "monthly": ("this month", "month"),
 }
 
+# Key: Most accepted language symbol identifier
+# Value: list of language title which are correct but throws error with gtrending.fetch_repos method
+LANGUAGE_MAPPING = {
+    'c#': ['csharp'],
+    'c++': ['cpp'],
+}
+
 STATUS_ACTIONS = {
     "retry": "Failed to retrieve data. Retrying in ",
     "invalid": "The server was unable to process the request.",
@@ -241,7 +248,7 @@ def search(
     query += f"stars:{stars}+created:{created_str}"  # construct query
     query += f"+pushed:{pushed_str}"  # add pushed info to query
     query += "".join(
-        [f"+language:{language}" for language in languages]
+        [f"+language:{requests.utils.quote(language)}" for language in languages]
     )  # add language to query
     query += "".join(["+topic:" + i for i in topics])  # add topics to query
 
@@ -279,9 +286,22 @@ def search_github_trending(
                 debug,
                 f"gtrending: fetching repos: language={language}, spoken_language={spoken_language}, since={since}",
             )
-            gtrending_repo_list += gtrending.fetch_repos(
-                language, spoken_language, since
-            )
+
+            for alternate_lang_name, invalid_lang_name in LANGUAGE_MAPPING.items():
+                if language.lower() in invalid_lang_name:
+                    language = alternate_lang_name
+                    break
+            
+            try:
+                gtrending_repo_list += gtrending.fetch_repos(
+                    language, spoken_language, since
+                )
+            except:
+                secho(
+                    f"Invalid language \"{language}\" passed...",
+                    fg="bright_red",
+                )
+                return None
         else:
             debug_logger(
                 debug,

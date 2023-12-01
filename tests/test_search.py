@@ -10,7 +10,7 @@ from starcli.search import search, search_github_trending
 
 def test_search_language():
     """Test searching by language"""
-    for language in ["python", "Python", "JavaScript", "c"]:
+    for language in ["python", "Python", "JavaScript", "c", "cpp", "csharp"]:
         repos = search([language])
         for repo in repos:
             assert repo["stargazers_count"] >= 0
