@@ -145,6 +145,7 @@ def test_spoken_language():
         assert repo["full_name"].count("/") >= 1
         assert repo["html_url"] == "https://github.com/" + repo["full_name"]
 
+
 @pytest.mark.xfail()
 def test_date_range():
     """Test search by date range"""

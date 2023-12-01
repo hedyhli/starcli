@@ -31,16 +31,16 @@ DATE_RANGE_MAP = {
 # Key: Most accepted language symbol identifier
 # Value: list of language title which are correct but throws error with gtrending.fetch_repos method
 LANGUAGE_MAPPING = {
-    'c#': ['csharp'],
-    'c++': ['cpp'],
+    "c#": ["csharp"],
+    "c++": ["cpp"],
 }
 
 STATUS_ACTIONS = {
     "retry": "Failed to retrieve data. Retrying in ",
     "invalid": "The server was unable to process the request.",
-    "unauthorized": "The server did not accept the credentials.\n" \
-        "See: https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token\n" #
-        "Maybe you did not give enough scopes?",
+    "unauthorized": "The server did not accept the credentials.\n"
+    "See: https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token\n"  #
+    "Maybe you did not give enough scopes?",
     "not_found": "The server indicated no data was found.",
     "unsupported": "The request is not supported.",
     "unknown": "An unknown error occurred.",
@@ -291,14 +291,14 @@ def search_github_trending(
                 if language.lower() in invalid_lang_name:
                     language = alternate_lang_name
                     break
-            
+
             try:
                 gtrending_repo_list += gtrending.fetch_repos(
                     language, spoken_language, since
                 )
             except:
                 secho(
-                    f"Invalid language \"{language}\" passed...",
+                    f'Invalid language "{language}" passed...',
                     fg="bright_red",
                 )
                 return None
