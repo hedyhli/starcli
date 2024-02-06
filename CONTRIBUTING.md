@@ -61,6 +61,13 @@ $ python -m starcli --help
 If the above command displayed the help and usage, you are good to go 👍 you can
 also test all the other features like list and table output, debug, etc.
 
+**Setup gitguard**
+```
+$ cd .gitguard; ./gitguard.py
+```
+
+GitGuard can assist you by ensuring your commits adhere to conventional commit standards. If your commit message doesn't follow these conventions, GitGuard will alert you by throwing an error. This feature helps you maintain a consistent and readable commit history by guiding you in formatting your commit messages correctly.
+
 **Running tests**
 ```bash
 python -m pytest
@@ -89,5 +96,5 @@ pylint *.py
 
 **Formatting & code spell**
 ```bash
-black . && codespell --skip=".git,*.json,demo-pics/,venv/"
+black . && codespell --skip=".git,.gitguard/,*.json,demo-pics/,venv/"
 ```
