@@ -1,0 +1,70 @@
+#!/usr/bin/python3
+import sys
+import re
+
+
+# Color codes
+RED = "\033[91m"
+GREEN = "\033[92m"
+BOLD = "\033[1m"
+END = "\033[0m"
+
+
+def print_error(commit_msg, error_pos, error_msg, style):
+    TAB = "\t"
+    print("\n" + TAB + commit_msg)
+    print(TAB + " " * error_pos + style + "^-- " + error_msg + END + "\n")
+    print(GREEN +"Convention: <type>(optional scope): <description>\n" + END)
+
+
+def validate_commit_message(commit_msg):
+    prefix_pattern = r"^(feat|fix|docs|style|refactor|perf|test|chore|ci|build|broken)"
+    scope_pattern = r"\([a-z0-9_\-]+\)"
+    message_pattern = r":\s.+$"
+
+    prefix_match = re.match(prefix_pattern, commit_msg)
+    if not prefix_match:
+        print_error(
+            commit_msg, 0, "oops! Invalid prefix. Should be feat, fix, docs, style, refactor, pref, test, chore, ci, build.", RED + BOLD)
+        return False
+
+    rest_msg = commit_msg[len(prefix_match.group()):]
+
+    if rest_msg.startswith('('):
+        scope_match = re.match(scope_pattern, rest_msg)
+        if not scope_match:
+            print_error(commit_msg, len(prefix_match.group()),
+                        "This scope thingy is messed up. It should be like (scope):.", RED + BOLD)
+            return False
+        rest_msg = rest_msg[len(scope_match.group()):]
+
+    if not re.match(message_pattern, rest_msg):
+        error_pos = len(commit_msg) - len(rest_msg)
+        print_error(commit_msg, error_pos,
+                    "Hey genius, message should start with a colon and space.", RED + BOLD)
+        return False
+
+    return True
+
+
+def read_file(file_path):
+    with open(file_path, 'r') as file:
+        return file.read().strip()
+
+
+def get_commit_message(file_path):
+    commit_msg = read_file(file_path)
+    if not validate_commit_message(commit_msg):
+        raise ValueError(
+            "GITGUARD: Commit message does not follow conventions. Fix it and try again.")
+    return commit_msg
+
+
+if __name__ == "__main__":
+    try:
+        print("GITGUARD: Verifying commit message...")
+        commit_msg = get_commit_message(sys.argv[1])
+        print(f"GITGUARD: Commit message verified: {commit_msg}")
+    except ValueError as e:
+        print(e)
+        sys.exit(1)
