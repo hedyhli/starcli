@@ -96,5 +96,5 @@ pylint *.py
 
 **Formatting & code spell**
 ```bash
-black . && codespell --skip=".git,*.json,demo-pics/,venv/"
+black . && codespell --skip=".git,.gitguard/,*.json,demo-pics/,venv/"
 ```
