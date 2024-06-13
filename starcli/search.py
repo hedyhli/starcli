@@ -268,27 +268,20 @@ def search_github_trending(
     debug=False,
 ) -> t.List[dict]:
     """Returns trending repositories from github trending page"""
+    language_map = {'csharp': 'c#', 'cpp': 'c++'}
     gtrending_repo_list = []
     since = convert_date_range(date_range)
 
     debug_logger(debug, f"gtrending: since: {since}")
 
     for language in languages:
+        mapped_language = language_map.get(language, language)
         if date_range:
-            debug_logger(
-                debug,
-                f"gtrending: fetching repos: language={language}, spoken_language={spoken_language}, since={since}",
-            )
-            gtrending_repo_list += gtrending.fetch_repos(
-                language, spoken_language, since
-            )
+            debug_logger(debug, f"gtrending: fetching repos: language={mapped_language}, spoken_language={spoken_language}, since={since}")
+            gtrending_repo_list += gtrending.fetch_repos(mapped_language, spoken_language, since)
         else:
-            debug_logger(
-                debug,
-                f"gtrending: fetching repos: language={language}, spoken_language={spoken_language}",
-            )
-            gtrending_repo_list += gtrending.fetch_repos(language, spoken_language)
-
+            debug_logger(debug, f"gtrending: fetching repos: language={mapped_language}, spoken_language={spoken_language}")
+            gtrending_repo_list += gtrending.fetch_repos(mapped_language, spoken_language)
     repositories = []
     for gtrending_repo in gtrending_repo_list:
         repo_dict = convert_repo_dict(gtrending_repo)
