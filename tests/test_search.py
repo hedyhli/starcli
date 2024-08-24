@@ -106,7 +106,7 @@ def test_search_stars():
     repos = search(languages=["python"], stars="<10")
     for repo in repos:
         # FIXME: Possibly problem with GitHub API?
-        assert repo["stargazers_count"] < 10  # Somestimes stars+1
+        assert repo["stargazers_count"] < 10  # Sometimes stars+1
         assert repo["forks"] >= 0
         assert (repo["description"] is None) or repo["description"]
         assert repo["full_name"].count("/") >= 1
