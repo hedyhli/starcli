@@ -18,6 +18,21 @@ from click import secho
 import gtrending
 from rich.logging import RichHandler
 
+# GitHub language identifiers that differ from gtrending's params
+# gtrending uses "c#" but GitHub search uses "csharp", etc.
+GITHUB_TO_GTRENDING_LANG = {
+    "csharp": "c#",
+    "cpp": "c++",
+}
+
+
+def _normalize_lang_for_gtrending(lang: str) -> str:
+    """Normalize a GitHub language name to a gtrending param if needed."""
+    if not lang:
+        return lang
+    return GITHUB_TO_GTRENDING_LANG.get(lang.lower(), lang)
+
+
 API_URL = "https://api.github.com/search/repositories"
 
 # "X stars today" / "X stars this week"
@@ -280,14 +295,16 @@ def search_github_trending(
                 f"gtrending: fetching repos: language={language}, spoken_language={spoken_language}, since={since}",
             )
             gtrending_repo_list += gtrending.fetch_repos(
-                language, spoken_language, since
+                _normalize_lang_for_gtrending(language), spoken_language, since
             )
         else:
             debug_logger(
                 debug,
                 f"gtrending: fetching repos: language={language}, spoken_language={spoken_language}",
             )
-            gtrending_repo_list += gtrending.fetch_repos(language, spoken_language)
+            gtrending_repo_list += gtrending.fetch_repos(
+                _normalize_lang_for_gtrending(language), spoken_language
+            )
 
     repositories = []
     for gtrending_repo in gtrending_repo_list:
