@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 from random import randint
 from sys import maxsize
 from time import time
+
 # import re
 import os
 import shutil
@@ -40,8 +41,8 @@ class TestCli:
     # def test_no_auth(self):
     #     """Test without --auth"""
     #     result = self.cli_result(auth="")
-        # Testing rich logger output doesn't work
-        # self.assertions(result, in_stderr=("DEBUG: auth: off",))
+    # Testing rich logger output doesn't work
+    # self.assertions(result, in_stderr=("DEBUG: auth: off",))
 
     # def test_incorrect_auth(self):
     #     """Test incorrect credentials provided to --auth"""
@@ -291,7 +292,6 @@ class TestCli:
 
         if nop:
             cli_params.append("--nop")
-
 
         return runner.invoke(cli, cli_params) if cli_params else runner.invoke(cli)
 

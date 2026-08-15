@@ -147,7 +147,6 @@ def grid_layout(repos):
 
     panels = []
     for repo in repos:
-
         stats = format_stats(repo["stargazers_count"], repo["forks"])
         # '\n' added here as it would group both text and new line together
         # hence if date_range isn't present the new line will also not be displayed
