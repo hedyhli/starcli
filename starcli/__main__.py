@@ -55,13 +55,13 @@ CACHE_EXPIRATION = 1  # Minutes
     "-t",
     default=[],
     multiple=True,
-    help="Date of last push in YYYY-MM-DD (>, <, >=, <= specifiers supported)",
+    help="Search by repo topics. Can be used multiple times.",
 )
 @click.option(
     "--pushed",
     "-p",
     default="",
-    help="Specify date of last push in YYYY-MM-DD, >=< allowed",
+    help="Date of last push in YYYY-MM-DD (>, <, >=, <= specifiers supported)",
 )
 @click.option(
     "--layout",

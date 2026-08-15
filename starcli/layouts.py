@@ -88,7 +88,7 @@ def list_layout(repos):
         lang_table.columns[1].justify = "right"
         yield lang_table
         yield ""
-        # Descripion
+        # Description
         description = repo["description"]
         if description:
             yield Text(description.strip())
